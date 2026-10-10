@@ -1877,7 +1877,7 @@
         zaloUrl: "https://zalo.me/0706029499",
       },
       media: {
-        bgmUrl: "./bgm.mp3",           // Track 1: Howl's Moving Castle (Joe Hisaishi - Merry-Go-Round of Life)
+        bgmUrl: "./Howls_Moving_Castle.mp3?v=howl_theme", // Bản nhạc duy nhất: Howl's Moving Castle (Joe Hisaishi)
                 voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
         traditionalPhoto: "./Minh_tradi.jpg", // School / Traditional uniform
         sportPhoto: "./Minh_sport.jpg",       // Sport uniform
@@ -2312,16 +2312,9 @@
     // AUDIO SYSTEM: BACKGROUND MUSIC & VOICE NOTE
     // WITH AUTOMATIC AUDIO DUCKING & AUTOPLAY
     // ==========================================
-    const BGM_TRACKS = [
-      {
-        id: "howls-moving-castle",
-        title: "Howl's Moving Castle (Theme Song)",
-        url: SITE_CONFIG.media.bgmUrl
-      }
-    ];
-    let currentTrackIndex = 0;
-
-    const bgmAudio = new Audio(BGM_TRACKS[0].url);
+    // Bản nhạc nền duy nhất: Howl's Moving Castle (Joe Hisaishi)
+    const BGM_TITLE = "Howl's Moving Castle (Joe Hisaishi)";
+    const bgmAudio = new Audio(SITE_CONFIG.media.bgmUrl);
     bgmAudio.loop = true;
     bgmAudio.preload = 'auto';
     const NORMAL_BGM_VOLUME = 0.35;
@@ -2397,7 +2390,7 @@
     function updateBgmUi(playing) {
       if (playing) {
         // Header BGM UI
-        if (bgmLabelText) bgmLabelText.textContent = "Nhạc nền đang phát";
+        if (bgmLabelText) bgmLabelText.textContent = "Howl's Moving Castle";
         if (bgmToggleBtn) {
           bgmToggleBtn.classList.add('border-sky-300', 'bg-sky-50');
         }
@@ -2406,7 +2399,7 @@
         if (bgmBar3) { bgmBar3.classList.add('eq-bar-3', 'bg-sky-accent'); bgmBar3.classList.remove('bg-navy-muted'); }
 
         // Intro Floating BGM UI
-        if (introBgmLabel) introBgmLabel.textContent = "Nhạc nền đang phát 🎶";
+        if (introBgmLabel) introBgmLabel.textContent = "Howl's Moving Castle 🎶";
         if (introAudioToggleBtn) {
           introAudioToggleBtn.classList.add('border-sky-300', 'bg-white');
           introAudioToggleBtn.classList.remove('animate-pulse');
@@ -2468,31 +2461,10 @@
       }
     }
 
-    function switchBgmTrack() {
-      currentTrackIndex = (currentTrackIndex + 1) % BGM_TRACKS.length;
-      const nextTrack = BGM_TRACKS[currentTrackIndex];
-      const wasPlaying = isBgmPlaying;
-
-      bgmAudio.src = nextTrack.url;
-      bgmAudio.load();
-      if (wasPlaying || !userPausedBgmManually) {
-        bgmAudio.volume = isVoicePlaying ? DUCKED_BGM_VOLUME : NORMAL_BGM_VOLUME;
-        bgmAudio.play().then(() => {
-          isBgmPlaying = true;
-          updateBgmUi(true);
-        }).catch(err => console.log('Track switch error:', err));
-      }
-      showAudioToast(`🎵 Giai điệu: ${nextTrack.title}`);
-    }
-
     bgmToggleBtn?.addEventListener('click', toggleBgm);
     introAudioToggleBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleBgm();
-    });
-    introSwitchTrackBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      switchBgmTrack();
     });
 
     // ==========================================
