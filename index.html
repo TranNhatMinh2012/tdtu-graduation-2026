@@ -492,8 +492,9 @@
 </head>
 <body class="film-grain selection:bg-sky-200 selection:text-navy-deep relative flex flex-col min-h-screen overflow-x-hidden">
 
-  <!-- Native Persistent Audio Element (Optimized for Mobile Safari & Chrome autoplay) -->
+  <!-- Native Persistent Audio Elements (Optimized for Mobile Safari & Chrome autoplay) -->
   <audio id="bgmAudio" src="./Howls_Moving_Castle.mp3" preload="auto" loop playsinline webkit-playsinline></audio>
+  <audio id="voiceAudio" src="./Voice.m4a" preload="auto" playsinline webkit-playsinline></audio>
 
   <!-- ========================================== -->
   <!-- ========================================== -->
@@ -2253,6 +2254,11 @@
         if (smoothScroll && letterCardStage) {
           letterCardStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // TỰ ĐỘNG MỞ TIẾNG SOUND NGHE MINH NÓI NGAY KHI LÁ THƯ MỞ RA
+        setTimeout(() => {
+          playVoice();
+        }, 350);
       }, 700);
     }
 
@@ -2260,6 +2266,9 @@
     function closeAndReSealEnvelope() {
       if (!isEnvelopeOpened) return;
       isEnvelopeOpened = false;
+
+      // Dừng voice nếu đang phát
+      pauseVoice();
 
       if (letterCardStage) {
         letterCardStage.classList.add('hidden');
@@ -2284,6 +2293,7 @@
     function replayPaperPlaneSequence() {
       if (isFlightInProgress) return;
       isEnvelopeOpened = false;
+      pauseVoice();
       flyPaperPlaneInFromLeft();
     }
 
@@ -2368,6 +2378,17 @@
       // Update URL hash without erasing search params
       if (updateHistory) {
         window.location.hash = pageKey;
+      }
+
+      // Voice playback handling: if switching to thiep-moi and letter is already opened -> playVoice, otherwise pauseVoice if leaving thiep-moi
+      if (pageKey === 'thiep-moi') {
+        if (isEnvelopeOpened) {
+          setTimeout(() => {
+            playVoice();
+          }, 350);
+        }
+      } else {
+        pauseVoice();
       }
 
       // Scroll to top of window smoothly
@@ -2495,10 +2516,10 @@
     bgmAudio.loop = true;
     bgmAudio.preload = 'auto';
     const NORMAL_BGM_VOLUME = 0.35;
-    const DUCKED_BGM_VOLUME = 0.05;
+    const DUCKED_BGM_VOLUME = 0.03;
     bgmAudio.volume = NORMAL_BGM_VOLUME;
 
-    const voiceAudio = new Audio(SITE_CONFIG.media.voiceUrl);
+    const voiceAudio = document.getElementById('voiceAudio') || new Audio(SITE_CONFIG.media.voiceUrl);
     voiceAudio.preload = 'auto';
 
     let isVoicePlaying = false;
@@ -2761,22 +2782,30 @@
     });
 
     function playVoice() {
+      if (voiceAudio.ended) {
+        voiceAudio.currentTime = 0;
+      }
       voiceAudio.play().then(() => {
         isVoicePlaying = true;
         voiceBtnLabel.textContent = "Tạm dừng lời mời";
         voicePlayIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        fadeBgmVolume(DUCKED_BGM_VOLUME, 400);
+        // Hạ nhẹ nhạc nền xuống âm lượng rất nhỏ để nghe rõ giọng Minh
+        fadeBgmVolume(DUCKED_BGM_VOLUME, 300);
       }).catch(err => {
         console.warn('Voice play error:', err);
       });
     }
 
     function pauseVoice() {
+      if (!isVoicePlaying && voiceAudio.paused) return;
       voiceAudio.pause();
       isVoicePlaying = false;
       voiceBtnLabel.textContent = "Tiếp tục nghe lời mời";
       voicePlayIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
       fadeBgmVolume(NORMAL_BGM_VOLUME, 400);
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
     }
 
     function endVoice() {
@@ -2785,7 +2814,12 @@
       voiceBtnLabel.textContent = "Nghe lại lời mời";
       voicePlayIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
       voiceTimeDisplay.textContent = `0:00 / ${formatTime(voiceAudio.duration)}`;
-      fadeBgmVolume(NORMAL_BGM_VOLUME, 400);
+      
+      // Hết sound Minh nói -> tiếp tục phát nhạc nền du dương như thường
+      fadeBgmVolume(NORMAL_BGM_VOLUME, 500);
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
     }
 
     voiceAudio.addEventListener('ended', endVoice);
