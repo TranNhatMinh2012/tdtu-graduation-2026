@@ -8,3 +8,5 @@ desktop.ini
 _temp_*
 *.log
 scratch/
+
+.vercel
