@@ -521,8 +521,14 @@
       background: #B9E2FA;
       border-radius: 9999px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #5BAFE7;
+    /* Explicit Media Queries to prevent Hero overlap across all devices & loaders */
+    @media (max-width: 639px) {
+      .hero-desktop-wrapper { display: none !important; }
+      .hero-mobile-wrapper { display: flex !important; }
+    }
+    @media (min-width: 640px) {
+      .hero-desktop-wrapper { display: block !important; }
+      .hero-mobile-wrapper { display: none !important; }
     }
   </style>
 </head>
@@ -536,7 +542,17 @@
   <!-- ========================================== -->
   <!-- GENTLE PAGE LOADER (LOAD TRANG NHẸ NHÀNG) -->
   <!-- ========================================== -->
-  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto">
+  <div id="gentlePageLoader" onclick="dismissGentleLoader()" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto cursor-pointer" title="Bấm vào để vào trang ngay">
+    <script>
+      // Fail-safe: Tự động tắt màn hình chờ sau tối đa 1.5s nếu script chính bị trễ
+      setTimeout(function() {
+        var l = document.getElementById('gentlePageLoader');
+        if (l && !l.classList.contains('opacity-0')) {
+          l.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(function() { if (l) l.remove(); }, 600);
+        }
+      }, 1500);
+    </script>
     <div class="flex flex-col items-center text-center space-y-3.5 px-4 select-none max-w-sm">
       <!-- Gentle breathing logo -->
       <div class="relative">
@@ -746,10 +762,10 @@
 
         <!-- ======================================================== -->
         <!-- ======================================================== -->
-        <!-- 1. MOBILE EDITORIAL INVITATION (sm:hidden) -->
-        <!-- Thiết kế thiệp mời nguyên trang liền mạch, sang trọng, ảnh to đẹp rõ nét không bị đóng hộp tách biệt -->
+        <!-- 1. MOBILE EDITORIAL INVITATION (sm:hidden hero-mobile-wrapper) -->
+        <!-- Thiết kế thiệp mời nguyên trang liền mạch, sang trọng, ảnh to đẹp rõ nét -->
         <!-- ======================================================== -->
-        <div class="sm:hidden relative w-full min-h-[100dvh] flex flex-col justify-between items-center px-4 pt-14 pb-6 overflow-hidden select-none">
+        <div class="sm:hidden hero-mobile-wrapper relative w-full min-h-[100dvh] flex flex-col justify-between items-center px-5 sm:px-6 pt-14 pb-6 overflow-hidden select-none">
           
           <!-- Ambient Atmospheric Backdrop: Đồng bộ với bầu trời TDTU thanh khiết và vầng sáng dịu êm -->
           <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -844,25 +860,25 @@
               </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2.5">
+            <!-- Action Buttons with Clear Hierarchy (Primary: Mở Thiệp Mời, Secondary: Hồi ức) -->
+            <div class="flex flex-col w-full gap-2 pt-1">
               <button 
                 type="button" 
                 id="introOpenLetterBtnMobile"
-                class="flex-1 py-2.5 px-4 rounded-full bg-gradient-to-r from-tdtu-blue via-[#1853b0] to-tdtu-blue hover:from-navy-dark hover:to-navy-dark text-white text-xs font-bold tracking-wide shadow-[0_8px_20px_rgba(21,72,157,0.22)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer border border-[#DECDA4]/70 relative overflow-hidden group"
+                class="w-full min-h-[48px] py-3 px-5 rounded-full bg-gradient-to-r from-tdtu-blue via-[#1853b0] to-tdtu-blue hover:from-navy-dark hover:to-navy-dark text-white text-sm font-bold tracking-wide shadow-[0_10px_24px_rgba(21,72,157,0.28)] active:scale-98 flex items-center justify-center gap-2 cursor-pointer border border-[#DECDA4]/80 relative overflow-hidden group transition-all"
               >
-                <span class="text-sm">💌</span>
-                <span>Mở Thiệp Mời</span>
-                <span class="text-amber-300 text-xs">✨</span>
+                <span class="text-base group-hover:rotate-12 transition-transform">💌</span>
+                <span class="font-heading tracking-wide">Mở Thiệp Mời</span>
+                <span class="text-amber-300 text-sm">✨</span>
               </button>
 
               <button 
                 type="button" 
                 id="introViewMemoriesBtnMobile"
-                class="py-2.5 px-3.5 rounded-full bg-white/85 hover:bg-white text-navy-dark text-xs font-semibold border border-white shadow-2xs active:scale-95 flex items-center justify-center gap-1 cursor-pointer whitespace-nowrap"
+                class="w-full min-h-[40px] py-2 px-4 rounded-full bg-white/70 hover:bg-white/90 text-navy-dark text-xs font-semibold border border-white/80 shadow-2xs active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer transition-all"
               >
-                <span>Hồi ức 📸</span>
-                <span class="text-[10px] text-tdtu-blue">↓</span>
+                <span>Khám phá 4 năm thanh xuân TDTU 📸</span>
+                <span class="text-xs text-tdtu-blue">↓</span>
               </button>
             </div>
 
@@ -883,9 +899,9 @@
         </div>
 
         <!-- ======================================================== -->
-        <!-- 2. DESKTOP VIEW: CINEMATIC INVITATION POSTER (hidden sm:block) -->
+        <!-- 2. DESKTOP VIEW: CINEMATIC INVITATION POSTER (hidden sm:block hero-desktop-wrapper) -->
         <!-- ======================================================== -->
-        <div class="hidden sm:block absolute inset-0 z-0">
+        <div class="hidden sm:block hero-desktop-wrapper absolute inset-0 z-0">
           <img 
             src="./Minh_main.jpg" 
             alt="Minh tại khuôn viên Đại học Tôn Đức Thắng (TDTU)" 
@@ -901,7 +917,7 @@
         </div>
 
         <!-- Desktop Typography & Actions -->
-        <div class="hidden sm:block relative z-10 max-w-6xl mx-auto px-10 lg:px-16 w-full pt-24 pb-24">
+        <div class="hidden sm:block hero-desktop-wrapper relative z-10 max-w-6xl mx-auto px-10 lg:px-16 w-full pt-24 pb-24">
           <div class="max-w-xl text-left space-y-6">
 
             <!-- Grand Editorial Title: GRADUATION -->
@@ -1071,15 +1087,9 @@
               Hai màu áo thanh xuân ở TDTU
             </h2>
 
-            <div class="text-navy-muted text-sm sm:text-base leading-relaxed space-y-4 font-normal text-left sm:text-justify [text-wrap:pretty]">
+            <div class="text-navy-muted text-sm sm:text-base leading-relaxed font-normal text-left sm:text-justify [text-wrap:pretty]">
               <p>
-                Suốt 4 năm đại học tại TDTU, hai màu áo này đã đồng hành cùng mình qua biết bao kỷ niệm: một chiếc áo truyền thống gắn liền với những giờ học trên giảng đường, và một chiếc áo thể thao cùng mình trải qua những giờ rèn luyện năng động dưới nắng sân&nbsp;trường.
-              </p>
-              <p>
-                Bốn năm trôi qua nhanh hơn mình tưởng. Những ngày tháng đại học đang dần khép lại, nhường chỗ cho một cột mốc đặc biệt — ngày mình chính thức tốt nghiệp, đánh dấu sự trưởng thành sau một hành trình dài với biết bao trải nghiệm và kỷ&nbsp;niệm.
-              </p>
-              <p>
-                Mình tạo chiếc web nhỏ này như một lời báo tin vui và cũng là lời mời gửi đến mọi người. Hy vọng rằng trong ngày tốt nghiệp sắp tới, mình sẽ có dịp gặp mọi người, cùng chia sẻ niềm vui và lưu lại những khoảnh khắc thật đẹp để sau này nhìn lại, chúng ta vẫn có thể mỉm cười khi nhớ về một chặng đường đáng&nbsp;nhớ.
+                Suốt 4 năm tại TDTU, hai màu áo ấy đã cùng mình đi qua trọn vẹn những năm tháng sinh viên đẹp nhất: chiếc áo sơ mi truyền thống gắn liền với từng giờ giảng đường, và chiếc áo thể thao cùng những buổi rèn luyện nhiệt huyết dưới nắng sân trường. Bốn năm trôi qua thật nhanh, những ngày tháng ấy nay khép lại để mở ra cột mốc tốt nghiệp cử nhân đầy ý nghĩa — đánh dấu sự trưởng thành và đón chào một chặng đường mới phía&nbsp;trước.
               </p>
             </div>
 
@@ -1219,7 +1229,7 @@
                     <span class="text-base sm:text-lg">🎓</span>
                     <div>
                       <span class="block text-[7.5px] font-bold text-navy-dark leading-none">TDTU 2026</span>
-                      <span class="block text-[6.5px] text-tdtu-red font-mono font-semibold">2.026đ</span>
+                      <span class="block text-[6.5px] text-tdtu-red font-mono font-semibold tracking-wider">NO. 2026</span>
                     </div>
                   </div>
 
@@ -1473,14 +1483,14 @@
                   <div class="w-11 h-15 sm:w-13 sm:h-17 bg-[#F0F7FD] p-1 border-2 border-dashed border-tdtu-blue/80 rounded shadow-2xs rotate-1 flex flex-col items-center justify-between text-center">
                     <span class="text-[6.5px] font-bold text-tdtu-blue font-mono uppercase">TDTU</span>
                     <span class="text-sm sm:text-base">🏛️</span>
-                    <span class="text-[6px] text-navy-muted font-mono font-semibold">1.000đ</span>
+                    <span class="text-[6px] text-navy-muted font-mono font-semibold tracking-wider">NO. 2026</span>
                   </div>
 
                   <!-- Stamp 2: Red Graduation Cap Stamp -->
                   <div class="w-11 h-15 sm:w-13 sm:h-17 bg-[#FDF2F0] p-1 border-2 border-dashed border-tdtu-red/80 rounded shadow-2xs -rotate-2 flex flex-col items-center justify-between text-center">
                     <span class="text-[6.5px] font-bold text-tdtu-red font-mono uppercase">VIỆT NAM</span>
                     <span class="text-sm sm:text-base">🎓</span>
-                    <span class="text-[6px] text-tdtu-red font-mono font-semibold">2.026đ</span>
+                    <span class="text-[6px] text-tdtu-red font-mono font-semibold tracking-wider">K26 · CS</span>
                   </div>
 
                 </div>
@@ -1649,19 +1659,19 @@
               <!-- Countdown Digits Grid -->
               <div class="grid grid-cols-4 gap-2 sm:gap-3 max-w-sm mx-auto" id="countdownGrid">
                 <div class="p-2.5 sm:p-3 rounded-xl bg-white border border-sky-border shadow-2xs">
-                  <span id="countdownDays" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">--</span>
+                  <span id="countdownDays" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">06</span>
                   <span class="block text-[10px] text-navy-muted uppercase font-medium tracking-wider mt-1">Ngày</span>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-xl bg-white border border-sky-border shadow-2xs">
-                  <span id="countdownHours" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">--</span>
+                  <span id="countdownHours" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">09</span>
                   <span class="block text-[10px] text-navy-muted uppercase font-medium tracking-wider mt-1">Giờ</span>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-xl bg-white border border-sky-border shadow-2xs">
-                  <span id="countdownMinutes" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">--</span>
+                  <span id="countdownMinutes" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">45</span>
                   <span class="block text-[10px] text-navy-muted uppercase font-medium tracking-wider mt-1">Phút</span>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-xl bg-white border border-sky-border shadow-2xs">
-                  <span id="countdownSeconds" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">--</span>
+                  <span id="countdownSeconds" class="block font-heading font-bold text-xl sm:text-2xl text-tdtu-blue leading-none">00</span>
                   <span class="block text-[10px] text-navy-muted uppercase font-medium tracking-wider mt-1">Giây</span>
                 </div>
               </div>
@@ -1705,11 +1715,14 @@
                   ⏰
                 </div>
                 <div>
-                  <span class="font-semibold text-navy-dark block">Thời gian mời:</span>
-                  <div class="space-y-0.5 mt-0.5">
-                    <span id="cardCeremonyTime" class="text-navy-main font-semibold text-sm sm:text-base text-tdtu-blue whitespace-nowrap">10:00 sáng</span>
-                    <p class="text-navy-muted text-[11px] font-normal [text-wrap:pretty]">
-                      (Tốt nghiệp xong mình cùng ra check-in chụp hình kỷ niệm&nbsp;nhé!&nbsp;✨)
+                  <span class="font-semibold text-navy-dark block">Khung giờ đón tiếp & chụp ảnh:</span>
+                  <div class="space-y-1 mt-0.5">
+                    <div class="flex items-center gap-2">
+                      <span id="cardCeremonyTime" class="text-navy-main font-semibold text-sm sm:text-base text-tdtu-blue whitespace-nowrap">Từ 10:00 Sáng</span>
+                      <span class="text-[10px] text-tdtu-blue bg-sky-100 px-2 py-0.5 rounded font-medium whitespace-nowrap">Đón tiếp tại Sảnh A</span>
+                    </div>
+                    <p class="text-navy-muted text-[11.5px] font-normal leading-relaxed [text-wrap:pretty]">
+                      Minh sẽ có mặt tại Sảnh A từ <strong>10:00 sáng</strong> để đón mọi người và chụp ảnh lưu niệm sau nghi thức trao bằng&nbsp;nhé!&nbsp;✨
                     </p>
                   </div>
                 </div>
@@ -1812,9 +1825,10 @@
 
     <!-- ======================================================== -->
     <!-- PAGE 3: TRANG THÔNG TIN (HƯỚNG DẪN ĐI LẠI, GỬI XE, BẢN ĐỒ) -->
+    <!-- Phân cấp 2 tầng: Tầng 1 xem ngay & điều hướng, Tầng 2 chi tiết mở rộng -->
     <!-- ======================================================== -->
     <div id="view-thong-tin" class="page-view">
-      <section class="py-6 sm:py-12 px-4 sm:px-6 max-w-5xl mx-auto space-y-10">
+      <section class="py-6 sm:py-12 px-4 sm:px-6 max-w-4xl mx-auto space-y-8">
         
         <!-- Header -->
         <div class="text-center max-w-2xl mx-auto space-y-2">
@@ -1825,183 +1839,88 @@
             Hướng dẫn đến trường & đón tiếp
           </h2>
           <p class="text-navy-muted text-xs sm:text-sm leading-relaxed [text-wrap:pretty]">
-            Khuôn viên Trường Đại học Tôn Đức Thắng (Tân Phong, Quận 7) rất rộng và nhiều cây xanh. Dưới đây là những lưu ý thiết thực để mọi người đến trường thuận tiện&nbsp;nhất.
+            Khuôn viên Trường Đại học Tôn Đức Thắng (Số 19 Nguyễn Hữu Thọ, P. Tân Phong, Q.7) rất rộng và rợp bóng cây. Dưới đây là thông tin cần thiết và các hướng dẫn để mọi người đến tham dự thuận tiện nhất.
           </p>
         </div>
 
-        <!-- 6 Practical Logistics Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          
-          <!-- Card 1: Cổng vào trường -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                01
-              </div>
+        <!-- TẦNG 1: THÔNG TIN CẦN XEM NGAY & ĐIỀU HƯỚNG NHANH -->
+        <div class="p-5 sm:p-7 rounded-3xl bg-white/95 border border-sky-border shadow-soft space-y-5">
+          <div class="flex items-center justify-between border-b border-sky-border/60 pb-3">
+            <span class="text-xs font-bold text-tdtu-blue uppercase tracking-widest flex items-center gap-1.5">
+              <span>📍</span>
+              <span>Thông tin sự kiện chính</span>
+            </span>
+            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-300 font-semibold">
+              Chính thức · 17/10/2026
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <!-- Thời gian -->
+            <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-sky-50/70 border border-sky-100">
+              <span class="text-xl">⏰</span>
               <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Cổng vào trường</h3>
-                <p class="text-[11px] text-navy-muted">Cổng chính 19 Nguyễn Hữu Thọ</p>
+                <span class="font-bold text-navy-dark block">Thời gian đón tiếp & chụp ảnh:</span>
+                <span class="text-tdtu-blue font-bold text-sm sm:text-base">Thứ Bảy, 17/10/2026 · Từ 10:00 Sáng</span>
+                <p class="text-navy-muted text-[11px] mt-0.5">Minh sẽ có mặt đón mọi người tại Sảnh A sau lễ trao bằng.</p>
               </div>
             </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Khách mời đi vào qua <strong>Cổng chính</strong> trên đường Nguyễn Hữu Thọ (P. Tân Phong, Q.7).<br>
-              • Cổng phụ phía đường D1 chỉ mở trong các khung giờ theo phân luồng của&nbsp;trường.
-            </p>
-          </div>
 
-          <!-- Card 2: Gửi xe máy -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                02
-              </div>
+            <!-- Địa điểm -->
+            <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-sky-50/70 border border-sky-100">
+              <span class="text-xl">🏛️</span>
               <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Gửi xe máy</h3>
-                <p class="text-[11px] text-navy-muted">Nhà giữ xe sinh viên & khách</p>
+                <span class="font-bold text-navy-dark block">Địa điểm đón tiếp:</span>
+                <span class="text-tdtu-blue font-bold text-sm sm:text-base">Sảnh A · ĐH Tôn Đức Thắng</span>
+                <p class="text-navy-muted text-[11px] mt-0.5">Số 19 Nguyễn Hữu Thọ, P. Tân Phong, Q.7, TP.HCM</p>
               </div>
             </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Đi qua cổng chính, rẽ phải theo biển chỉ dẫn vào <strong>Nhà xe máy TDTU</strong>.<br>
-              • Giá vé gửi xe theo quy định của nhà&nbsp;trường.<br>
-              • Giữ thẻ xe cẩn thận và lấy xe trước 21:00.
-            </p>
           </div>
 
-          <!-- Card 3: Đỗ ô tô -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                03
-              </div>
-              <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Bãi đỗ ô tô</h3>
-                <p class="text-[11px] text-navy-muted">Khu vực điều phối nội bộ</p>
-              </div>
-            </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Chỗ đỗ ô tô trong sân trường có giới hạn trong ngày lễ tốt&nbsp;nghiệp.<br>
-              • Vui lòng theo sự điều phối của bảo vệ tại&nbsp;cổng.
-            </p>
-          </div>
+          <!-- Quick Action Buttons: Maps, Calendar, Call, Zalo -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+            <a 
+              href="https://maps.google.com/?q=Đại+học+Tôn+Đức+Thắng+19+Nguyễn+Hữu+Thọ+Tân+Phong+Quận+7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-tdtu-blue text-white text-xs font-semibold hover:bg-navy-dark shadow-xs transition-all text-center cursor-pointer"
+            >
+              <span>🗺️</span>
+              <span>Chỉ đường Maps</span>
+            </a>
 
-          <!-- Card 4: Xe công nghệ (Grab / Be / Xanh SM) -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                04
-              </div>
-              <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Xe công nghệ (Grab / Be)</h3>
-                <p class="text-[11px] text-navy-muted">Lựa chọn thuận tiện nhất</p>
-              </div>
-            </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Đặt điểm đến: <em>"Đại học Tôn Đức Thắng - Cổng 19 Nguyễn Hữu Thọ"</em>.<br>
-              • Tài xế dừng đón/trả ngay trước sảnh cổng trường. Đi bộ khoảng 100m là vào thẳng khu vực&nbsp;lễ.<br>
-              • Đây là phương án thuận tiện nhất, không cần lo tìm bãi đỗ&nbsp;xe.
-            </p>
-          </div>
+            <a 
+              id="googleCalendarBtnPage3"
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=L%E1%BB%85+T%E1%BB%91t+Nghi%E1%BB%87p+C%E1%BB%AD+Nh%C3%A2n+KHMT+%C2%B7+Tr%E1%BA%A7n+Nh%E1%BA%ADt+Minh+(TDTU)&dates=20261017T030000Z/20261017T050000Z&details=L%E1%BB%85+t%E1%BB%91t+nghi%E1%BB%87p+C%E1%BB%AD+nh%C3%A2n+Khoa+h%E1%BB%8Dc+M%C3%A1y+t%C3%ADnh+c%E1%BB%A7a+Tr%E1%BA%A7n+Nh%E1%BA%ADt+Minh+t%E1%BA%A1i+Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+T%C3%B4n+%C4%90%E1%BB%A9c+Th%E1%BA%AFng+(S%E1%BA%A3nh+A).+%C4%90%C3%B3n+ti%E1%BA%BFp+ch%E1%BB%A5p+%E1%BA%A3nh+t%E1%BB%AB+10:00+s%C3%A1ng.&location=S%E1%BA%A3nh+A,+Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+T%C3%B4n+%C4%90%E1%BB%A9c+Th%E1%BA%AFng,+19+Nguy%E1%BB%85n+H%E1%BB%AFu+Th%E1%BB%8D,+T%C3%A2n+Phong,+Qu%E1%BA%ADn+7,+TP.HCM"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white border border-sky-300 text-tdtu-blue text-xs font-semibold hover:bg-sky-50 shadow-2xs transition-all text-center cursor-pointer"
+            >
+              <span>📅</span>
+              <span>Lưu Lịch Google</span>
+            </a>
 
-          <!-- Card 5: Xe buýt công cộng -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                05
-              </div>
-              <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Xe buýt công cộng</h3>
-                <p class="text-[11px] text-navy-muted">Trạm dừng ngay trước cổng</p>
-              </div>
-            </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Các tuyến buýt dừng ngay trước trạm ĐH Tôn Đức Thắng:<br>
-              - <strong>Tuyến 86</strong>: Bến Thành – ĐH Tôn Đức Thắng.<br>
-              - <strong>Tuyến 72, 34, 139</strong>: Kết nối Quận 1, Quận 5, Quận 8.<br>
-              • Rất tiện và tiết kiệm cho bạn bè sinh&nbsp;viên.
-            </p>
-          </div>
-
-          <!-- Card 6: Sảnh A & Điểm chụp hình đẹp -->
-          <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-sky-border shadow-xs hover:shadow-soft transition-all space-y-2.5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-sky-200/70 flex items-center justify-center text-navy-dark font-bold text-xs">
-                06
-              </div>
-              <div>
-                <h3 class="font-semibold text-navy-dark text-sm [text-wrap:balance]">Sảnh A & Điểm check-in chụp hình</h3>
-                <p class="text-[11px] text-navy-muted">Khu vực gặp gỡ & lưu giữ kỷ niệm</p>
-              </div>
-            </div>
-            <p class="text-xs text-navy-muted leading-relaxed [text-wrap:pretty]">
-              • Từ cổng chính, đi thẳng vào khu vực <strong>Sảnh A</strong> — nơi Minh sẽ đón tiếp mọi người sau buổi&nbsp;lễ.<br>
-              • Đến lúc 10:00 sáng, gọi hoặc nhắn Zalo cho Minh qua số <strong><a href="tel:0706029499" class="text-tdtu-blue underline font-bold whitespace-nowrap">0706.029.499</a></strong> để gặp nhau chụp hình&nbsp;nhé!
-            </p>
-          </div>
-
-        </div>
-
-        <!-- Contact Callout Banner -->
-        <div class="rounded-2xl bg-gradient-to-r from-sky-100/90 via-sky-50 to-amber-50/70 border border-sky-200/80 p-4 sm:p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5 text-left w-full sm:w-auto">
-            <div class="w-11 h-11 rounded-2xl bg-tdtu-blue text-white flex items-center justify-center text-xl shadow-soft flex-shrink-0">
-              📞
-            </div>
-            <div>
-              <h4 class="font-semibold text-navy-dark text-sm sm:text-base [text-wrap:balance]">Cần hỗ trợ đón tiếp hoặc chỉ dẫn đường?</h4>
-              <p class="text-navy-muted text-xs sm:text-[13px] mt-0.5 [text-wrap:pretty]">
-                Liên hệ trực tiếp với Minh qua SĐT: <strong class="text-navy-dark font-bold whitespace-nowrap">0706.029.499</strong> (Call / Zalo)
-              </p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2.5 flex-shrink-0 w-full sm:w-auto">
             <a 
               href="tel:0706029499" 
-              class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-tdtu-blue hover:bg-navy-dark text-white text-xs font-semibold shadow-xs transition-all whitespace-nowrap"
+              class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white border border-sky-300 text-navy-dark text-xs font-semibold hover:bg-sky-50 shadow-2xs transition-all text-center"
             >
-              <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span>Gọi điện</span>
+              <span>📞</span>
+              <span>Gọi 0706.029.499</span>
             </a>
+
             <a 
               href="https://zalo.me/0706029499" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-sky-50 border border-sky-300 text-tdtu-blue text-xs font-semibold shadow-xs transition-all whitespace-nowrap"
+              class="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 shadow-xs transition-all text-center"
             >
-              <span>Nhắn Zalo</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Google Maps Embed & Direct Navigation Box -->
-        <div class="rounded-3xl bg-white/95 border border-sky-border p-5 sm:p-7 shadow-soft space-y-4">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h3 class="font-heading text-lg sm:text-xl font-semibold text-navy-dark [text-wrap:balance]">
-                Bản đồ vị trí Trường Đại học Tôn Đức Thắng
-              </h3>
-              <p class="text-xs text-navy-muted mt-0.5 [text-wrap:pretty]">
-                Số 19 Nguyễn Hữu Thọ, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh
-              </p>
-            </div>
-
-            <a 
-              id="openGoogleMapsExternalBtn"
-              href="https://maps.google.com/?q=Đại+học+Tôn+Đức+Thắng+19+Nguyễn+Hữu+Thọ+Tân+Phong+Quận+7"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold bg-tdtu-blue text-white hover:bg-navy-dark transition-all shadow-xs flex-shrink-0 whitespace-nowrap"
-            >
-              <span>Mở chỉ đường trên Google Maps</span>
-              <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <span>💬</span>
+              <span>Nhắn Zalo Minh</span>
             </a>
           </div>
 
-          <!-- Responsive Google Map iframe -->
-          <div class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-sky-border shadow-inner relative bg-sky-50">
+          <!-- Interactive Map Container -->
+          <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden border border-sky-border shadow-inner relative bg-sky-50 mt-4">
             <iframe 
               title="Vị trí Đại học Tôn Đức Thắng trên Google Maps"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.9540678248734!2d106.69718827586828!3d10.73263985990264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBUw7RuIMSQ4bupYyBUaOG6r25n!5e0!3m2!1svi!2svn!4v1715000000000!5m2!1svi!2svn" 
@@ -2011,6 +1930,69 @@
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
+        </div>
+
+        <!-- TẦNG 2: HƯỚNG DẪN CHI TIẾT (EXPANDABLE ACCORDION) -->
+        <div class="space-y-3 pt-2">
+          <div class="text-left">
+            <h3 class="font-heading font-semibold text-lg text-navy-dark flex items-center gap-2">
+              <span>📖</span>
+              <span>Hướng dẫn chi tiết (Bấm để xem)</span>
+            </h3>
+            <p class="text-xs text-navy-muted">Cổng vào, bãi giữ xe và phương tiện di chuyển thuận tiện nhất</p>
+          </div>
+
+          <!-- Item 1: Cổng vào & Gửi xe máy, ô tô -->
+          <details class="group bg-white/95 rounded-2xl border border-sky-border p-4 sm:p-5 shadow-xs transition-all open:shadow-soft" open>
+            <summary class="flex items-center justify-between cursor-pointer select-none font-semibold text-sm sm:text-base text-navy-dark list-none">
+              <span class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-sky-100 text-tdtu-blue flex items-center justify-center text-sm">🚪</span>
+                <span>Cổng vào trường & Chỗ gửi xe máy, ô tô</span>
+              </span>
+              <svg class="w-4 h-4 text-navy-muted transition-transform duration-200 group-open:rotate-180 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="mt-3.5 pt-3 border-t border-sky-border/60 text-xs sm:text-[13px] text-navy-muted space-y-2 leading-relaxed [text-wrap:pretty]">
+              <p>• <strong>Cổng vào:</strong> Khách mời đi vào qua <strong>Cổng chính</strong> trên đường Nguyễn Hữu Thọ (Số 19 Nguyễn Hữu Thọ, P. Tân Phong, Q.7).</p>
+              <p>• <strong>Gửi xe máy:</strong> Đi qua cổng chính, rẽ phải theo biển chỉ dẫn vào <strong>Nhà xe máy TDTU</strong> (phí gửi xe theo quy định nhà trường, nhớ giữ thẻ xe cẩn thận).</p>
+              <p>• <strong>Đỗ ô tô:</strong> Bãi đỗ ô tô trong khuôn viên có giới hạn trong ngày lễ tốt nghiệp, quý khách vui lòng theo sự điều phối hướng dẫn của bảo vệ tại cổng.</p>
+            </div>
+          </details>
+
+          <!-- Item 2: Phương tiện công cộng & Xe công nghệ -->
+          <details class="group bg-white/95 rounded-2xl border border-sky-border p-4 sm:p-5 shadow-xs transition-all open:shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer select-none font-semibold text-sm sm:text-base text-navy-dark list-none">
+              <span class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-sky-100 text-tdtu-blue flex items-center justify-center text-sm">🚕</span>
+                <span>Phương tiện di chuyển (Grab/Be/Xanh SM & Xe buýt)</span>
+              </span>
+              <svg class="w-4 h-4 text-navy-muted transition-transform duration-200 group-open:rotate-180 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="mt-3.5 pt-3 border-t border-sky-border/60 text-xs sm:text-[13px] text-navy-muted space-y-2 leading-relaxed [text-wrap:pretty]">
+              <p>• <strong>Xe công nghệ (Grab / Be / Xanh SM):</strong> Lựa chọn thuận tiện nhất! Đặt điểm đến: <em>"Đại học Tôn Đức Thắng - Cổng 19 Nguyễn Hữu Thọ"</em>. Xe dừng đón/trả ngay trước sảnh cổng trường, đi bộ 100m là vào thẳng khu vực lễ, không cần tìm bãi đỗ xe.</p>
+              <p>• <strong>Xe buýt công cộng:</strong> Trạm dừng ngay trước cổng trường. Các tuyến phổ biến: <strong>Tuyến 86</strong> (Bến Thành – ĐH Tôn Đức Thắng), cùng các tuyến <strong>72, 34, 139</strong> kết nối Quận 1, Quận 5, Quận 8.</p>
+            </div>
+          </details>
+
+          <!-- Item 3: Điểm đón tiếp Sảnh A & Check-in chụp hình -->
+          <details class="group bg-white/95 rounded-2xl border border-sky-border p-4 sm:p-5 shadow-xs transition-all open:shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer select-none font-semibold text-sm sm:text-base text-navy-dark list-none">
+              <span class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-sky-100 text-tdtu-blue flex items-center justify-center text-sm">📸</span>
+                <span>Điểm đón tiếp Sảnh A & Check-in lưu niệm</span>
+              </span>
+              <svg class="w-4 h-4 text-navy-muted transition-transform duration-200 group-open:rotate-180 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="mt-3.5 pt-3 border-t border-sky-border/60 text-xs sm:text-[13px] text-navy-muted space-y-2 leading-relaxed [text-wrap:pretty]">
+              <p>• Từ cổng chính, đi thẳng vào khu vực <strong>Sảnh A</strong> — nơi Minh sẽ đón tiếp mọi người từ <strong>10:00 sáng</strong> sau buổi lễ trao bằng.</p>
+              <p>• Khi tới trường, mọi người cứ gọi hoặc nhắn Zalo cho Minh qua số <strong><a href="tel:0706029499" class="text-tdtu-blue underline font-bold whitespace-nowrap">0706.029.499</a></strong> để Minh chạy ra đón và cùng chụp những bức hình kỷ niệm thật đẹp nhé!</p>
+            </div>
+          </details>
         </div>
 
       </section>
@@ -2912,11 +2894,16 @@
       setInterval(update, 1000);
     }
 
-    // Initialize on DOM load
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize on DOM load or immediately if already parsed
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', () => {
+        initRoute();
+        initCountdown();
+      });
+    } else {
       initRoute();
       initCountdown();
-    });
+    }
   </script>
 </body>
 </html>
