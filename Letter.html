@@ -276,23 +276,63 @@
       }
     }
 
-    /* Authentic Vietnamese school notebook lined paper with red margin */
+    /* Authentic Vietnamese school notebook paper texture */
     .notebook-paper-vn {
       background-color: #FFFDF8;
-      background-image: 
-        linear-gradient(90deg, transparent 46px, rgba(184, 42, 32, 0.32) 46px, rgba(184, 42, 32, 0.32) 47.5px, transparent 47.5px),
-        repeating-linear-gradient(transparent, transparent 31px, rgba(91, 175, 231, 0.28) 31px, rgba(91, 175, 231, 0.28) 32px);
-      background-size: 100% 100%, 100% 32px;
+      background-image: radial-gradient(#E8DFC8 1px, transparent 1px);
+      background-size: 24px 24px;
       border-radius: 13px;
       position: relative;
     }
     @media (min-width: 640px) {
       .notebook-paper-vn {
-        background-image: 
-          linear-gradient(90deg, transparent 62px, rgba(184, 42, 32, 0.32) 62px, rgba(184, 42, 32, 0.32) 63.5px, transparent 63.5px),
-          repeating-linear-gradient(transparent, transparent 33px, rgba(91, 175, 231, 0.28) 33px, rgba(91, 175, 231, 0.28) 34px);
-        background-size: 100% 100%, 100% 34px;
         border-radius: 18px;
+      }
+    }
+
+    /* Vietnamese student notebook red margin line */
+    .notebook-margin-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 32px;
+      width: 1.5px;
+      background-color: rgba(184, 42, 32, 0.42);
+      pointer-events: none;
+      z-index: 10;
+    }
+    @media (min-width: 640px) {
+      .notebook-margin-line {
+        left: 54px;
+        width: 1.8px;
+      }
+    }
+
+    /* Notebook horizontal blue lines matching font line-height & baseline */
+    .notebook-ruled-body {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 35px,
+        rgba(91, 175, 231, 0.32) 35px,
+        rgba(91, 175, 231, 0.32) 36px
+      );
+      background-size: 100% 36px;
+      background-position: 0 4px;
+      line-height: 36px;
+    }
+    @media (min-width: 640px) {
+      .notebook-ruled-body {
+        background-image: repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 37px,
+          rgba(91, 175, 231, 0.34) 37px,
+          rgba(91, 175, 231, 0.34) 38px
+        );
+        background-size: 100% 38px;
+        background-position: 0 4px;
+        line-height: 38px;
       }
     }
 
@@ -495,7 +535,7 @@
         <img 
           src="./tdtu_logo.png" 
           alt="TDTU Logo" 
-          class="w-7 h-7 sm:w-8 sm:h-8 object-contain transition-transform group-hover:scale-105"
+          class="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105"
         />
         <div class="flex flex-col">
           <span class="text-xs sm:text-[13px] font-heading font-semibold text-navy-dark tracking-wide group-hover:text-tdtu-blue transition-colors">
@@ -865,7 +905,7 @@
         <!-- ============================================== -->
         <!-- STAGE 1: PHONG BÌ THƯ AIRMAIL VIỆT NAM (INTERACTIVE ENVELOPE) -->
         <!-- ============================================== -->
-        <div id="envelopeStage" class="max-w-xl mx-auto my-4 transition-all duration-500">
+        <div id="envelopeStage" class="max-w-2xl mx-auto my-4 transition-all duration-500">
           <div class="airmail-card" id="envelopeWrapper">
             <div class="envelope-sheet p-5 sm:p-8 md:p-9 text-left relative overflow-hidden select-none cursor-pointer group">
 
@@ -1118,15 +1158,18 @@
 
           <!-- THE AUTHENTIC VIETNAMESE NOTEBOOK LETTER CARD -->
           <div class="airmail-card max-w-2xl mx-auto">
-            <div class="notebook-paper-vn p-5 sm:p-9 md:p-11 text-left relative overflow-hidden">
+            <div class="notebook-paper-vn p-4 sm:p-7 md:p-8 text-left relative overflow-hidden">
 
-              <!-- Top Section: Header with stamps and postmarks (like in the image) -->
-              <div class="flex items-start justify-between gap-4 border-b border-sky-200/50 pb-4 relative z-10">
+              <!-- Vietnamese Student Notebook Red Margin Line -->
+              <div class="notebook-margin-line" aria-hidden="true"></div>
+
+              <!-- Top Section: Header with stamps and postmarks -->
+              <div class="flex items-start justify-between gap-3 border-b-2 border-sky-300/50 pb-4 relative z-10 pl-6 sm:pl-12">
                 
                 <!-- Left: University mark and salutation tag -->
                 <div class="space-y-1">
-                  <div class="flex items-center gap-2">
-                    <img src="./tdtu_logo.png" alt="TDTU" class="w-8 h-8 object-contain">
+                  <div class="flex items-center gap-2 sm:gap-2.5">
+                    <img src="./tdtu_logo.png" alt="TDTU" class="h-8 sm:h-9 w-auto object-contain flex-shrink-0">
                     <div>
                       <span class="block text-[11px] font-bold text-tdtu-blue uppercase font-body tracking-wider">
                         ĐẠI HỌC TÔN ĐỨC THẮNG
@@ -1181,44 +1224,47 @@
 
               </div>
 
-              <!-- Salutation Line (Handwritten) -->
-              <div class="pt-5 pl-1 sm:pl-3">
-                <h4 id="salutationText" class="font-handwriting text-2xl sm:text-3xl text-navy-dark font-bold">
+              <!-- Ruled Writing Area: strictly to the right of red margin line -->
+              <div class="notebook-ruled-body pl-6 sm:pl-12 pr-1 sm:pr-4 pt-4 pb-2 relative z-10 font-handwriting text-navy-dark">
+                
+                <!-- Salutation Line (Sitting right on rule line) -->
+                <h4 id="salutationText" class="text-2xl sm:text-3xl font-bold mb-[36px] sm:mb-[38px] leading-[36px] sm:leading-[38px]">
                   Gửi mọi người,
                 </h4>
-              </div>
 
-              <!-- Letter Body Text (Written on notebook rule lines) -->
-              <div class="text-navy-dark font-handwriting text-lg sm:text-xl md:text-[22px] leading-[32px] sm:leading-[34px] space-y-5 text-left pt-3 pl-1 sm:pl-3">
-                <p>
-                  Vậy là chặng đường 4 năm đại học tại Trường Đại học Tôn Đức Thắng (TDTU) của mình cũng sắp hoàn thành rồi.
-                </p>
-                <p>
-                  Nhân dịp đặc biệt này, mình muốn gửi lời mời đến mọi người đến chung vui trong ngày Lễ Tốt Nghiệp cử nhân của mình.
-                </p>
-                <p>
-                  Nếu sắp xếp được thời gian đến tham dự, mình sẽ rất vui khi được gặp mọi người và cùng lưu lại một kỷ niệm đẹp. Còn nếu không tiện tham dự thì cũng không sao, mình vẫn muốn chia sẻ tin vui này với mọi người, như một cách đánh dấu một cột mốc đáng nhớ trong tuổi thanh xuân.
-                </p>
-                <p>
-                  Cảm ơn mọi người đã luôn đồng hành và lắng nghe. Hy vọng sẽ được gặp mọi người trong ngày tốt nghiệp nhé!
-                </p>
+                <!-- Letter Body Paragraphs (Phase-aligned with 36px/38px notebook grid) -->
+                <div class="text-lg sm:text-xl md:text-[22px] leading-[36px] sm:leading-[38px]">
+                  <p class="mb-[36px] sm:mb-[38px]">
+                    Vậy là chặng đường 4 năm đại học tại Trường Đại học Tôn Đức Thắng (TDTU) của mình cũng sắp hoàn thành rồi.
+                  </p>
+                  <p class="mb-[36px] sm:mb-[38px]">
+                    Nhân dịp đặc biệt này, mình muốn gửi lời mời đến mọi người đến chung vui trong ngày Lễ Tốt Nghiệp cử nhân của mình.
+                  </p>
+                  <p class="mb-[36px] sm:mb-[38px]">
+                    Nếu sắp xếp được thời gian đến tham dự, mình sẽ rất vui khi được gặp mọi người và cùng lưu lại một kỷ niệm đẹp. Còn nếu không tiện tham dự thì cũng không sao, mình vẫn muốn chia sẻ tin vui này với mọi người, như một cách đánh dấu một cột mốc đáng nhớ trong tuổi thanh xuân.
+                  </p>
+                  <p class="mb-[36px] sm:mb-[38px]">
+                    Cảm ơn mọi người đã luôn đồng hành và lắng nghe. Hy vọng sẽ được gặp mọi người trong ngày tốt nghiệp nhé!
+                  </p>
+                </div>
+
               </div>
 
               <!-- Bottom Section with Decorations (Exact replica of user's image) -->
-              <div class="pt-8 sm:pt-10 flex flex-col sm:flex-row items-end justify-between gap-6 border-t border-sky-200/50 mt-6">
+              <div class="pt-6 sm:pt-8 flex flex-col sm:flex-row items-end justify-between gap-6 border-t border-sky-200/50 mt-4 pl-6 sm:pl-12 relative z-10">
                 
-                <!-- Left: Paper airplane drawing & dried pressed flower pinned with washi tape -->
-                <div class="flex items-end gap-5 pl-2 select-none self-start sm:self-auto">
+                <!-- Left: Origami paper plane sketch & pressed wildflowers directly on paper -->
+                <div class="flex items-end gap-6 select-none self-start sm:self-auto">
                   
-                  <!-- Decoration 1: Origami Paper Plane Sketch pinned with tape -->
+                  <!-- Decoration 1: Origami Paper Plane Sketch directly on paper (No white box) -->
                   <div class="relative transform -rotate-3 hover:rotate-0 transition-transform">
                     <!-- Washi tape -->
-                    <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-amber-200/70 backdrop-blur-xs border border-amber-300/40 rotate-6 shadow-2xs z-10"></div>
-                    <!-- Paper plane sketch drawing -->
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-white/90 p-1.5 rounded-lg border border-sky-border shadow-2xs flex items-center justify-center">
+                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-9 h-2.5 bg-amber-200/75 backdrop-blur-xs border border-amber-300/40 rotate-6 shadow-2xs z-10"></div>
+                    <!-- Clean pencil sketch directly on notebook paper -->
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center opacity-85">
                       <svg viewBox="0 0 100 100" class="w-full h-full text-tdtu-blue">
-                        <polygon points="50,15 15,85 48,74" fill="#F4FAFE" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
-                        <polygon points="50,15 85,85 52,74" fill="#EAF5FC" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                        <polygon points="50,15 15,85 48,74" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                        <polygon points="50,15 85,85 52,74" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
                         <line x1="50" y1="15" x2="50" y2="88" stroke="#B82A20" stroke-width="1.5" stroke-dasharray="2 1.5" />
                         <line x1="15" y1="85" x2="30" y2="82" stroke="#B82A20" stroke-width="2" />
                         <line x1="85" y1="85" x2="70" y2="82" stroke="#15489D" stroke-width="2" />
@@ -1229,7 +1275,7 @@
                   <!-- Decoration 2: Pressed Wildflower Stem with Washi Tape -->
                   <div class="relative transform rotate-6 hover:rotate-0 transition-transform">
                     <!-- Washi tape -->
-                    <div class="absolute top-8 left-1/2 -translate-x-1/2 w-11 h-3 bg-sky-200/70 backdrop-blur-xs border border-sky-300/40 -rotate-12 shadow-2xs z-10"></div>
+                    <div class="absolute top-7 left-1/2 -translate-x-1/2 w-10 h-2.5 bg-sky-200/75 backdrop-blur-xs border border-sky-300/40 -rotate-12 shadow-2xs z-10"></div>
                     <!-- Pressed Flower SVG -->
                     <div class="w-14 h-24 flex items-center justify-center">
                       <svg viewBox="0 0 80 120" class="w-full h-full drop-shadow-xs">
@@ -1277,7 +1323,7 @@
           <!-- ============================================== -->
           <!-- PHẦN THÔNG TIN & HƯỚNG DẪN BÊN DƯỚI (CLEARLY SEPARATED) -->
           <!-- ============================================== -->
-          <div class="space-y-6 max-w-xl mx-auto pt-2">
+          <div class="space-y-6 max-w-2xl mx-auto pt-2">
 
             <!-- DEDICATED VOICE PLAYER -->
             <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-sky-50 via-white to-sky-50 border border-sky-border shadow-xs text-left space-y-3">
@@ -1713,7 +1759,7 @@
   <!-- ========================================== -->
   <footer class="py-8 px-4 text-center text-xs text-navy-muted/80 border-t border-sky-border/40 relative z-10 space-y-2 mt-auto">
     <div class="flex items-center justify-center gap-2">
-      <img src="./tdtu_logo.png" alt="TDTU" class="w-5 h-5 object-contain">
+      <img src="./tdtu_logo.png" alt="TDTU" class="h-5 w-auto object-contain">
       <span class="font-heading font-medium text-navy-main">Trường Đại học Tôn Đức Thắng · TDTU 2026</span>
     </div>
     <p class="text-navy-main font-medium">
