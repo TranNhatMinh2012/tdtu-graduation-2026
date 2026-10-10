@@ -614,28 +614,35 @@
         </div>
       </a>
 
-      <!-- 3 Main Page Navigation Tabs -->
+      <!-- Main Page Navigation Tabs -->
       <nav class="flex items-center gap-1 sm:gap-2">
         <button 
           type="button"
           data-tab="trang-chu" 
-          class="nav-tab-btn px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
+          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
         >
           Trang chủ
         </button>
         <button 
           type="button"
+          id="navHoiUcBtn"
+          class="px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95 cursor-pointer"
+        >
+          Hồi ức 📸
+        </button>
+        <button 
+          type="button"
           data-tab="thiep-moi" 
-          class="nav-tab-btn px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold transition-all bg-sky-200 text-navy-deep shadow-xs"
+          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all bg-sky-200 text-navy-deep shadow-xs"
         >
           Thư mời 🎓
         </button>
         <button 
           type="button"
           data-tab="thong-tin" 
-          class="nav-tab-btn px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
+          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
         >
-          Chỉ dẫn TDTU 📍
+          Chỉ dẫn 📍
         </button>
       </nav>
 
@@ -693,7 +700,7 @@
         <button 
           id="introSwitchTrackBtn"
           type="button"
-          aria-label="Đổi giai điệu nhạc nền (Piano tươi vui / Acoustic nắng hạ)"
+          aria-label="Đổi giai điệu nhạc nền (Piano Làn Nước / Hoa Súng Dịu Êm)"
           title="Đổi bài nhạc nền"
           class="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-navy-muted hover:text-tdtu-blue border border-white/80 shadow-[0_8px_20px_rgba(21,72,157,0.18)] backdrop-blur-md transition-all active:scale-95 cursor-pointer text-xs font-bold"
         >
@@ -704,22 +711,22 @@
       <!-- ======================================================== -->
       <!-- HERO BANNER: CINEMATIC INVITATION POSTER (MINH_MAIN.JPG) -->
       <!-- ======================================================== -->
-      <section class="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden select-none">
+      <section class="relative w-full min-h-[100dvh] flex flex-col justify-start pt-12 sm:justify-center sm:pt-0 overflow-hidden select-none">
 
-        <!-- 1. Background Image with Responsive Smart Framing -->
+        <!-- 1. Background Image with Responsive Smart Framing (Minh positioned at bottom on mobile to keep face clear) -->
         <div class="absolute inset-0 z-0">
           <img 
             src="./Minh_main.jpg" 
             alt="Minh tại khuôn viên Đại học Tôn Đức Thắng (TDTU)" 
-            class="w-full h-full object-cover object-[68%_center] sm:object-[64%_center] md:object-center select-none"
+            class="w-full h-full object-cover object-[72%_88%] sm:object-[64%_center] md:object-center select-none"
             loading="eager"
           />
 
           <!-- 2. Gentle Sky Gradient Overlay for Left Typography Readability -->
           <!-- Desktop: Horizontal gradient from left to transparent -->
           <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-[#90C6E9]/92 via-[#B0D5EE]/65 via-45% to-transparent pointer-events-none"></div>
-          <!-- Mobile: Vertical gradient from top to transparent -->
-          <div class="sm:hidden absolute inset-0 bg-gradient-to-b from-[#8EC5E9]/95 via-[#AED5EE]/70 via-55% to-transparent pointer-events-none"></div>
+          <!-- Mobile: Vertical top gradient confined to upper sky area so Minh below is completely clear -->
+          <div class="sm:hidden absolute inset-0 bg-gradient-to-b from-[#8EC5E9]/95 via-[#AED5EE]/60 via-38% to-transparent pointer-events-none"></div>
 
           <!-- 3. Soft Radial Sunlight Aura at Top Left -->
           <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/40 rounded-full blur-3xl pointer-events-none"></div>
@@ -793,50 +800,59 @@
           <div class="absolute top-[22%] left-[45%] text-white/60 text-xs hidden sm:block">✦</div>
         </div>
 
-        <!-- 5. TYPOGRAPHY & CALL TO ACTION (Inspired by reference mockup) -->
-        <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 w-full py-16 sm:py-24">
-          <div class="max-w-xl text-left space-y-4 sm:space-y-6">
+        <!-- 5. TYPOGRAPHY & CALL TO ACTION (Compact & Placed at top on mobile to avoid covering Minh) -->
+        <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 w-full pt-8 pb-4 sm:py-24">
+          <div class="max-w-xl text-left space-y-2 sm:space-y-6">
 
             <!-- Grand Editorial Title: GRADUATION (Clean, no 'Class of 2026') -->
-            <div class="space-y-1">
-              <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-7xl tracking-[0.08em] drop-shadow-[0_4px_18px_rgba(21,72,157,0.4)] uppercase leading-none">
+            <div class="space-y-0.5 sm:space-y-1">
+              <h1 class="font-heading font-extrabold text-white text-3xl sm:text-6xl lg:text-7xl tracking-[0.08em] drop-shadow-[0_4px_18px_rgba(21,72,157,0.4)] uppercase leading-none">
                 GRADUATION
               </h1>
             </div>
 
             <!-- Elegant Cursive Script: Save the Date -->
-            <div class="pt-1 pb-1">
-              <span class="font-['Alex_Brush',cursive] text-5xl sm:text-7xl lg:text-8xl text-[#FCE196] drop-shadow-[0_4px_14px_rgba(212,175,55,0.5)] transform -rotate-2 inline-block select-none leading-tight">
+            <div class="pt-0.5 sm:pt-1 pb-0.5 sm:pb-1">
+              <span class="font-['Alex_Brush',cursive] text-4xl sm:text-7xl lg:text-8xl text-[#FCE196] drop-shadow-[0_4px_14px_rgba(212,175,55,0.5)] transform -rotate-2 inline-block select-none leading-tight">
                 Save the Date
               </span>
             </div>
 
             <!-- Personalized Recipient Bracket: [TÊN CỦA BẠN] -->
-            <div class="pt-0.5">
-              <span id="introGuestName" class="font-heading text-xl sm:text-2xl lg:text-3xl text-white font-semibold tracking-wider drop-shadow-[0_2px_12px_rgba(15,35,54,0.45)] inline-block">
+            <div class="pt-0 sm:pt-0.5">
+              <span id="introGuestName" class="font-heading text-lg sm:text-2xl lg:text-3xl text-white font-semibold tracking-wider drop-shadow-[0_2px_12px_rgba(15,35,54,0.45)] inline-block">
                 [ GỬI MỌI NGƯỜI ]
               </span>
             </div>
 
             <!-- Date, Time & Venue Details -->
-            <div class="space-y-1 text-white text-sm sm:text-base lg:text-lg font-medium drop-shadow-[0_2px_10px_rgba(15,35,54,0.5)] leading-relaxed">
+            <div class="space-y-0.5 sm:space-y-1 text-white text-xs sm:text-base lg:text-lg font-medium drop-shadow-[0_2px_10px_rgba(15,35,54,0.5)] leading-relaxed">
               <p class="tracking-wide font-semibold text-white">Thứ Bảy, 17/10/2026 · 10:00 Sáng</p>
-              <p class="text-sky-100 font-normal text-xs sm:text-sm lg:text-base">Sảnh A · Trường Đại học Tôn Đức Thắng (TDTU)</p>
+              <p class="text-sky-100 font-normal text-[11px] sm:text-sm lg:text-base">Sảnh A · Trường Đại học Tôn Đức Thắng (TDTU)</p>
             </div>
 
-            <!-- CTA Button: Cloud-Shaped Glass Pill Button (Mở thiệp mời 💌) -->
-            <div class="pt-4 sm:pt-6">
+            <!-- CTA Buttons: Mở thiệp mời 💌 & Hồi ức thanh xuân 📸 -->
+            <div class="pt-3 sm:pt-6 flex flex-wrap items-center gap-2.5 sm:gap-4">
               <button 
                 type="button" 
                 id="introOpenLetterBtn"
-                class="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-navy-deep bg-white/92 hover:bg-white backdrop-blur-md border border-white shadow-[0_12px_32px_rgba(21,72,157,0.22),0_0_24px_rgba(255,255,255,0.7)] hover:shadow-[0_18px_44px_rgba(21,72,157,0.32),0_0_36px_rgba(255,255,255,0.95)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
+                class="group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-9 py-2.5 sm:py-3.5 rounded-full text-sm sm:text-base font-semibold text-navy-deep bg-white/95 hover:bg-white backdrop-blur-md border border-white shadow-[0_10px_25px_rgba(21,72,157,0.22),0_0_20px_rgba(255,255,255,0.7)] hover:shadow-[0_16px_36px_rgba(21,72,157,0.32),0_0_30px_rgba(255,255,255,0.95)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
               >
                 <!-- Subtle cloud aura glow -->
                 <span class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-200/60 via-white/50 to-sky-200/60 blur-sm opacity-75 group-hover:opacity-100 transition-opacity"></span>
                 
-                <span class="relative z-10 text-xl group-hover:rotate-12 transition-transform duration-300">💌</span>
+                <span class="relative z-10 text-base sm:text-xl group-hover:rotate-12 transition-transform duration-300">💌</span>
                 <span class="relative z-10 font-heading font-bold text-tdtu-blue group-hover:text-navy-deep transition-colors tracking-wide">Mở thiệp mời</span>
-                <span class="relative z-10 text-sm font-normal text-sky-400 group-hover:translate-x-1 transition-transform">✨</span>
+                <span class="relative z-10 text-xs sm:text-sm font-normal text-sky-400 group-hover:translate-x-1 transition-transform">✨</span>
+              </button>
+
+              <button 
+                type="button" 
+                id="introViewMemoriesBtn"
+                class="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-full text-xs sm:text-sm font-semibold text-navy-dark bg-white/80 hover:bg-white backdrop-blur-md border border-white/70 shadow-xs hover:shadow-soft transition-all duration-300 active:scale-95 cursor-pointer whitespace-nowrap"
+              >
+                <span>Hồi ức 📸</span>
+                <span class="text-[11px] text-tdtu-blue hidden xs:inline">↓</span>
               </button>
             </div>
 
@@ -846,7 +862,7 @@
       </section>
 
       <!-- Section: Đảo Chiều Bố Cục (Dấu ấn tuổi trẻ — Sử dụng ảnh khuôn viên TDTU Minh_campus.jpg) -->
-      <section class="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto border-t border-sky-border/50">
+      <section id="section-hoi-uc" class="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto border-t border-sky-border/50 scroll-mt-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           <!-- Left: Hai màu áo thanh xuân (School & Sport Uniforms) -->
@@ -1899,8 +1915,8 @@
         zaloUrl: "https://zalo.me/0706029499",
       },
       media: {
-        bgmUrl: "./bgm.mp3",           // Track 1: Rainbows (Piano & Strings tươi vui, 110 BPM)
-        bgmAltUrl: "./Carefree.mp3",    // Track 2: Carefree (Acoustic Guitar nắng hạ, 96 BPM)
+        bgmUrl: "./bgm.mp3",           // Track 1: Piano Làn Nước (Heartwarming - Kevin MacLeod)
+        bgmAltUrl: "./bgm_waterlily.mp3", // Track 2: Hoa Súng Dịu Êm (Water Lily - Kevin MacLeod)
         voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
         traditionalPhoto: "./Minh_tradi.jpg", // School / Traditional uniform
         sportPhoto: "./Minh_sport.jpg",       // Sport uniform
@@ -2258,6 +2274,28 @@
     document.querySelectorAll('.back-to-home-btn').forEach(btn => {
       btn.addEventListener('click', () => switchPage('trang-chu'));
     });
+    document.getElementById('navBrandBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchPage('trang-chu');
+    });
+
+    // Cuộn mượt mà đến khu vực Hồi ức thanh xuân tại TDTU (#section-hoi-uc)
+    function scrollToMemoriesSection() {
+      if (!isBgmPlaying && !userPausedBgmManually) {
+        playBgm();
+      }
+      if (!views['trang-chu'].classList.contains('active')) {
+        switchPage('trang-chu', false);
+      }
+      setTimeout(() => {
+        const hoiUcEl = document.getElementById('section-hoi-uc');
+        if (hoiUcEl) {
+          hoiUcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
+    }
+    document.getElementById('introViewMemoriesBtn')?.addEventListener('click', scrollToMemoriesSection);
+    document.getElementById('navHoiUcBtn')?.addEventListener('click', scrollToMemoriesSection);
 
     // Gentle page load transition dismiss
     function dismissGentleLoader() {
@@ -2307,13 +2345,13 @@
     // ==========================================
     const BGM_TRACKS = [
       {
-        id: "rainbows",
-        title: "Piano Thanh Xuân (Rainbows)",
+        id: "heartwarming",
+        title: "Piano Làn Nước (Heartwarming)",
         url: SITE_CONFIG.media.bgmUrl
       },
       {
-        id: "carefree",
-        title: "Acoustic Nắng Hạ (Carefree)",
+        id: "waterlily",
+        title: "Hoa Súng Dịu Êm (Water Lily)",
         url: SITE_CONFIG.media.bgmAltUrl
       }
     ];
