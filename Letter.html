@@ -492,6 +492,9 @@
 </head>
 <body class="film-grain selection:bg-sky-200 selection:text-navy-deep relative flex flex-col min-h-screen overflow-x-hidden">
 
+  <!-- Native Persistent Audio Element (Optimized for Mobile Safari & Chrome autoplay) -->
+  <audio id="bgmAudio" src="./Howls_Moving_Castle.mp3" preload="auto" loop playsinline webkit-playsinline></audio>
+
   <!-- ========================================== -->
   <!-- ========================================== -->
   <!-- GENTLE PAGE LOADER (LOAD TRANG NHẸ NHÀNG) -->
@@ -1918,8 +1921,8 @@
         zaloUrl: "https://zalo.me/0706029499",
       },
       media: {
-        bgmUrl: "./Howls_Moving_Castle.mp3?v=howl_theme", // Bản nhạc duy nhất: Howl's Moving Castle (Joe Hisaishi)
-                voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
+        bgmUrl: "./Howls_Moving_Castle.mp3", // Bản nhạc duy nhất: Howl's Moving Castle (Joe Hisaishi)
+        voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
         traditionalPhoto: "./Minh_tradi.jpg", // School / Traditional uniform
         sportPhoto: "./Minh_sport.jpg",       // Sport uniform
         logo: "./tdtu_logo.png",
@@ -2095,6 +2098,11 @@
       if (isEnvelopeOpened || isFlightInProgress) return;
       isFlightInProgress = true;
 
+      // Đảm bảo bật nhạc nền nếu đang bị tạm dừng do chính sách trình duyệt
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
+
       // Hiệu ứng bóc tem (stamp peeling)
       if (envelopeStampSealActor) {
         envelopeStampSealActor.classList.remove('stamp-peeling');
@@ -2257,17 +2265,23 @@
 
     // Secondary & Primary buttons navigating to views
     document.getElementById('introOpenLetterBtn')?.addEventListener('click', () => {
-      if (!isBgmPlaying && !userPausedBgmManually) {
-        playBgm();
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
       }
       switchPage('thiep-moi');
       setTimeout(() => flyPaperPlaneInFromLeft(), 150);
     });
     document.getElementById('heroGoToLetterBtn')?.addEventListener('click', () => {
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
       switchPage('thiep-moi');
       setTimeout(() => flyPaperPlaneInFromLeft(), 150);
     });
     document.getElementById('inlineOpenLetterBtn')?.addEventListener('click', () => {
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
       switchPage('thiep-moi');
       setTimeout(() => flyPaperPlaneInFromLeft(), 150);
     });
@@ -2283,8 +2297,8 @@
 
     // Cuộn mượt mà đến khu vực Hồi ức thanh xuân tại TDTU (#section-hoi-uc)
     function scrollToMemoriesSection() {
-      if (!isBgmPlaying && !userPausedBgmManually) {
-        playBgm();
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
       }
       if (!views['trang-chu'].classList.contains('active')) {
         switchPage('trang-chu', false);
@@ -2300,8 +2314,8 @@
 
     // Mobile Action Dock Button Listeners
     document.getElementById('introOpenLetterBtnMobile')?.addEventListener('click', () => {
-      if (!isBgmPlaying && !userPausedBgmManually) {
-        playBgm();
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
       }
       switchPage('thiep-moi');
       setTimeout(() => flyPaperPlaneInFromLeft(), 150);
@@ -2351,11 +2365,11 @@
 
     // ==========================================
     // AUDIO SYSTEM: BACKGROUND MUSIC & VOICE NOTE
-    // WITH AUTOMATIC AUDIO DUCKING & AUTOPLAY
+    // WITH AUTOMATIC AUDIO DUCKING & ROBUST AUTOPLAY
     // ==========================================
     // Bản nhạc nền duy nhất: Howl's Moving Castle (Joe Hisaishi)
     const BGM_TITLE = "Howl's Moving Castle (Joe Hisaishi)";
-    const bgmAudio = new Audio(SITE_CONFIG.media.bgmUrl);
+    const bgmAudio = document.getElementById('bgmAudio') || new Audio(SITE_CONFIG.media.bgmUrl);
     bgmAudio.loop = true;
     bgmAudio.preload = 'auto';
     const NORMAL_BGM_VOLUME = 0.35;
@@ -2365,7 +2379,6 @@
     const voiceAudio = new Audio(SITE_CONFIG.media.voiceUrl);
     voiceAudio.preload = 'auto';
 
-    let isBgmPlaying = false;
     let isVoicePlaying = false;
     let userPausedBgmManually = false;
 
@@ -2393,7 +2406,7 @@
     const voiceProgressBar = document.getElementById('voiceProgressBar');
     const voiceProgressContainer = document.getElementById('voiceProgressContainer');
 
-    // Toast helper for track switching
+    // Toast helper for notifications
     function showAudioToast(message) {
       let toast = document.getElementById('appGlobalToast');
       if (!toast) {
@@ -2412,7 +2425,7 @@
     }
 
     function fadeBgmVolume(targetVolume, durationMs = 500) {
-      if (!isBgmPlaying) return;
+      if (bgmAudio.paused) return;
       const startVolume = bgmAudio.volume;
       const steps = 15;
       const interval = durationMs / steps;
@@ -2471,35 +2484,41 @@
         if (introBar3) { introBar3.classList.remove('eq-bar-3'); }
       }
     }
-function playBgm() {
-      if (isBgmPlaying || userPausedBgmManually) return;
+
+    function playBgm() {
+      if (userPausedBgmManually) return Promise.reject(new Error('User paused'));
       bgmAudio.volume = isVoicePlaying ? DUCKED_BGM_VOLUME : NORMAL_BGM_VOLUME;
-      const playPromise = bgmAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          isBgmPlaying = true;
+
+      if (!bgmAudio.paused) {
+        updateBgmUi(true);
+        return Promise.resolve();
+      }
+
+      const p = bgmAudio.play();
+      if (p !== undefined && typeof p.then === 'function') {
+        return p.then(() => {
           updateBgmUi(true);
         }).catch(err => {
-          // Autoplay was restricted by browser policy pending user interaction
-          console.log('BGM autoplay awaiting user gesture:', err.message);
+          console.log('Autoplay restriction active, waiting for gesture:', err.message);
+          throw err;
         });
       }
+      updateBgmUi(true);
+      return Promise.resolve();
     }
 
     function pauseBgm(manual = false) {
-      if (!isBgmPlaying) return;
       bgmAudio.pause();
-      isBgmPlaying = false;
       if (manual) userPausedBgmManually = true;
       updateBgmUi(false);
     }
 
     function toggleBgm() {
-      if (isBgmPlaying) {
+      if (!bgmAudio.paused) {
         pauseBgm(true);
       } else {
         userPausedBgmManually = false;
-        playBgm();
+        playBgm().catch(() => {});
       }
     }
 
@@ -2509,35 +2528,69 @@ function playBgm() {
       toggleBgm();
     });
 
+    // Event listeners directly on the audio element for true state fidelity
+    bgmAudio.addEventListener('play', () => updateBgmUi(true));
+    bgmAudio.addEventListener('pause', () => {
+      if (userPausedBgmManually) updateBgmUi(false);
+    });
+
     // ==========================================
-    // AUTOPLAY ON PAGE LOAD & GESTURE FALLBACK
+    // PERSISTENT FIRST-GESTURE AUDIO UNLOCKER
+    // (Bắt trọn mọi cử chỉ chạm/lướt màn hình trên Mobile Safari, Chrome, Zalo, FB)
+    // ==========================================
+    const unlockEvents = [
+      'touchstart', 'touchend', 'pointerdown', 'pointerup',
+      'mousedown', 'mouseup', 'click', 'scroll', 'wheel', 'keydown'
+    ];
+
+    let hasUnlockedAudio = false;
+
+    function handleFirstUserInteraction() {
+      if (hasUnlockedAudio || userPausedBgmManually) return;
+
+      // Unlock Web Audio context for iOS Safari if applicable
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          const ctx = new AudioCtx();
+          if (ctx.state === 'suspended') ctx.resume();
+        }
+      } catch (e) {}
+
+      if (bgmAudio.paused) {
+        playBgm().then(() => {
+          hasUnlockedAudio = true;
+          unlockEvents.forEach(evt => {
+            window.removeEventListener(evt, handleFirstUserInteraction, { capture: true });
+            document.removeEventListener(evt, handleFirstUserInteraction, { capture: true });
+          });
+        }).catch(() => {
+          // Chưa thành công trong gesture này -> tiếp tục giữ listener cho gesture kế tiếp
+        });
+      } else {
+        hasUnlockedAudio = true;
+      }
+    }
+
+    unlockEvents.forEach(evt => {
+      window.addEventListener(evt, handleFirstUserInteraction, { capture: true, passive: true });
+      document.addEventListener(evt, handleFirstUserInteraction, { capture: true, passive: true });
+    });
+
+    // ==========================================
+    // AUTOPLAY ON PAGE LOAD & PROGRESS BAR DISMISS
     // ==========================================
     function initAutoplayBgm() {
-      // 1. Đặt trạng thái ban đầu là đang phát nhạc (Tắt nhạc 🔊)
-      isBgmPlaying = true;
+      // 1. Mặc định UI luôn ở trạng thái phát nhạc (Tắt nhạc 🔊)
       updateBgmUi(true);
 
-      // 2. Kích hoạt phát nhạc Howl's Moving Castle ngay từ đầu!
-      playBgm();
-
-      // 3. Cơ chế mở khóa âm thanh tự động ngay khi chạm/lướt màn hình
-      const unlockAudio = () => {
-        if (!userPausedBgmManually) {
-          bgmAudio.muted = false;
-          playBgm();
-        }
-        ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'mousedown', 'click', 'scroll', 'keydown'].forEach(evt => {
-          window.removeEventListener(evt, unlockAudio, { capture: true });
-          document.removeEventListener(evt, unlockAudio, { capture: true });
-        });
-      };
-
-      ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'mousedown', 'click', 'scroll', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, unlockAudio, { capture: true, once: true, passive: true });
-        document.addEventListener(evt, unlockAudio, { capture: true, once: true, passive: true });
+      // 2. Thử phát nhạc NGAY LẬP TỨC khi khởi tạo trang web
+      playBgm().catch(() => {
+        // Trình duyệt chặn phát âm thanh khi chưa tương tác:
+        // Hệ thống unlockEvents sẽ tự động phát ngay khi chạm/lướt màn hình
       });
 
-      // 4. Thanh tiến trình tải nhẹ nhàng (1s) -> lướt hết là tự load vào trang
+      // 3. Tiến trình thanh load tự động lướt và đóng sau 1 giây
       const progressBar = document.getElementById('loaderProgressBar');
       if (progressBar) {
         requestAnimationFrame(() => {
@@ -2549,16 +2602,22 @@ function playBgm() {
 
       setTimeout(() => {
         dismissGentleLoader(0);
-        if (!userPausedBgmManually && !isBgmPlaying) {
-          playBgm();
+        if (!userPausedBgmManually && bgmAudio.paused) {
+          playBgm().catch(() => {});
         }
       }, 1050);
     }
-if (document.readyState === 'loading') {
+
+    if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initAutoplayBgm);
     } else {
       initAutoplayBgm();
     }
+    window.addEventListener('load', () => {
+      if (!userPausedBgmManually && bgmAudio.paused) {
+        playBgm().catch(() => {});
+      }
+    });
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
