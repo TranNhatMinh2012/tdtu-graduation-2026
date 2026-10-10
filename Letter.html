@@ -234,6 +234,131 @@
       animation: pulseGlow 2.8s infinite;
     }
 
+    /* ========================================== */
+    /* VIETNAMESE AIRMAIL & NOTEBOOK LETTER STYLES */
+    /* ========================================== */
+    /* Iconic Airmail striped border with TDTU Colors (Red #B82A20 & Blue #15489D) */
+    .airmail-card {
+      background: repeating-linear-gradient(
+        135deg,
+        #B82A20 0px,
+        #B82A20 14px,
+        #FFFFFF 14px,
+        #FFFFFF 20px,
+        #15489D 20px,
+        #15489D 34px,
+        #FFFFFF 34px,
+        #FFFFFF 40px
+      );
+      padding: 9px;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(21, 72, 157, 0.22), 0 10px 25px -5px rgba(184, 42, 32, 0.12);
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .airmail-card {
+        padding: 13px;
+        border-radius: 28px;
+      }
+    }
+
+    /* Envelope paper texture */
+    .envelope-sheet {
+      background-color: #FFFDF8;
+      background-image: radial-gradient(#F0E9D8 1px, transparent 1px);
+      background-size: 20px 20px;
+      border-radius: 13px;
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .envelope-sheet {
+        border-radius: 18px;
+      }
+    }
+
+    /* Authentic Vietnamese school notebook lined paper with red margin */
+    .notebook-paper-vn {
+      background-color: #FFFDF8;
+      background-image: 
+        linear-gradient(90deg, transparent 46px, rgba(184, 42, 32, 0.32) 46px, rgba(184, 42, 32, 0.32) 47.5px, transparent 47.5px),
+        repeating-linear-gradient(transparent, transparent 31px, rgba(91, 175, 231, 0.28) 31px, rgba(91, 175, 231, 0.28) 32px);
+      background-size: 100% 100%, 100% 32px;
+      border-radius: 13px;
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .notebook-paper-vn {
+        background-image: 
+          linear-gradient(90deg, transparent 62px, rgba(184, 42, 32, 0.32) 62px, rgba(184, 42, 32, 0.32) 63.5px, transparent 63.5px),
+          repeating-linear-gradient(transparent, transparent 33px, rgba(91, 175, 231, 0.28) 33px, rgba(91, 175, 231, 0.28) 34px);
+        background-size: 100% 100%, 100% 34px;
+        border-radius: 18px;
+      }
+    }
+
+    /* 3D Paper Airplane Floating Hover Animation */
+    @keyframes planeFloatGentle {
+      0%, 100% {
+        transform: translateY(0px) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(2deg);
+      }
+    }
+    .plane-float {
+      animation: planeFloatGentle 3.6s ease-in-out infinite;
+    }
+
+    /* Paper Airplane Soaring Flight across screen */
+    @keyframes planeFlightPath {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      20% {
+        transform: translate3d(50px, -80px, 0) scale(1.18) rotate(24deg);
+        opacity: 1;
+      }
+      45% {
+        transform: translate3d(220px, -220px, 0) scale(0.95) rotate(42deg);
+        opacity: 1;
+      }
+      65% {
+        transform: translate3d(0px, -360px, 0) scale(0.85) rotate(-20deg);
+        opacity: 0.95;
+      }
+      85% {
+        transform: translate3d(-160px, -180px, 0) scale(1.1) rotate(-35deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1.4) rotate(0deg);
+        opacity: 0;
+      }
+    }
+    .plane-flying {
+      animation: planeFlightPath 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    }
+
+    /* 3D Unfolding of the letter paper */
+    @keyframes letterUnfold3D {
+      0% {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(-22deg) translateY(36px) scale(0.92);
+      }
+      65% {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(3deg) translateY(-6px) scale(1.01);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1);
+      }
+    }
+    .letter-reveal-unfold {
+      animation: letterUnfold3D 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     /* Wax Seal Pulse */
     @keyframes sealGlow {
       0%, 100% {
@@ -738,209 +863,362 @@
         </div>
 
         <!-- ============================================== -->
-        <!-- STAGE 1: PHONG BÌ THƯ (INTERACTIVE ENVELOPE) -->
+        <!-- STAGE 1: PHONG BÌ THƯ AIRMAIL VIỆT NAM (INTERACTIVE ENVELOPE) -->
         <!-- ============================================== -->
         <div id="envelopeStage" class="max-w-xl mx-auto my-4 transition-all duration-500">
-          <div class="relative bg-gradient-to-br from-[#faf7ee] via-[#fffdf9] to-[#f4eee1] rounded-[28px] sm:rounded-[36px] p-6 sm:p-9 border border-amber-300/70 shadow-card overflow-hidden text-center cursor-pointer group hover:border-amber-400 transition-all" id="envelopeWrapper">
-            <!-- Dashed postage inner border -->
-            <div class="absolute inset-2.5 sm:inset-3.5 border border-dashed border-amber-400/50 rounded-[20px] sm:rounded-[28px] pointer-events-none"></div>
+          <div class="airmail-card" id="envelopeWrapper">
+            <div class="envelope-sheet p-5 sm:p-8 md:p-9 text-left relative overflow-hidden select-none cursor-pointer group">
 
-            <!-- Envelope Header: TDTU Mark & Postmark Stamp -->
-            <div class="flex items-start justify-between relative z-10 mb-6 sm:mb-10">
-              <div class="flex items-center gap-2 text-left">
-                <img src="./tdtu_logo.png" alt="TDTU" class="w-10 h-10 object-contain drop-shadow-2xs">
-                <div>
-                  <span class="block text-[10px] font-mono tracking-widest text-tdtu-blue font-bold uppercase">TDTU GRADUATION</span>
-                  <span class="block text-[9px] text-navy-muted uppercase font-body">KHÓA 2022 – 2026</span>
+              <!-- Envelope Top Header: Sender (Left) & Postage Stamps (Right) -->
+              <div class="flex items-start justify-between gap-3 relative z-10 border-b border-dashed border-sky-border/70 pb-4">
+                
+                <!-- Sender Box (Người gửi / From) -->
+                <div class="space-y-1 font-mono text-[11px] sm:text-xs text-navy-dark leading-tight">
+                  <span class="font-bold text-tdtu-blue uppercase tracking-wider block text-[10px] sm:text-[11px]">
+                    Người gửi / From:
+                  </span>
+                  <p class="font-bold text-navy-dark text-xs sm:text-sm font-heading">
+                    Trần Nhật Minh · K26
+                  </p>
+                  <p class="text-navy-muted text-[10.5px]">
+                    Trường Đại học Tôn Đức Thắng (Q.7, TP.HCM)
+                  </p>
+                  <p class="text-navy-muted text-[10.5px]">
+                    SĐT: <a href="tel:0706029499" class="text-tdtu-blue font-bold hover:underline">0706.029.499</a>
+                  </p>
                 </div>
-              </div>
 
-              <!-- Stamp -->
-              <div class="border border-navy-dark/30 bg-white/90 px-2 py-1 rounded-lg shadow-2xs rotate-2 flex items-center gap-1.5">
-                <div class="text-[9px] font-mono leading-tight text-navy-dark text-right">
-                  <span class="block font-bold">TDTU POST</span>
-                  <span class="block text-[8px] text-navy-muted">17.10.2026</span>
-                </div>
-                <span class="text-sm">🎓</span>
-              </div>
-            </div>
-
-            <!-- Recipient on Envelope Face -->
-            <div class="relative z-10 my-4 sm:my-6 space-y-1.5">
-              <span class="text-[11px] font-mono tracking-widest text-navy-muted uppercase block [text-wrap:balance]">
-                ✉️ THƯ MỜI TỐT NGHIỆP TRÂN TRỌNG GỬI ĐẾN:
-              </span>
-              <h3 id="envelopeRecipientName" class="font-heading text-2xl sm:text-3xl font-bold text-navy-dark [text-wrap:balance]">
-                Mọi người
-              </h3>
-              <p class="text-xs text-navy-muted font-body">
-                Từ: <strong class="text-tdtu-blue font-semibold whitespace-nowrap">Nhật Minh</strong> · Cử nhân TDTU&nbsp;2026
-              </p>
-            </div>
-
-            <!-- 3D Wax Seal Button to Open -->
-            <div class="relative z-10 mt-6 sm:mt-8 flex flex-col items-center justify-center">
-              <button 
-                type="button" 
-                id="openEnvelopeBtn"
-                class="relative group/seal focus:outline-none transition-transform active:scale-95 hover:scale-105"
-                title="Nhấn để mở thiệp mời"
-              >
-                <!-- Wax seal body -->
-                <div class="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-tr from-[#8a1c14] via-[#b82a20] to-[#d9382e] p-1 shadow-lg border-2 border-amber-300/80 flex items-center justify-center relative wax-seal-pulse">
-                  <div class="w-full h-full rounded-full border border-dashed border-amber-200/50 flex flex-col items-center justify-center text-amber-100 shadow-inner">
-                    <span class="text-xl sm:text-2xl drop-shadow">🎓</span>
-                    <span class="text-[8px] sm:text-[8.5px] font-bold font-mono tracking-widest text-amber-200 uppercase mt-0.5 whitespace-nowrap">MỞ THƯ</span>
+                <!-- Postal Stamp Box (TEM / STAMP) with Postmark -->
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  
+                  <!-- Postmark Stamp (Dấu nhật ấn bưu điện TP.HCM) -->
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center -rotate-12 pointer-events-none opacity-85">
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-tdtu-blue">
+                      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 1.5"/>
+                      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                      <path id="postmarkCircleEnv" d="M 18,50 A 32,32 0 1,1 82,50" fill="none"/>
+                      <text font-family="'Lora', serif" font-size="7" font-weight="bold" letter-spacing="0.1em" fill="currentColor">
+                        <textPath href="#postmarkCircleEnv" startOffset="50%" text-anchor="middle">BƯU ĐIỆN TDTU</textPath>
+                      </text>
+                      <text x="50" y="52" font-family="'Courier New', monospace" font-size="8.5" font-weight="bold" text-anchor="middle" fill="currentColor">17.10.2026</text>
+                      <text x="50" y="65" font-family="'Lora', serif" font-size="6" font-weight="bold" text-anchor="middle" fill="currentColor">TP. HỒ CHÍ MINH</text>
+                      <!-- Wavy cancellation lines -->
+                      <line x1="88" y1="42" x2="110" y2="42" stroke="currentColor" stroke-width="1.2"/>
+                      <line x1="88" y1="50" x2="110" y2="50" stroke="currentColor" stroke-width="1.2"/>
+                      <line x1="88" y1="58" x2="110" y2="58" stroke="currentColor" stroke-width="1.2"/>
+                    </svg>
                   </div>
+
+                  <!-- Postage Stamp (Con tem TDTU 2026) -->
+                  <div class="w-13 h-17 sm:w-15 sm:h-19 bg-[#FFFDF7] p-1 border-2 border-dashed border-tdtu-red/80 rounded shadow-2xs rotate-2 flex flex-col items-center justify-between text-center">
+                    <span class="text-[7px] font-bold text-tdtu-blue font-mono tracking-widest uppercase">VIỆT NAM</span>
+                    <span class="text-base sm:text-lg">🎓</span>
+                    <div>
+                      <span class="block text-[7.5px] font-bold text-navy-dark leading-none">TDTU 2026</span>
+                      <span class="block text-[6.5px] text-tdtu-red font-mono font-semibold">2.026đ</span>
+                    </div>
+                  </div>
+
                 </div>
-              </button>
-              <div class="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/80 border border-amber-300/50 text-xs font-semibold text-navy-dark shadow-2xs group-hover:bg-amber-50 transition-colors">
-                <span class="whitespace-nowrap">Nhấn vào con dấu sáp để mở thiệp mời</span>
-                <span class="text-amber-500">✨</span>
+
               </div>
+
+              <!-- Recipient on Envelope Face (Người nhận / To) -->
+              <div class="relative z-10 my-6 sm:my-8 max-w-sm ml-auto text-left space-y-1.5 pl-4 sm:pl-8">
+                <span class="font-bold text-tdtu-red font-mono text-[11px] sm:text-xs uppercase tracking-wider block">
+                  Người nhận / To:
+                </span>
+                <div class="border-b-2 border-dotted border-navy-main/40 pb-1.5">
+                  <h3 id="envelopeRecipientName" class="font-heading text-2xl sm:text-3xl font-bold text-navy-dark">
+                    Mọi người
+                  </h3>
+                </div>
+                <div class="border-b border-dotted border-navy-muted/30 pt-1.5"></div>
+                <p class="text-[11px] text-navy-muted italic pt-0.5 font-handwriting text-sm sm:text-base">
+                  ~ Trân trọng gửi lời mời tham dự Lễ Tốt Nghiệp Cử Nhân 2026 ~
+                </p>
+              </div>
+
+              <!-- Center Interactive: Paper Airplane Launch Piece -->
+              <div class="relative z-10 pt-2 pb-4 flex flex-col items-center justify-center text-center">
+                <button 
+                  type="button" 
+                  id="openEnvelopeBtn"
+                  class="group/plane relative focus:outline-none transition-all active:scale-95"
+                  title="Nhấn để phóng máy bay giấy mở thiệp"
+                >
+                  <!-- The Paper Airplane Icon Graphic (Styled like reference) -->
+                  <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto relative flex items-center justify-center plane-float">
+                    <!-- Wind aura glow -->
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-200/40 via-amber-100/30 to-transparent blur-md group-hover/plane:scale-110 transition-transform"></div>
+                    
+                    <!-- Paper Plane SVG (Dart plane matching user's image) -->
+                    <svg viewBox="0 0 200 200" class="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-[0_10px_18px_rgba(21,72,157,0.22)] transform -rotate-12 group-hover/plane:rotate-0 transition-transform duration-300">
+                      <!-- Left Wing -->
+                      <polygon points="100,20 18,165 92,148" fill="#FFFDF8" stroke="#CFE6F8" stroke-width="1.5" />
+                      <!-- Right Wing -->
+                      <polygon points="100,20 182,165 108,148" fill="#F4FAFE" stroke="#CFE6F8" stroke-width="1.5" />
+                      <!-- Center Fold / Keel -->
+                      <polygon points="92,148 100,188 108,148 100,20" fill="#E2F1FB" stroke="#B9E2FA" stroke-width="1.2" />
+                      <!-- Central Fold Line -->
+                      <line x1="100" y1="20" x2="100" y2="188" stroke="#15489D" stroke-width="1.5" stroke-dasharray="3 1.5" />
+                      <!-- Wing trailing stripes: Left Wing -->
+                      <polygon points="18,165 35,162 42,155 25,158" fill="#B82A20" />
+                      <polygon points="35,162 52,159 59,152 42,155" fill="#15489D" />
+                      <polygon points="52,159 69,156 76,149 59,152" fill="#B82A20" />
+                      <polygon points="69,156 86,153 92,148 76,149" fill="#15489D" />
+                      <!-- Wing trailing stripes: Right Wing -->
+                      <polygon points="182,165 165,162 158,155 175,158" fill="#B82A20" />
+                      <polygon points="165,162 148,159 141,152 158,155" fill="#15489D" />
+                      <polygon points="148,159 131,156 124,149 141,152" fill="#B82A20" />
+                      <polygon points="131,156 114,153 108,148 124,149" fill="#15489D" />
+                      <!-- Little Stamp on Right Wing -->
+                      <g transform="translate(122, 85) rotate(10) scale(0.65)">
+                        <rect x="0" y="0" width="36" height="44" fill="#FFF8EA" stroke="#B82A20" stroke-width="1.5" stroke-dasharray="2 1.5" rx="2" />
+                        <text x="18" y="14" font-family="'Lora', serif" font-size="7" font-weight="bold" fill="#15489D" text-anchor="middle">TDTU</text>
+                        <text x="18" y="27" font-size="12" text-anchor="middle">🎓</text>
+                        <text x="18" y="38" font-family="'Patrick Hand', cursive" font-size="7" fill="#B82A20" text-anchor="middle">2026</text>
+                      </g>
+                      <!-- Handwritten scribble on Left Wing -->
+                      <text x="56" y="105" transform="rotate(-25 56 105)" font-family="'Patrick Hand', cursive" font-size="8.5" fill="#15489D" opacity="0.85">Gửi bạn ✨</text>
+                    </svg>
+                  </div>
+
+                  <!-- Launch Action Button -->
+                  <div class="mt-2 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-tdtu-blue hover:bg-navy-dark text-white text-xs sm:text-sm font-semibold shadow-soft group-hover/plane:shadow-card transition-all whitespace-nowrap">
+                    <span class="text-base group-hover/plane:translate-x-1 transition-transform">✈️</span>
+                    <span>Phóng máy bay giấy mở thiệp</span>
+                    <span class="text-sky-300">✨</span>
+                  </div>
+                </button>
+
+                <p class="text-xs text-navy-muted mt-2.5 font-handwriting text-base text-center">
+                  ~ chạm vào để phóng cánh thư bay đến bạn ~
+                </p>
+              </div>
+
+              <!-- Envelope Footer: AIRMAIL / PAR AVION Banner -->
+              <div class="pt-2 border-t border-dashed border-sky-border/70 flex items-center justify-between text-[10px] text-navy-muted font-mono">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded border border-tdtu-blue text-tdtu-blue font-bold tracking-widest uppercase">
+                    AIRMAIL · BƯU ĐIỆN TDTU
+                  </span>
+                  <span>✈️</span>
+                </div>
+                <span class="hidden sm:inline text-navy-muted/80">KHÓA 2022 – 2026</span>
+              </div>
+
             </div>
           </div>
         </div>
 
+        <!-- PAPER AIRPLANE FLIGHT ANIMATION OVERLAY -->
+        <div id="paperPlaneFlightOverlay" class="fixed inset-0 pointer-events-none z-50 hidden overflow-hidden">
+          <!-- Animated Paper Plane Actor -->
+          <div id="paperPlaneFlyingActor" class="absolute w-28 h-28 sm:w-36 sm:h-36 drop-shadow-2xl">
+            <svg viewBox="0 0 200 200" class="w-full h-full">
+              <!-- Left Wing -->
+              <polygon points="100,20 18,165 92,148" fill="#FFFDF8" stroke="#CFE6F8" stroke-width="1.5" />
+              <!-- Right Wing -->
+              <polygon points="100,20 182,165 108,148" fill="#F4FAFE" stroke="#CFE6F8" stroke-width="1.5" />
+              <!-- Keel -->
+              <polygon points="92,148 100,188 108,148 100,20" fill="#E2F1FB" stroke="#B9E2FA" stroke-width="1.2" />
+              <!-- Spine -->
+              <line x1="100" y1="20" x2="100" y2="188" stroke="#15489D" stroke-width="1.5" stroke-dasharray="3 1.5" />
+              <!-- Wing stripes -->
+              <polygon points="18,165 35,162 42,155 25,158" fill="#B82A20" />
+              <polygon points="35,162 52,159 59,152 42,155" fill="#15489D" />
+              <polygon points="52,159 69,156 76,149 59,152" fill="#B82A20" />
+              <polygon points="69,156 86,153 92,148 76,149" fill="#15489D" />
+              <polygon points="182,165 165,162 158,155 175,158" fill="#B82A20" />
+              <polygon points="165,162 148,159 141,152 158,155" fill="#15489D" />
+              <polygon points="148,159 131,156 124,149 141,152" fill="#B82A20" />
+              <polygon points="131,156 114,153 108,148 124,149" fill="#15489D" />
+            </svg>
+          </div>
+        </div>
+
         <!-- ============================================== -->
-        <!-- STAGE 2: LÁ THƯ TỐT NGHIỆP & THÔNG TIN HƯỚNG DẪN -->
+        <!-- STAGE 2: LÁ THƯ TỐT NGHIỆP KIỂU HỌC TRÒ VIỆT NAM (NOTEBOOK PAPER) -->
         <!-- ============================================== -->
         <div id="letterCardStage" class="hidden transition-all duration-700 space-y-8">
           
-          <!-- Re-seal Envelope Toggle Bar -->
+          <!-- Top Action Bar -->
           <div class="flex items-center justify-between px-1">
             <button 
               type="button"
               id="reSealEnvelopeBtn"
-              class="inline-flex items-center gap-1.5 text-xs font-medium text-navy-muted hover:text-navy-main transition-colors py-1 px-3 rounded-full hover:bg-white/70 border border-transparent hover:border-sky-border"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-navy-main hover:text-tdtu-blue transition-colors py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-white border border-sky-border shadow-2xs"
             >
-              <span>✉️ Đóng phong bì lại</span>
+              <span>✉️ Gấp lại phong bì</span>
             </button>
-            <span class="text-[11px] font-mono text-navy-muted/70">
-              BẢN THƯ CHÍNH THỨC
-            </span>
+
+            <button 
+              type="button"
+              id="replayPaperPlaneBtn"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-tdtu-blue hover:text-navy-dark transition-colors py-1.5 px-3.5 rounded-full bg-sky-50 hover:bg-sky-100 border border-sky-200 shadow-2xs"
+            >
+              <span>✈️ Phóng lại máy bay</span>
+            </button>
           </div>
 
-          <!-- The Masterpiece Invitation Card (LÁ THƯ) -->
-          <div class="invitation-frame rounded-[28px] sm:rounded-[36px] p-4 sm:p-8 md:p-10 max-w-3xl mx-auto">
-            <div class="invitation-inner-border rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 md:p-10 space-y-7 text-center relative overflow-hidden">
-              
-              <!-- Subtle Watermark Cloud Emblem in Background -->
-              <div class="absolute -top-12 -right-12 w-48 h-48 bg-sky-100/50 rounded-full blur-2xl pointer-events-none -z-10"></div>
-              <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-tdtu-goldLight/30 rounded-full blur-2xl pointer-events-none -z-10"></div>
+          <!-- THE AUTHENTIC VIETNAMESE NOTEBOOK LETTER CARD -->
+          <div class="airmail-card max-w-2xl mx-auto">
+            <div class="notebook-paper-vn p-5 sm:p-9 md:p-11 text-left relative overflow-hidden">
 
-              <!-- Card Header: Official TDTU University Identity -->
-              <div class="space-y-3">
-                <div class="flex items-center justify-center">
-                  <img 
-                    src="./tdtu_logo.png" 
-                    alt="Logo chính thức Trường Đại học Tôn Đức Thắng"
-                    class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm"
-                  />
+              <!-- Top Section: Header with stamps and postmarks (like in the image) -->
+              <div class="flex items-start justify-between gap-4 border-b border-sky-200/50 pb-4 relative z-10">
+                
+                <!-- Left: University mark and salutation tag -->
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <img src="./tdtu_logo.png" alt="TDTU" class="w-8 h-8 object-contain">
+                    <div>
+                      <span class="block text-[11px] font-bold text-tdtu-blue uppercase font-body tracking-wider">
+                        ĐẠI HỌC TÔN ĐỨC THẮNG
+                      </span>
+                      <span class="block text-[9.5px] font-mono text-navy-muted uppercase">
+                        THƯ MỜI TỐT NGHIỆP · 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div id="personalizedGuestBadge" class="hidden inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-sky-100 text-navy-dark text-[11px] font-semibold mt-1">
+                    <span>💌 Trân trọng gửi:</span>
+                    <span id="personalizedGuestName" class="font-bold text-tdtu-blue"></span>
+                  </div>
                 </div>
 
-                <div>
-                  <h3 class="text-xs sm:text-sm font-semibold tracking-[0.2em] text-tdtu-blue uppercase font-body whitespace-nowrap">
-                    TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG
-                  </h3>
-                  <p class="text-[10px] sm:text-[11px] tracking-[0.16em] text-navy-muted uppercase font-body mt-0.5 whitespace-nowrap">
-                    TON DUC THANG UNIVERSITY
-                  </p>
+                <!-- Right: Two Postage Stamps & Circular Postmark (Exact replica of user's image) -->
+                <div class="flex items-center gap-1.5 flex-shrink-0 select-none">
+                  
+                  <!-- Postmark (Dấu bưu điện mộc tròn) -->
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center -rotate-12 pointer-events-none opacity-85">
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-tdtu-blue">
+                      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 1.5"/>
+                      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                      <path id="postmarkCircleLetter" d="M 18,50 A 32,32 0 1,1 82,50" fill="none"/>
+                      <text font-family="'Lora', serif" font-size="7" font-weight="bold" letter-spacing="0.1em" fill="currentColor">
+                        <textPath href="#postmarkCircleLetter" startOffset="50%" text-anchor="middle">BƯU ĐIỆN TDTU</textPath>
+                      </text>
+                      <text x="50" y="52" font-family="'Courier New', monospace" font-size="8.5" font-weight="bold" text-anchor="middle" fill="currentColor">17.10.2026</text>
+                      <text x="50" y="65" font-family="'Lora', serif" font-size="6" font-weight="bold" text-anchor="middle" fill="currentColor">TP. HỒ CHÍ MINH</text>
+                      <!-- 3 Wavy cancellation lines -->
+                      <line x1="88" y1="42" x2="115" y2="42" stroke="currentColor" stroke-width="1.2"/>
+                      <line x1="88" y1="50" x2="115" y2="50" stroke="currentColor" stroke-width="1.2"/>
+                      <line x1="88" y1="58" x2="115" y2="58" stroke="currentColor" stroke-width="1.2"/>
+                    </svg>
+                  </div>
+
+                  <!-- Stamp 1: Blue TDTU Stamp -->
+                  <div class="w-11 h-15 sm:w-13 sm:h-17 bg-[#F0F7FD] p-1 border-2 border-dashed border-tdtu-blue/80 rounded shadow-2xs rotate-1 flex flex-col items-center justify-between text-center">
+                    <span class="text-[6.5px] font-bold text-tdtu-blue font-mono uppercase">TDTU</span>
+                    <span class="text-sm sm:text-base">🏛️</span>
+                    <span class="text-[6px] text-navy-muted font-mono font-semibold">1.000đ</span>
+                  </div>
+
+                  <!-- Stamp 2: Red Graduation Cap Stamp -->
+                  <div class="w-11 h-15 sm:w-13 sm:h-17 bg-[#FDF2F0] p-1 border-2 border-dashed border-tdtu-red/80 rounded shadow-2xs -rotate-2 flex flex-col items-center justify-between text-center">
+                    <span class="text-[6.5px] font-bold text-tdtu-red font-mono uppercase">VIỆT NAM</span>
+                    <span class="text-sm sm:text-base">🎓</span>
+                    <span class="text-[6px] text-tdtu-red font-mono font-semibold">2.026đ</span>
+                  </div>
+
                 </div>
 
-                <!-- Decorative Gold Divider Ribbon -->
-                <div class="flex items-center justify-center gap-3 pt-1">
-                  <span class="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent via-tdtu-gold to-tdtu-gold"></span>
-                  <span class="text-tdtu-gold text-xs">✦ 🎓 ✦</span>
-                  <span class="w-12 sm:w-16 h-px bg-gradient-to-l from-transparent via-tdtu-gold to-tdtu-gold"></span>
-                </div>
               </div>
 
-              <!-- Invitation Title -->
-              <div class="space-y-1.5 pt-1">
-                <span class="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-tdtu-blue text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase whitespace-nowrap">
-                  LỄ TỐT NGHIỆP CỬ NHÂN · KHÓA 2022 – 2026
-                </span>
-                <h2 class="font-heading text-2xl sm:text-3xl md:text-[34px] text-navy-dark font-semibold tracking-tight pt-1 [text-wrap:balance]">
-                  THƯ MỜI THAM DỰ LỄ TỐT NGHIỆP
-                </h2>
-              </div>
-
-              <!-- Salutation (Customizable via URL parameters: ?to=..., ?invite=..., ?guest=...) -->
-              <div class="pt-1 text-left sm:text-center space-y-1.5">
-                <div id="personalizedGuestBadge" class="hidden inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-tdtu-goldLight/60 text-navy-dark text-xs font-semibold border border-tdtu-gold/50 shadow-xs">
-                  <span>💌 Trân trọng gửi đến:</span>
-                  <span id="personalizedGuestName" class="font-bold text-tdtu-blue"></span>
-                </div>
-
-                <h4 id="salutationText" class="font-heading text-xl sm:text-2xl font-semibold text-navy-dark [text-wrap:balance]">
+              <!-- Salutation Line (Handwritten) -->
+              <div class="pt-5 pl-1 sm:pl-3">
+                <h4 id="salutationText" class="font-handwriting text-2xl sm:text-3xl text-navy-dark font-bold">
                   Gửi mọi người,
                 </h4>
               </div>
 
-              <!-- Letter Body Text -->
-              <div class="text-navy-main text-sm sm:text-[15px] leading-relaxed space-y-4 font-normal text-left sm:text-justify max-w-xl mx-auto [text-wrap:pretty]">
+              <!-- Letter Body Text (Written on notebook rule lines) -->
+              <div class="text-navy-dark font-handwriting text-lg sm:text-xl md:text-[22px] leading-[32px] sm:leading-[34px] space-y-5 text-left pt-3 pl-1 sm:pl-3">
                 <p>
-                  Vậy là mình cũng sắp hoàn thành chặng đường đại học tại&nbsp;TDTU&nbsp;rồi.
+                  Vậy là chặng đường 4 năm đại học tại Trường Đại học Tôn Đức Thắng (TDTU) của mình cũng sắp hoàn thành rồi.
                 </p>
                 <p>
-                  Nhân dịp này, mình muốn gửi lời mời đến mọi người đến chung vui trong lễ tốt nghiệp của mình. Nếu sắp xếp được thời gian tham dự, mình sẽ rất vui khi được gặp mọi người và cùng lưu lại một kỷ&nbsp;niệm&nbsp;đẹp.
+                  Nhân dịp đặc biệt này, mình muốn gửi lời mời đến mọi người đến chung vui trong ngày Lễ Tốt Nghiệp cử nhân của mình.
                 </p>
                 <p>
-                  Nếu không tiện tham dự thì cũng không sao nhé. Mình vẫn muốn chia sẻ tin vui này với mọi người, như một cách đánh dấu một chặng đường đáng nhớ trong hành trình&nbsp;của&nbsp;mình.
+                  Nếu sắp xếp được thời gian đến tham dự, mình sẽ rất vui khi được gặp mọi người và cùng lưu lại một kỷ niệm đẹp. Còn nếu không tiện tham dự thì cũng không sao, mình vẫn muốn chia sẻ tin vui này với mọi người, như một cách đánh dấu một cột mốc đáng nhớ trong tuổi thanh xuân.
                 </p>
                 <p>
-                  Cảm ơn mọi người đã dành thời gian ghé thăm và đọc lời mời này. Hy vọng sẽ có dịp gặp mọi người trong ngày tốt&nbsp;nghiệp!
+                  Cảm ơn mọi người đã luôn đồng hành và lắng nghe. Hy vọng sẽ được gặp mọi người trong ngày tốt nghiệp nhé!
                 </p>
               </div>
 
-              <!-- Sign-off & Signature with Ceremonial Seal -->
-              <div class="max-w-xl mx-auto flex items-center justify-between pt-3 px-1 sm:px-3 border-t border-sky-border/40">
-                <!-- Ceremonial University Gold Seal -->
-                <div class="flex items-center gap-2.5 select-none">
-                  <div class="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
-                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-sm">
-                      <defs>
-                        <radialGradient id="sealBg" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stop-color="#fff9ea"/>
-                          <stop offset="70%" stop-color="#f5e1ad"/>
-                          <stop offset="100%" stop-color="#d4af37"/>
-                        </radialGradient>
-                        <path id="sealTextCircle" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none"/>
-                      </defs>
-                      <circle cx="50" cy="50" r="46" fill="url(#sealBg)" stroke="#c39738" stroke-width="2"/>
-                      <circle cx="50" cy="50" r="41" fill="none" stroke="#a87d26" stroke-width="0.8" stroke-dasharray="2 1.5"/>
-                      <circle cx="50" cy="50" r="30" fill="none" stroke="#c39738" stroke-width="1"/>
-                      <polygon points="50,38 64,43 50,48 36,43" fill="#0b1736"/>
-                      <path d="M 43,45 L 43,51 Q 50,54 57,51 L 57,45" fill="#0b1736"/>
-                      <line x1="58" y1="45" x2="63" y2="52" stroke="#a87d26" stroke-width="1"/>
-                      <text x="50" y="61" text-anchor="middle" font-family="'Lora', serif" font-weight="700" font-size="7.5" fill="#0b1736" letter-spacing="0.05em">TDTU 2026</text>
-                      <text x="50" y="68" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-weight="600" font-size="4.8" fill="#a87d26" letter-spacing="0.1em">GRADUATE</text>
-                      <text font-size="5.2" font-family="'Be Vietnam Pro', sans-serif" font-weight="600" fill="#75520e" letter-spacing="0.12em">
-                        <textPath href="#sealTextCircle" startOffset="0%">
-                          · TON DUC THANG UNIVERSITY · OFFICIAL INVITATION
-                        </textPath>
-                      </text>
-                    </svg>
+              <!-- Bottom Section with Decorations (Exact replica of user's image) -->
+              <div class="pt-8 sm:pt-10 flex flex-col sm:flex-row items-end justify-between gap-6 border-t border-sky-200/50 mt-6">
+                
+                <!-- Left: Paper airplane drawing & dried pressed flower pinned with washi tape -->
+                <div class="flex items-end gap-5 pl-2 select-none self-start sm:self-auto">
+                  
+                  <!-- Decoration 1: Origami Paper Plane Sketch pinned with tape -->
+                  <div class="relative transform -rotate-3 hover:rotate-0 transition-transform">
+                    <!-- Washi tape -->
+                    <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-amber-200/70 backdrop-blur-xs border border-amber-300/40 rotate-6 shadow-2xs z-10"></div>
+                    <!-- Paper plane sketch drawing -->
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-white/90 p-1.5 rounded-lg border border-sky-border shadow-2xs flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" class="w-full h-full text-tdtu-blue">
+                        <polygon points="50,15 15,85 48,74" fill="#F4FAFE" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                        <polygon points="50,15 85,85 52,74" fill="#EAF5FC" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                        <line x1="50" y1="15" x2="50" y2="88" stroke="#B82A20" stroke-width="1.5" stroke-dasharray="2 1.5" />
+                        <line x1="15" y1="85" x2="30" y2="82" stroke="#B82A20" stroke-width="2" />
+                        <line x1="85" y1="85" x2="70" y2="82" stroke="#15489D" stroke-width="2" />
+                      </svg>
+                    </div>
                   </div>
-                  <div class="hidden sm:block text-left text-[10px] text-navy-muted leading-tight">
-                    <span class="font-bold text-tdtu-blue block">CHỨNG NHẬN TỐT NGHIỆP</span>
-                    <span>Khóa 2022 – 2026 · Cử nhân TDTU</span>
+
+                  <!-- Decoration 2: Pressed Wildflower Stem with Washi Tape -->
+                  <div class="relative transform rotate-6 hover:rotate-0 transition-transform">
+                    <!-- Washi tape -->
+                    <div class="absolute top-8 left-1/2 -translate-x-1/2 w-11 h-3 bg-sky-200/70 backdrop-blur-xs border border-sky-300/40 -rotate-12 shadow-2xs z-10"></div>
+                    <!-- Pressed Flower SVG -->
+                    <div class="w-14 h-24 flex items-center justify-center">
+                      <svg viewBox="0 0 80 120" class="w-full h-full drop-shadow-xs">
+                        <!-- Stem -->
+                        <path d="M 40,115 Q 38,70 42,40 Q 43,25 40,10" fill="none" stroke="#8A6B3D" stroke-width="2.2" stroke-linecap="round" />
+                        <!-- Leaves -->
+                        <path d="M 39,80 Q 25,75 22,65 Q 32,68 39,78" fill="#A48C5B" opacity="0.85" />
+                        <path d="M 41,58 Q 55,53 58,43 Q 48,46 41,56" fill="#A48C5B" opacity="0.85" />
+                        <!-- Pressed Blossom -->
+                        <circle cx="40" cy="18" r="7" fill="#C99738" opacity="0.9" />
+                        <circle cx="40" cy="18" r="3.5" fill="#6B4B18" />
+                        <ellipse cx="40" cy="6" rx="3.5" ry="6" fill="#E8D19F" opacity="0.85" />
+                        <ellipse cx="40" cy="30" rx="3.5" ry="6" fill="#E8D19F" opacity="0.85" />
+                        <ellipse cx="28" cy="18" rx="6" ry="3.5" fill="#E8D19F" opacity="0.85" />
+                        <ellipse cx="52" cy="18" rx="6" ry="3.5" fill="#E8D19F" opacity="0.85" />
+                        <ellipse cx="31" cy="9" rx="4" ry="5.5" transform="rotate(-40 31 9)" fill="#DFBE7E" opacity="0.85" />
+                        <ellipse cx="49" cy="9" rx="4" ry="5.5" transform="rotate(40 49 9)" fill="#DFBE7E" opacity="0.85" />
+                        <ellipse cx="31" cy="27" rx="4" ry="5.5" transform="rotate(40 31 27)" fill="#DFBE7E" opacity="0.85" />
+                        <ellipse cx="49" cy="27" rx="4" ry="5.5" transform="rotate(-40 49 27)" fill="#DFBE7E" opacity="0.85" />
+                      </svg>
+                    </div>
                   </div>
+
                 </div>
 
-                <!-- Sign-off & Signature -->
-                <div class="text-right flex flex-col items-end">
-                  <p class="text-xs text-navy-muted">Thân mến,</p>
-                  <img src="./Sign.png" alt="Chữ ký của Minh" class="h-10 sm:h-12 w-auto object-contain my-0.5 select-none" />
-                  <p class="text-[11px] text-navy-muted font-heading italic whitespace-nowrap">
-                    Nhật Minh · Cử nhân TDTU 2026
+                <!-- Right: Sincere Sign-off & Authentic Signature -->
+                <div class="text-right flex flex-col items-end pr-2">
+                  <p class="font-handwriting text-xl text-navy-muted">Thân mến,</p>
+                  <img src="./Sign.png" alt="Chữ ký của Minh" class="h-12 sm:h-14 w-auto object-contain my-1 select-none drop-shadow-xs" />
+                  <p class="font-heading font-semibold text-xs sm:text-sm text-navy-dark tracking-wide">
+                    Trần Nhật Minh
+                  </p>
+                  <p class="text-[11px] font-mono text-navy-muted">
+                    Cử nhân TDTU · Khóa 2022 – 2026
                   </p>
                 </div>
+
               </div>
 
             </div>
           </div>
+
+        </div>
 
           <!-- ============================================== -->
           <!-- PHẦN THÔNG TIN & HƯỚNG DẪN BÊN DƯỚI (CLEARLY SEPARATED) -->
@@ -1508,29 +1786,102 @@
     }
 
     // ==========================================
-    // INTERACTIVE ENVELOPE OPENING LOGIC
+    // INTERACTIVE PAPER AIRPLANE FLIGHT & LETTER UNROLL LOGIC
     // ==========================================
     const envelopeStage = document.getElementById('envelopeStage');
     const letterCardStage = document.getElementById('letterCardStage');
     const openEnvelopeBtn = document.getElementById('openEnvelopeBtn');
     const envelopeWrapper = document.getElementById('envelopeWrapper');
     const reSealEnvelopeBtn = document.getElementById('reSealEnvelopeBtn');
+    const replayPaperPlaneBtn = document.getElementById('replayPaperPlaneBtn');
+    const flightOverlay = document.getElementById('paperPlaneFlightOverlay');
+    const paperPlaneFlyingActor = document.getElementById('paperPlaneFlyingActor');
     let isEnvelopeOpened = false;
+    let isFlightInProgress = false;
 
-    function openEnvelope(smoothScroll = true) {
-      if (isEnvelopeOpened) return;
-      isEnvelopeOpened = true;
+    function launchPaperPlaneAndOpen(smoothScroll = true) {
+      if (isEnvelopeOpened || isFlightInProgress) return;
+      isFlightInProgress = true;
 
-      if (envelopeStage && letterCardStage) {
+      // Position the flying plane relative to current envelope center
+      if (flightOverlay && paperPlaneFlyingActor && envelopeStage) {
+        const rect = envelopeStage.getBoundingClientRect();
+        const startX = Math.max(10, rect.left + rect.width / 2 - 56);
+        const startY = Math.max(10, rect.top + rect.height / 2 - 56);
+
+        paperPlaneFlyingActor.style.left = `${startX}px`;
+        paperPlaneFlyingActor.style.top = `${startY}px`;
+
+        flightOverlay.classList.remove('hidden');
+        paperPlaneFlyingActor.classList.remove('plane-flying');
+        void paperPlaneFlyingActor.offsetWidth; // force reflow
+        paperPlaneFlyingActor.classList.add('plane-flying');
+
+        // Envelope fades out as plane accelerates upwards
         envelopeStage.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+
         setTimeout(() => {
           envelopeStage.classList.add('hidden');
           letterCardStage.classList.remove('hidden');
-          letterCardStage.classList.add('letter-reveal');
+          letterCardStage.classList.remove('letter-reveal-unfold');
+          void letterCardStage.offsetWidth;
+          letterCardStage.classList.add('letter-reveal-unfold');
+          isEnvelopeOpened = true;
+
           if (smoothScroll) {
             letterCardStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        }, 300);
+        }, 700);
+
+        setTimeout(() => {
+          flightOverlay.classList.add('hidden');
+          paperPlaneFlyingActor.classList.remove('plane-flying');
+          isFlightInProgress = false;
+        }, 1150);
+      } else {
+        openEnvelopeFallback(smoothScroll);
+      }
+    }
+
+    function openEnvelopeFallback(smoothScroll = true) {
+      if (isEnvelopeOpened) return;
+      isEnvelopeOpened = true;
+      if (envelopeStage && letterCardStage) {
+        envelopeStage.classList.add('hidden');
+        letterCardStage.classList.remove('hidden');
+        letterCardStage.classList.add('letter-reveal-unfold');
+        if (smoothScroll) {
+          letterCardStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    function replayPaperPlaneFlight() {
+      if (!isEnvelopeOpened || isFlightInProgress) return;
+      isFlightInProgress = true;
+
+      if (flightOverlay && paperPlaneFlyingActor && letterCardStage) {
+        const rect = letterCardStage.getBoundingClientRect();
+        const startX = Math.max(10, rect.left + rect.width / 2 - 56);
+        const startY = Math.max(10, rect.top + 80);
+
+        paperPlaneFlyingActor.style.left = `${startX}px`;
+        paperPlaneFlyingActor.style.top = `${startY}px`;
+
+        flightOverlay.classList.remove('hidden');
+        paperPlaneFlyingActor.classList.remove('plane-flying');
+        void paperPlaneFlyingActor.offsetWidth;
+        paperPlaneFlyingActor.classList.add('plane-flying');
+
+        letterCardStage.classList.remove('letter-reveal-unfold');
+        void letterCardStage.offsetWidth;
+        letterCardStage.classList.add('letter-reveal-unfold');
+
+        setTimeout(() => {
+          flightOverlay.classList.add('hidden');
+          paperPlaneFlyingActor.classList.remove('plane-flying');
+          isFlightInProgress = false;
+        }, 1150);
       }
     }
 
@@ -1540,6 +1891,7 @@
 
       if (envelopeStage && letterCardStage) {
         letterCardStage.classList.add('hidden');
+        letterCardStage.classList.remove('letter-reveal-unfold');
         envelopeStage.classList.remove('hidden');
         setTimeout(() => {
           envelopeStage.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
@@ -1550,12 +1902,13 @@
 
     openEnvelopeBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      openEnvelope(true);
+      launchPaperPlaneAndOpen(true);
     });
     envelopeWrapper?.addEventListener('click', () => {
-      openEnvelope(true);
+      launchPaperPlaneAndOpen(true);
     });
     reSealEnvelopeBtn?.addEventListener('click', closeEnvelope);
+    replayPaperPlaneBtn?.addEventListener('click', replayPaperPlaneFlight);
 
     // ==========================================
     // PAGE ROUTING & NAVIGATION
@@ -1610,11 +1963,11 @@
     // Secondary buttons navigating to views
     document.getElementById('heroGoToLetterBtn')?.addEventListener('click', () => {
       switchPage('thiep-moi');
-      setTimeout(() => openEnvelope(true), 350);
+      setTimeout(() => launchPaperPlaneAndOpen(true), 350);
     });
     document.getElementById('inlineOpenLetterBtn')?.addEventListener('click', () => {
       switchPage('thiep-moi');
-      setTimeout(() => openEnvelope(true), 350);
+      setTimeout(() => launchPaperPlaneAndOpen(true), 350);
     });
     document.getElementById('heroGoToInfoBtn')?.addEventListener('click', () => switchPage('thong-tin'));
     document.getElementById('cardGoToDirectionsBtn')?.addEventListener('click', () => switchPage('thong-tin'));
