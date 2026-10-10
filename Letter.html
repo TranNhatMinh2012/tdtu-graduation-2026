@@ -495,8 +495,8 @@
   <!-- ========================================== -->
   <!-- GENTLE PAGE LOADER (LOAD TRANG NHẸ NHÀNG) -->
   <!-- ========================================== -->
-  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto">
-    <div class="flex flex-col items-center text-center space-y-3.5 px-4 select-none">
+  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto cursor-pointer">
+    <div class="flex flex-col items-center text-center space-y-3.5 px-4 select-none max-w-sm">
       <!-- Gentle breathing logo -->
       <div class="relative">
         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 shadow-soft flex items-center justify-center p-2.5 animate-pulse">
@@ -519,7 +519,19 @@
       <div class="w-40 h-1 bg-sky-100 rounded-full overflow-hidden mt-1">
         <div class="h-full bg-gradient-to-r from-sky-300 via-tdtu-blue to-sky-300 rounded-full w-full animate-pulse"></div>
       </div>
-      <span class="text-[11px] font-handwriting text-navy-muted text-base">Đang mở lời chào... ☁</span>
+      
+      <!-- Status text & Interactive Touch Prompt -->
+      <div id="loaderStatusPrompt" class="flex flex-col items-center gap-2 pt-1">
+        <span id="loaderStatusText" class="text-[11px] font-handwriting text-navy-muted text-base">Đang mở lời chào... ☁</span>
+        <button 
+          type="button" 
+          id="loaderTouchPromptBtn"
+          class="hidden px-4 py-2 rounded-full text-xs font-semibold bg-white text-tdtu-blue border border-sky-200 shadow-md animate-bounce items-center gap-2 group"
+        >
+          <span>Chạm để mở thiệp & nghe nhạc</span>
+          <span class="group-hover:rotate-12 transition-transform">🎵</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -700,7 +712,7 @@
         <button 
           id="introSwitchTrackBtn"
           type="button"
-          aria-label="Đổi giai điệu nhạc nền (Piano Làn Nước / Hoa Súng Dịu Êm)"
+          aria-label="Đổi giai điệu nhạc nền (Howl's Moving Castle / Hoa Súng Dịu Êm)"
           title="Đổi bài nhạc nền"
           class="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-navy-muted hover:text-tdtu-blue border border-white/80 shadow-[0_8px_20px_rgba(21,72,157,0.18)] backdrop-blur-md transition-all active:scale-95 cursor-pointer text-xs font-bold"
         >
@@ -1915,7 +1927,7 @@
         zaloUrl: "https://zalo.me/0706029499",
       },
       media: {
-        bgmUrl: "./bgm.mp3",           // Track 1: Piano Làn Nước (Heartwarming - Kevin MacLeod)
+        bgmUrl: "./bgm.mp3",           // Track 1: Howl's Moving Castle (Joe Hisaishi - Merry-Go-Round of Life)
         bgmAltUrl: "./bgm_waterlily.mp3", // Track 2: Hoa Súng Dịu Êm (Water Lily - Kevin MacLeod)
         voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
         traditionalPhoto: "./Minh_tradi.jpg", // School / Traditional uniform
@@ -2298,19 +2310,17 @@
     document.getElementById('navHoiUcBtn')?.addEventListener('click', scrollToMemoriesSection);
 
     // Gentle page load transition dismiss
-    function dismissGentleLoader() {
-      const loader = document.getElementById('gentlePageLoader');
-      if (loader) {
-        loader.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => loader.remove(), 750);
-      }
-    }
-
-    if (document.readyState === 'complete') {
-      setTimeout(dismissGentleLoader, 450);
-    } else {
-      window.addEventListener('load', () => setTimeout(dismissGentleLoader, 450));
-      setTimeout(dismissGentleLoader, 2500); // Safety fallback
+    let isLoaderDismissed = false;
+    function dismissGentleLoader(delayMs = 0) {
+      if (isLoaderDismissed) return;
+      setTimeout(() => {
+        const loader = document.getElementById('gentlePageLoader');
+        if (loader && !loader.classList.contains('opacity-0')) {
+          isLoaderDismissed = true;
+          loader.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => loader.remove(), 750);
+        }
+      }, delayMs);
     }
 
     // Listen to hash change (e.g. browser back/forward or shared link)
@@ -2345,8 +2355,8 @@
     // ==========================================
     const BGM_TRACKS = [
       {
-        id: "heartwarming",
-        title: "Piano Làn Nước (Heartwarming)",
+        id: "howls-moving-castle",
+        title: "Howl's Moving Castle (Theme Song)",
         url: SITE_CONFIG.media.bgmUrl
       },
       {
@@ -2535,31 +2545,79 @@
     // AUTOPLAY ON PAGE LOAD & GESTURE FALLBACK
     // ==========================================
     function initAutoplayBgm() {
-      // 1. Attempt immediate autoplay
-      playBgm();
+      const loader = document.getElementById('gentlePageLoader');
+      const touchPromptBtn = document.getElementById('loaderTouchPromptBtn');
+      const loaderStatusText = document.getElementById('loaderStatusText');
 
-      // 2. Seamless fallback: on the very first touch/click/scroll/pointerdown
-      const unlockEvents = ['pointerdown', 'mousedown', 'touchstart', 'touchend', 'click', 'keydown', 'scroll', 'wheel'];
+      // Helper to unlock Web Audio context on iOS Safari
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          const dummyCtx = new AudioCtx();
+          if (dummyCtx.state === 'suspended') {
+            const resumeCtx = () => {
+              dummyCtx.resume();
+              window.removeEventListener('touchend', resumeCtx);
+              window.removeEventListener('click', resumeCtx);
+            };
+            window.addEventListener('touchend', resumeCtx, { once: true });
+            window.addEventListener('click', resumeCtx, { once: true });
+          }
+        }
+      } catch (e) {}
+
+      // 1. Attempt immediate unmuted autoplay
+      const playPromise = bgmAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isBgmPlaying = true;
+          updateBgmUi(true);
+          // Autoplay succeeded immediately! Dismiss loader smoothly
+          dismissGentleLoader(400);
+        }).catch(err => {
+          console.log('Autoplay awaiting user gesture:', err.message);
+          // Browser requires user interaction (typical on mobile Safari & Chrome)
+          if (touchPromptBtn) {
+            touchPromptBtn.classList.remove('hidden');
+            touchPromptBtn.classList.add('inline-flex');
+          }
+          if (loaderStatusText) {
+            loaderStatusText.textContent = "Chạm vào màn hình để bắt đầu ✨";
+          }
+          // Fallback auto dismiss after 3.2s so user is never stuck
+          dismissGentleLoader(3200);
+        });
+      } else {
+        dismissGentleLoader(400);
+      }
+
+      // 2. Seamless user interaction listener: ANY touch or click starts music & dismisses loader
       const unlockAudio = () => {
         if (!isBgmPlaying && !userPausedBgmManually) {
+          userPausedBgmManually = false;
           playBgm();
         }
-        unlockEvents.forEach(evt => {
+        dismissGentleLoader(50);
+        
+        ['click', 'touchend', 'pointerup', 'touchstart', 'mousedown'].forEach(evt => {
           window.removeEventListener(evt, unlockAudio, { capture: true });
           document.removeEventListener(evt, unlockAudio, { capture: true });
         });
       };
 
-      unlockEvents.forEach(evt => {
+      ['click', 'touchend', 'pointerup', 'touchstart', 'mousedown'].forEach(evt => {
         window.addEventListener(evt, unlockAudio, { capture: true, once: true, passive: true });
         document.addEventListener(evt, unlockAudio, { capture: true, once: true, passive: true });
       });
 
-      // Also hook into gentle loader
-      const loader = document.getElementById('gentlePageLoader');
+      // Hook directly to gentle loader
       if (loader) {
-        loader.addEventListener('click', unlockAudio, { once: true });
-        loader.addEventListener('touchstart', unlockAudio, { once: true });
+        loader.addEventListener('click', unlockAudio);
+        loader.addEventListener('touchend', unlockAudio);
+      }
+      if (touchPromptBtn) {
+        touchPromptBtn.addEventListener('click', unlockAudio);
+        touchPromptBtn.addEventListener('touchend', unlockAudio);
       }
     }
 
