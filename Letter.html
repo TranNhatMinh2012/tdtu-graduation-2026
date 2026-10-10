@@ -997,15 +997,69 @@
                 </p>
               </div>
 
-              <!-- Envelope Footer: AIRMAIL / PAR AVION Banner -->
-              <div class="pt-2 border-t border-dashed border-sky-border/70 flex items-center justify-between text-[10px] text-navy-muted font-mono">
-                <div class="flex items-center gap-1.5">
-                  <span class="px-2 py-0.5 rounded border border-tdtu-blue text-tdtu-blue font-bold tracking-widest uppercase">
-                    AIRMAIL · BƯU ĐIỆN TDTU
+              <!-- Envelope Footer: AIRMAIL Jet & Postal Code Boxes (Faithful to reference image) -->
+              <div class="flex items-end justify-between pt-3 border-t border-dashed border-sky-border/70 relative z-10 mt-3">
+                
+                <!-- Bottom-Left: Blue Jet with Cloud Spray and bold red AIRMAIL -->
+                <div class="flex flex-col items-start select-none">
+                  <div class="w-28 sm:w-36 h-12 sm:h-14 relative flex items-center">
+                    <svg viewBox="0 0 160 70" class="w-full h-full text-tdtu-blue">
+                      <!-- Cloud Spray Arc behind tail -->
+                      <g fill="none" stroke="#60A5FA" stroke-width="1.2" stroke-dasharray="1.5 2" opacity="0.85">
+                        <path d="M 12,45 C 10,32 18,20 32,18 C 42,16 50,22 56,28 C 62,25 72,28 76,34" />
+                        <path d="M 18,50 C 16,40 24,30 36,28 C 45,26 52,32 58,38" />
+                        <!-- Cloud bubbles -->
+                        <circle cx="20" cy="38" r="5" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                        <circle cx="28" cy="27" r="7" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                        <circle cx="40" cy="22" r="8" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                        <circle cx="53" cy="24" r="6" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                        <circle cx="64" cy="31" r="5" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                        <circle cx="72" cy="38" r="3.5" fill="#EBF5FF" stroke="#93C5FD" stroke-width="1"/>
+                      </g>
+                      
+                      <!-- Jet Airliner (ascending towards upper right) -->
+                      <g transform="translate(40, 10)">
+                        <!-- Main Fuselage -->
+                        <path d="M 8,28 Q 25,24 60,16 Q 85,10 98,13 Q 92,20 70,26 Q 40,32 15,35 Z" fill="#FFFFFF" stroke="#15489D" stroke-width="1.8" />
+                        <!-- Blue Belly / Bottom stripe -->
+                        <path d="M 15,35 Q 40,32 70,26 Q 78,24 85,20 L 78,25 Q 45,33 16,35 Z" fill="#15489D" />
+                        <!-- Tail Fin -->
+                        <polygon points="12,28 8,10 20,12 24,25" fill="#15489D" stroke="#15489D" stroke-width="1" />
+                        <!-- Cockpit windows -->
+                        <path d="M 90,13 Q 93,14 91,16" stroke="#15489D" stroke-width="2" stroke-linecap="round" />
+                        <!-- Cabin Windows -->
+                        <circle cx="82" cy="18" r="1.1" fill="#15489D" />
+                        <circle cx="75" cy="20" r="1.1" fill="#15489D" />
+                        <circle cx="68" cy="22" r="1.1" fill="#15489D" />
+                        <circle cx="61" cy="24" r="1.1" fill="#15489D" />
+                        <circle cx="54" cy="25" r="1.1" fill="#15489D" />
+                        <circle cx="47" cy="27" r="1.1" fill="#15489D" />
+                        <!-- Wing -->
+                        <polygon points="45,26 30,38 42,39 62,25" fill="#15489D" stroke="#15489D" stroke-width="1" />
+                        <!-- Engine pod -->
+                        <rect x="40" y="32" width="9" height="3.5" rx="1.5" fill="#FFFFFF" stroke="#15489D" stroke-width="1" />
+                      </g>
+                    </svg>
+                  </div>
+                  <!-- Bold Red AIRMAIL label exactly like reference -->
+                  <span class="font-heading font-extrabold text-tdtu-red tracking-[0.25em] text-xs sm:text-sm pl-1 uppercase">
+                    AIRMAIL
                   </span>
-                  <span>✈️</span>
                 </div>
-                <span class="hidden sm:inline text-navy-muted/80">KHÓA 2022 – 2026</span>
+
+                <!-- Bottom-Right: 6 Zip Code Boxes [ 7 ][ 0 ][ 0 ][ 0 ][ 0 ][ 0 ] -->
+                <div class="flex flex-col items-end gap-1 select-none">
+                  <div class="flex items-center gap-1 sm:gap-1.5 font-mono">
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">7</span>
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">0</span>
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">0</span>
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">0</span>
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">0</span>
+                    <span class="w-5 h-6 sm:w-6 sm:h-7 border-2 border-navy-muted/60 rounded flex items-center justify-center font-bold text-navy-dark text-xs sm:text-sm bg-white/60">0</span>
+                  </div>
+                  <span class="text-[9px] font-mono text-navy-muted/70 tracking-wider uppercase">MÃ BƯU CHÍNH · TP.HCM</span>
+                </div>
+
               </div>
 
             </div>
