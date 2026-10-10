@@ -691,7 +691,7 @@
     <div id="view-trang-chu" class="page-view active">
 
       <!-- Floating Glass Audio Widget on Intro Screen (Discreet & Elegant) -->
-      <div id="introAudioWidget" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-40 flex items-center gap-1.5 select-none">
+      <div id="introAudioWidget" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-40 flex items-center select-none">
         <button 
           id="introAudioToggleBtn"
           type="button"
@@ -707,152 +707,72 @@
           </div>
           <span id="introBgmLabel" class="text-[11px] sm:text-xs font-semibold text-navy-dark">Bật nhạc nền 🎵</span>
         </button>
-
-        <!-- Quick Switch Track Button -->
-        <button 
-          id="introSwitchTrackBtn"
-          type="button"
-          aria-label="Đổi giai điệu nhạc nền (Howl's Moving Castle / Hoa Súng Dịu Êm)"
-          title="Đổi bài nhạc nền"
-          class="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-navy-muted hover:text-tdtu-blue border border-white/80 shadow-[0_8px_20px_rgba(21,72,157,0.18)] backdrop-blur-md transition-all active:scale-95 cursor-pointer text-xs font-bold"
-        >
-          ⏭
-        </button>
       </div>
 
       <!-- ======================================================== -->
       <!-- HERO BANNER: CINEMATIC INVITATION POSTER (MINH_MAIN.JPG) -->
       <!-- ======================================================== -->
-      <section class="relative w-full min-h-[100dvh] flex flex-col justify-start pt-12 sm:justify-center sm:pt-0 overflow-hidden select-none">
+      <section class="relative w-full min-h-[100dvh] flex flex-col justify-between sm:justify-center overflow-hidden select-none">
 
-        <!-- 1. Background Image with Responsive Smart Framing (Minh positioned at bottom on mobile to keep face clear) -->
+        <!-- 1. Background Image with Responsive Smart Framing (Minh on campus, natural & authentic) -->
         <div class="absolute inset-0 z-0">
           <img 
             src="./Minh_main.jpg" 
             alt="Minh tại khuôn viên Đại học Tôn Đức Thắng (TDTU)" 
-            class="w-full h-full object-cover object-[72%_88%] sm:object-[64%_center] md:object-center select-none"
+            class="w-full h-full object-cover object-[62%_center] sm:object-[64%_center] md:object-center select-none"
             loading="eager"
           />
 
-          <!-- 2. Gentle Sky Gradient Overlay for Left Typography Readability -->
-          <!-- Desktop: Horizontal gradient from left to transparent -->
+          <!-- Desktop Gradient: Left sky gradient overlay for editorial readability -->
           <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-[#90C6E9]/92 via-[#B0D5EE]/65 via-45% to-transparent pointer-events-none"></div>
-          <!-- Mobile: Vertical top gradient confined to upper sky area so Minh below is completely clear -->
-          <div class="sm:hidden absolute inset-0 bg-gradient-to-b from-[#8EC5E9]/95 via-[#AED5EE]/60 via-38% to-transparent pointer-events-none"></div>
 
-          <!-- 3. Soft Radial Sunlight Aura at Top Left -->
+          <!-- Mobile Gradients: Gentle top sky vignette + bottom dock vignette (Minh in center remains 100% natural and clear) -->
+          <div class="sm:hidden absolute top-0 inset-x-0 h-44 bg-gradient-to-b from-sky-950/40 via-sky-950/15 to-transparent pointer-events-none"></div>
+          <div class="sm:hidden absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-navy-deep/85 via-navy-deep/30 to-transparent pointer-events-none"></div>
+
+          <!-- Soft Radial Sunlight Aura at Top Left -->
           <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/40 rounded-full blur-3xl pointer-events-none"></div>
         </div>
 
-        <!-- 4. RESTRAINED DELICATE CLOUDS (Tiết chế nhẹ cho xinh quanh khung ảnh) -->
-        <div class="absolute inset-0 pointer-events-none z-1 overflow-hidden" aria-hidden="true">
-          
-          <!-- Top-Left Soft Cumulus Cloud Wisp -->
-          <div class="absolute -top-6 -left-10 opacity-80 sm:opacity-90">
-            <svg class="w-64 sm:w-96 h-auto drop-shadow-[0_12px_24px_rgba(91,175,231,0.2)]" viewBox="0 0 380 160" fill="none">
-              <path d="M50 130 C28 130 10 112 10 90 C10 70 24 54 44 51 C52 25 78 8 108 8 C140 8 166 26 174 54 C184 46 198 40 214 40 C242 40 264 62 266 88 C282 90 294 103 294 120 C294 138 280 150 262 150 L58 150 C54 150 50 142 50 130 Z" fill="url(#introCloudTopLeft)"/>
-              <defs>
-                <linearGradient id="introCloudTopLeft" x1="152" y1="8" x2="152" y2="150" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFFFFF" stop-opacity="0.95"/>
-                  <stop offset="0.8" stop-color="#F4FAFE" stop-opacity="0.85"/>
-                  <stop offset="1" stop-color="#CFE6F8" stop-opacity="0.7"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
+        <!-- 2. TOP CONTENT: Typography (On Mobile: Top Sky Area, completely ABOVE Minh's face) -->
+        <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 w-full pt-16 sm:pt-24 pb-4 sm:pb-24">
+          <div class="max-w-xl text-center sm:text-left space-y-1 sm:space-y-6">
 
-          <!-- Bottom-Left Delicate Cloud Wisp -->
-          <div class="absolute -bottom-10 -left-12 opacity-80 sm:opacity-90">
-            <svg class="w-80 sm:w-[440px] h-auto drop-shadow-[0_-8px_24px_rgba(91,175,231,0.18)]" viewBox="0 0 420 180" fill="none">
-              <path d="M70 145 C45 145 25 125 25 100 C25 78 40 60 62 57 C72 28 102 8 138 8 C176 8 208 30 216 64 C228 54 245 48 262 48 C294 48 320 72 323 102 C342 104 358 119 358 138 C358 159 341 175 320 175 L80 175 C75 175 70 162 70 145 Z" fill="url(#introCloudBottomLeft)"/>
-              <defs>
-                <linearGradient id="introCloudBottomLeft" x1="210" y1="8" x2="210" y2="175" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFFFFF" stop-opacity="0.95"/>
-                  <stop offset="0.75" stop-color="#F8FCFF" stop-opacity="0.85"/>
-                  <stop offset="1" stop-color="#D5ECF8" stop-opacity="0.75"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          <!-- Bottom-Right Corner Soft Mist Framing (Doesn't cover Minh) -->
-          <div class="absolute -bottom-8 -right-12 opacity-75 sm:opacity-85">
-            <svg class="w-72 sm:w-[380px] h-auto drop-shadow-[0_-8px_24px_rgba(91,175,231,0.15)]" viewBox="0 0 360 160" fill="none">
-              <path d="M50 130 C30 130 15 114 15 95 C15 78 28 64 45 61 C55 35 80 16 112 16 C144 16 170 34 178 62 C188 54 202 48 218 48 C246 48 268 70 270 96 C285 98 298 111 298 128 C298 145 284 158 266 158 L60 158 C55 158 50 144 50 130 Z" fill="url(#introCloudBottomRight)"/>
-              <defs>
-                <linearGradient id="introCloudBottomRight" x1="156" y1="16" x2="156" y2="158" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFFFFF" stop-opacity="0.9"/>
-                  <stop offset="0.8" stop-color="#F8FCFF" stop-opacity="0.8"/>
-                  <stop offset="1" stop-color="#CDE7F7" stop-opacity="0.65"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          <!-- Subtle Soaring White Birds (Châu ngọc thanh xuân) -->
-          <div class="absolute top-12 left-[32%] sm:left-[28%] opacity-85">
-            <svg class="w-7 h-5 text-white/90 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
-              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
-            </svg>
-          </div>
-          <div class="absolute top-28 left-[48%] sm:left-[42%] opacity-70">
-            <svg class="w-5 h-3.5 text-white/80 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
-              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
-            </svg>
-          </div>
-          <div class="absolute top-8 right-[12%] sm:right-[15%] opacity-75 hidden sm:block">
-            <svg class="w-6 h-4 text-white/85 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
-              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
-            </svg>
-          </div>
-
-          <!-- Subtle Twinkling Sparkles -->
-          <div class="absolute top-[42%] left-[6%] sm:left-[10%] text-white/80 text-sm animate-pulse">✦</div>
-          <div class="absolute top-[58%] left-[4%] sm:left-[7%] text-white/70 text-xs animate-ping">✧</div>
-          <div class="absolute top-[22%] left-[45%] text-white/60 text-xs hidden sm:block">✦</div>
-        </div>
-
-        <!-- 5. TYPOGRAPHY & CALL TO ACTION (Compact & Placed at top on mobile to avoid covering Minh) -->
-        <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 w-full pt-8 pb-4 sm:py-24">
-          <div class="max-w-xl text-left space-y-2 sm:space-y-6">
-
-            <!-- Grand Editorial Title: GRADUATION (Clean, no 'Class of 2026') -->
+            <!-- Grand Editorial Title: GRADUATION -->
             <div class="space-y-0.5 sm:space-y-1">
-              <h1 class="font-heading font-extrabold text-white text-3xl sm:text-6xl lg:text-7xl tracking-[0.08em] drop-shadow-[0_4px_18px_rgba(21,72,157,0.4)] uppercase leading-none">
+              <h1 class="font-heading font-extrabold text-white text-3xl sm:text-6xl lg:text-7xl tracking-[0.08em] drop-shadow-[0_4px_18px_rgba(21,72,157,0.5)] uppercase leading-none">
                 GRADUATION
               </h1>
             </div>
 
             <!-- Elegant Cursive Script: Save the Date -->
             <div class="pt-0.5 sm:pt-1 pb-0.5 sm:pb-1">
-              <span class="font-['Alex_Brush',cursive] text-4xl sm:text-7xl lg:text-8xl text-[#FCE196] drop-shadow-[0_4px_14px_rgba(212,175,55,0.5)] transform -rotate-2 inline-block select-none leading-tight">
+              <span class="font-['Alex_Brush',cursive] text-4xl sm:text-7xl lg:text-8xl text-[#FCE196] drop-shadow-[0_4px_14px_rgba(212,175,55,0.6)] transform -rotate-2 inline-block select-none leading-tight">
                 Save the Date
               </span>
             </div>
 
             <!-- Personalized Recipient Bracket: [TÊN CỦA BẠN] -->
             <div class="pt-0 sm:pt-0.5">
-              <span id="introGuestName" class="font-heading text-lg sm:text-2xl lg:text-3xl text-white font-semibold tracking-wider drop-shadow-[0_2px_12px_rgba(15,35,54,0.45)] inline-block">
+              <span id="introGuestName" class="font-heading text-sm sm:text-2xl lg:text-3xl text-white font-semibold tracking-wider drop-shadow-[0_2px_12px_rgba(15,35,54,0.55)] inline-block">
                 [ GỬI MỌI NGƯỜI ]
               </span>
             </div>
 
-            <!-- Date, Time & Venue Details -->
-            <div class="space-y-0.5 sm:space-y-1 text-white text-xs sm:text-base lg:text-lg font-medium drop-shadow-[0_2px_10px_rgba(15,35,54,0.5)] leading-relaxed">
+            <!-- Date, Time & Venue Details (Desktop view) -->
+            <div class="hidden sm:block space-y-0.5 sm:space-y-1 text-white text-xs sm:text-base lg:text-lg font-medium drop-shadow-[0_2px_10px_rgba(15,35,54,0.5)] leading-relaxed">
               <p class="tracking-wide font-semibold text-white">Thứ Bảy, 17/10/2026 · 10:00 Sáng</p>
               <p class="text-sky-100 font-normal text-[11px] sm:text-sm lg:text-base">Sảnh A · Trường Đại học Tôn Đức Thắng (TDTU)</p>
             </div>
 
-            <!-- CTA Buttons: Mở thiệp mời 💌 & Hồi ức thanh xuân 📸 -->
-            <div class="pt-3 sm:pt-6 flex flex-wrap items-center gap-2.5 sm:gap-4">
+            <!-- CTA Buttons: Desktop View -->
+            <div class="hidden sm:flex pt-3 sm:pt-6 flex-wrap items-center gap-2.5 sm:gap-4">
               <button 
                 type="button" 
                 id="introOpenLetterBtn"
                 class="group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-9 py-2.5 sm:py-3.5 rounded-full text-sm sm:text-base font-semibold text-navy-deep bg-white/95 hover:bg-white backdrop-blur-md border border-white shadow-[0_10px_25px_rgba(21,72,157,0.22),0_0_20px_rgba(255,255,255,0.7)] hover:shadow-[0_16px_36px_rgba(21,72,157,0.32),0_0_30px_rgba(255,255,255,0.95)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
               >
-                <!-- Subtle cloud aura glow -->
                 <span class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-200/60 via-white/50 to-sky-200/60 blur-sm opacity-75 group-hover:opacity-100 transition-opacity"></span>
-                
                 <span class="relative z-10 text-base sm:text-xl group-hover:rotate-12 transition-transform duration-300">💌</span>
                 <span class="relative z-10 font-heading font-bold text-tdtu-blue group-hover:text-navy-deep transition-colors tracking-wide">Mở thiệp mời</span>
                 <span class="relative z-10 text-xs sm:text-sm font-normal text-sky-400 group-hover:translate-x-1 transition-transform">✨</span>
@@ -868,6 +788,36 @@
               </button>
             </div>
 
+          </div>
+        </div>
+
+        <!-- 3. MOBILE FLOATING ACTION DOCK (Placed at bottom, leaving Minh's face 100% visible & unblocked) -->
+        <div class="sm:hidden relative z-20 px-4 pb-6 w-full">
+          <div class="bg-navy-dark/85 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 shadow-[0_12px_36px_rgba(15,35,54,0.4)] text-center space-y-2.5">
+            <!-- Mobile Date & Venue info -->
+            <div class="space-y-0.5 text-white">
+              <p class="font-semibold text-xs tracking-wide text-white">Thứ Bảy, 17/10/2026 · 10:00 Sáng</p>
+              <p class="text-sky-200 text-[10.5px]">Sảnh A · Trường Đại học Tôn Đức Thắng (TDTU)</p>
+            </div>
+            <!-- Mobile Action Buttons -->
+            <div class="flex items-center gap-2 pt-0.5">
+              <button 
+                type="button" 
+                id="introOpenLetterBtnMobile"
+                class="flex-1 py-2.5 px-3 rounded-full text-xs font-bold text-navy-deep bg-white hover:bg-sky-50 shadow-md active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span class="text-sm">💌</span>
+                <span>Mở thiệp mời</span>
+              </button>
+              <button 
+                type="button" 
+                id="introViewMemoriesBtnMobile"
+                class="py-2.5 px-3.5 rounded-full text-xs font-semibold text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-sm active:scale-95 flex items-center justify-center gap-1 cursor-pointer whitespace-nowrap"
+              >
+                <span>Hồi ức 📸</span>
+                <span class="text-[10px] text-sky-300">↓</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1928,8 +1878,7 @@
       },
       media: {
         bgmUrl: "./bgm.mp3",           // Track 1: Howl's Moving Castle (Joe Hisaishi - Merry-Go-Round of Life)
-        bgmAltUrl: "./bgm_waterlily.mp3", // Track 2: Hoa Súng Dịu Êm (Water Lily - Kevin MacLeod)
-        voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
+                voiceUrl: "./Voice.m4a",       // Minh's authentic voice note
         traditionalPhoto: "./Minh_tradi.jpg", // School / Traditional uniform
         sportPhoto: "./Minh_sport.jpg",       // Sport uniform
         logo: "./tdtu_logo.png",
@@ -2307,6 +2256,16 @@
       }, 80);
     }
     document.getElementById('introViewMemoriesBtn')?.addEventListener('click', scrollToMemoriesSection);
+
+    // Mobile Action Dock Button Listeners
+    document.getElementById('introOpenLetterBtnMobile')?.addEventListener('click', () => {
+      if (!isBgmPlaying && !userPausedBgmManually) {
+        playBgm();
+      }
+      switchPage('thiep-moi');
+      setTimeout(() => flyPaperPlaneInFromLeft(), 150);
+    });
+    document.getElementById('introViewMemoriesBtnMobile')?.addEventListener('click', scrollToMemoriesSection);
     document.getElementById('navHoiUcBtn')?.addEventListener('click', scrollToMemoriesSection);
 
     // Gentle page load transition dismiss
@@ -2358,11 +2317,6 @@
         id: "howls-moving-castle",
         title: "Howl's Moving Castle (Theme Song)",
         url: SITE_CONFIG.media.bgmUrl
-      },
-      {
-        id: "waterlily",
-        title: "Hoa Súng Dịu Êm (Water Lily)",
-        url: SITE_CONFIG.media.bgmAltUrl
       }
     ];
     let currentTrackIndex = 0;
