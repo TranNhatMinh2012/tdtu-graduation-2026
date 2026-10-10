@@ -493,9 +493,10 @@
 <body class="film-grain selection:bg-sky-200 selection:text-navy-deep relative flex flex-col min-h-screen overflow-x-hidden">
 
   <!-- ========================================== -->
+  <!-- ========================================== -->
   <!-- GENTLE PAGE LOADER (LOAD TRANG NHẸ NHÀNG) -->
   <!-- ========================================== -->
-  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto cursor-pointer">
+  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto">
     <div class="flex flex-col items-center text-center space-y-3.5 px-4 select-none max-w-sm">
       <!-- Gentle breathing logo -->
       <div class="relative">
@@ -515,23 +516,11 @@
         </h2>
       </div>
 
-      <!-- Soft breathing shimmer bar -->
-      <div class="w-40 h-1 bg-sky-100 rounded-full overflow-hidden mt-1">
-        <div class="h-full bg-gradient-to-r from-sky-300 via-tdtu-blue to-sky-300 rounded-full w-full animate-pulse"></div>
+      <!-- Shimmer loading bar: lướt hết thanh là tự động load vào trang ngay -->
+      <div class="w-48 h-1.5 bg-sky-100 rounded-full overflow-hidden mt-1 relative">
+        <div id="loaderProgressBar" class="h-full bg-gradient-to-r from-sky-400 via-tdtu-blue to-sky-300 rounded-full w-0 transition-all duration-1000 ease-out"></div>
       </div>
-      
-      <!-- Status text & Interactive Touch Prompt -->
-      <div id="loaderStatusPrompt" class="flex flex-col items-center gap-2 pt-1">
-        <span id="loaderStatusText" class="text-[11px] font-handwriting text-navy-muted text-base">Đang mở lời chào... ☁</span>
-        <button 
-          type="button" 
-          id="loaderTouchPromptBtn"
-          class="hidden px-4 py-2 rounded-full text-xs font-semibold bg-white text-tdtu-blue border border-sky-200 shadow-md animate-bounce items-center gap-2 group"
-        >
-          <span>Chạm để mở thiệp & nghe nhạc</span>
-          <span class="group-hover:rotate-12 transition-transform">🎵</span>
-        </button>
-      </div>
+      <span class="text-[11px] font-handwriting text-navy-muted text-base mt-0.5">Đang mở lời chào... ☁</span>
     </div>
   </div>
 
@@ -824,55 +813,97 @@
       </section>
 
       <!-- Section: Đảo Chiều Bố Cục (Dấu ấn tuổi trẻ — Sử dụng ảnh khuôn viên TDTU Minh_campus.jpg) -->
-      <section id="section-hoi-uc" class="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto border-t border-sky-border/50 scroll-mt-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <section id="section-hoi-uc" class="py-14 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto border-t border-sky-border/50 scroll-mt-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          <!-- Left: Hai màu áo thanh xuân (School & Sport Uniforms) -->
-          <div class="lg:col-span-5 order-2 lg:order-1 flex justify-center">
-            <div class="relative max-w-[380px] w-full">
-              <!-- Decorative background card -->
-              <div class="absolute -inset-2 bg-gradient-to-tr from-sky-200 via-white to-amber-100 rounded-3xl transform -rotate-1 opacity-70 -z-10"></div>
+          <!-- Left: Hai màu áo thanh xuân (School Large & Sport Dynamic) -->
+          <div class="lg:col-span-6 order-2 lg:order-1 flex justify-center">
+            <div class="relative max-w-[500px] w-full mx-auto">
+              <!-- Ambient Warm Sunlight Aura -->
+              <div class="absolute -top-8 -right-8 w-80 h-80 bg-gradient-to-bl from-sky-200/50 via-amber-100/40 to-transparent rounded-full blur-2xl -z-10" aria-hidden="true"></div>
               
-              <div class="grid grid-cols-2 gap-3 items-end">
-                <!-- School uniform -->
-                <div class="photo-polaroid p-2 rounded-2xl transform -rotate-2 hover:rotate-0 transition-transform">
-                  <div class="relative overflow-hidden rounded-xl aspect-[3/4.2] bg-sky-card">
-                    <img 
-                      src="./Minh_tradi.jpg" 
-                      alt="Minh trong đồng phục trường TDTU" 
-                      class="w-full h-full object-cover object-top"
-                      loading="lazy"
-                    />
-                    <div class="absolute bottom-1.5 inset-x-1 text-center">
-                      <span class="text-[9px] font-medium text-white bg-navy-dark/75 backdrop-blur-xs px-2 py-0.5 rounded-full inline-block">
-                        Đồng phục trường
+              <!-- Creative Two-Photo Editorial Composition -->
+              <div class="grid grid-cols-12 gap-3 sm:gap-4 items-end">
+                
+                <!-- PHOTO 1 (LARGE & PROMINENT): Áo Sơ Mi Truyền Thống Trường TDTU (Minh_tradi.jpg) -->
+                <div class="col-span-7 relative group transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                  
+                  <!-- Washi Paper Tape Pin Accent -->
+                  <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 bg-sky-200/80 backdrop-blur-xs rounded-sm shadow-xs -rotate-2 z-20 pointer-events-none"></div>
+
+                  <!-- White Polaroid Paper Frame -->
+                  <div class="photo-polaroid p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl shadow-lg border border-sky-border/80">
+                    <div class="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[3/4.2] bg-sky-card">
+                      <img 
+                        src="./Minh_tradi.jpg" 
+                        alt="Minh trong đồng phục truyền thống trường TDTU" 
+                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <!-- Soft bottom gradient vignette for badge contrast -->
+                      <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/65 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+
+                      <!-- Photo Tag Badge -->
+                      <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
+                        <span class="text-[10px] sm:text-[11px] font-semibold tracking-wide bg-navy-dark/75 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20">
+                          Đồng phục trường TDTU
+                        </span>
+                        <span class="text-[10px] font-mono text-sky-200 bg-navy-dark/75 backdrop-blur-md px-2 py-0.5 rounded-full">
+                          TDTU
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Polaroid Handwriting Caption -->
+                    <div class="pt-2.5 px-1 text-center">
+                      <span class="font-handwriting text-sm sm:text-base text-navy-muted">
+                        Thanh xuân dưới giảng đường đầy nắng ✨
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Sport uniform -->
-                <div class="photo-polaroid p-2 rounded-2xl transform rotate-2 hover:rotate-0 transition-transform mb-2">
-                  <div class="relative overflow-hidden rounded-xl aspect-[3/4] bg-sky-card">
-                    <img 
-                      src="./Minh_sport.jpg" 
-                      alt="Minh trong đồng phục thể thao TDTU" 
-                      class="w-full h-full object-cover object-center"
-                      loading="lazy"
-                    />
-                    <div class="absolute bottom-1.5 inset-x-1 text-center">
-                      <span class="text-[9px] font-medium text-white bg-navy-dark/75 backdrop-blur-xs px-2 py-0.5 rounded-full inline-block">
-                        Đồng phục thể thao
+                <!-- PHOTO 2 (DYNAMIC SECONDARY): Áo Đồng Phục Thể Thao TDTU (Minh_sport.jpg) -->
+                <div class="col-span-5 relative group mb-3 sm:mb-5 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                  
+                  <!-- Pushpin Accent -->
+                  <div class="absolute -top-2.5 right-4 w-4 h-4 rounded-full bg-gradient-to-tr from-tdtu-blue to-sky-300 border-2 border-white shadow-xs z-20"></div>
+
+                  <!-- White Polaroid Paper Frame -->
+                  <div class="photo-polaroid p-2 sm:p-2.5 rounded-2xl sm:rounded-3xl shadow-md border border-sky-border/80">
+                    <div class="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[3/3.9] bg-sky-card">
+                      <img 
+                        src="./Minh_sport.jpg" 
+                        alt="Minh trong đồng phục thể thao TDTU" 
+                        class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <!-- Soft bottom gradient vignette -->
+                      <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/65 via-transparent to-transparent opacity-75 pointer-events-none"></div>
+
+                      <!-- Photo Tag Badge -->
+                      <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+                        <span class="text-[9px] sm:text-[10px] font-semibold tracking-wide bg-navy-dark/75 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/20">
+                          Đồng phục thể thao
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Polaroid Handwriting Caption -->
+                    <div class="pt-2 px-0.5 text-center">
+                      <span class="font-handwriting text-xs sm:text-sm text-navy-muted">
+                        Nhiệt huyết & rèn luyện ⚡
                       </span>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
 
           <!-- Right: Narrative Content -->
-          <div class="lg:col-span-7 order-1 lg:order-2 space-y-5 text-center lg:text-left">
+          <div class="lg:col-span-6 order-1 lg:order-2 space-y-5 text-center lg:text-left">
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-tdtu-blue text-xs font-semibold uppercase tracking-wider">
               <span>Hồi Ức Giảng Đường</span>
@@ -904,7 +935,7 @@
               <button 
                 type="button"
                 id="inlineOpenLetterBtn"
-                class="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-tdtu-blue text-white hover:bg-navy-dark shadow-soft transition-all active:scale-95 whitespace-nowrap"
+                class="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-tdtu-blue text-white hover:bg-navy-dark shadow-soft transition-all active:scale-95 whitespace-nowrap cursor-pointer"
               >
                 <span>Xem tấm thiệp tốt nghiệp</span>
                 <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2471,60 +2502,34 @@
     // AUTOPLAY ON PAGE LOAD & GESTURE FALLBACK
     // ==========================================
     function initAutoplayBgm() {
-      const loader = document.getElementById('gentlePageLoader');
-      const touchPromptBtn = document.getElementById('loaderTouchPromptBtn');
-      const loaderStatusText = document.getElementById('loaderStatusText');
+      // 1. Phát nhạc Howl's Moving Castle ngay từ đầu!
+      playBgm();
 
-      // Helper to unlock Web Audio context on iOS Safari
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (AudioCtx) {
-          const dummyCtx = new AudioCtx();
-          if (dummyCtx.state === 'suspended') {
-            const resumeCtx = () => {
-              dummyCtx.resume();
-              window.removeEventListener('touchend', resumeCtx);
-              window.removeEventListener('click', resumeCtx);
-            };
-            window.addEventListener('touchend', resumeCtx, { once: true });
-            window.addEventListener('click', resumeCtx, { once: true });
-          }
-        }
-      } catch (e) {}
-
-      // 1. Attempt immediate unmuted autoplay
-      const playPromise = bgmAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          isBgmPlaying = true;
-          updateBgmUi(true);
-          // Autoplay succeeded immediately! Dismiss loader smoothly
-          dismissGentleLoader(400);
-        }).catch(err => {
-          console.log('Autoplay awaiting user gesture:', err.message);
-          // Browser requires user interaction (typical on mobile Safari & Chrome)
-          if (touchPromptBtn) {
-            touchPromptBtn.classList.remove('hidden');
-            touchPromptBtn.classList.add('inline-flex');
-          }
-          if (loaderStatusText) {
-            loaderStatusText.textContent = "Chạm vào màn hình để bắt đầu ✨";
-          }
-          // Fallback auto dismiss after 3.2s so user is never stuck
-          dismissGentleLoader(3200);
+      // 2. Chạy thanh tiến trình tải nhẹ nhàng (1s) -> lướt hết thanh là tự load vào trang ngay!
+      const progressBar = document.getElementById('loaderProgressBar');
+      if (progressBar) {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            progressBar.style.width = '100%';
+          }, 60);
         });
-      } else {
-        dismissGentleLoader(400);
       }
 
-      // 2. Seamless user interaction listener: ANY touch or click starts music & dismisses loader
+      // Khi lướt hết thanh (sau 1.05s) -> tự động mở trang web mượt mà không cần chờ đợi!
+      setTimeout(() => {
+        dismissGentleLoader(0);
+        if (!isBgmPlaying && !userPausedBgmManually) {
+          playBgm();
+        }
+      }, 1050);
+
+      // Cơ chế bảo đảm âm thanh: bất kỳ cử chỉ lướt/chạm nào trên màn hình cũng mở khóa âm thanh nếu bị trình duyệt chặn
       const unlockAudio = () => {
         if (!isBgmPlaying && !userPausedBgmManually) {
           userPausedBgmManually = false;
           playBgm();
         }
-        dismissGentleLoader(50);
-        
+        dismissGentleLoader(0);
         ['click', 'touchend', 'pointerup', 'touchstart', 'mousedown'].forEach(evt => {
           window.removeEventListener(evt, unlockAudio, { capture: true });
           document.removeEventListener(evt, unlockAudio, { capture: true });
@@ -2536,18 +2541,13 @@
         document.addEventListener(evt, unlockAudio, { capture: true, once: true, passive: true });
       });
 
-      // Hook directly to gentle loader
+      const loader = document.getElementById('gentlePageLoader');
       if (loader) {
         loader.addEventListener('click', unlockAudio);
         loader.addEventListener('touchend', unlockAudio);
       }
-      if (touchPromptBtn) {
-        touchPromptBtn.addEventListener('click', unlockAudio);
-        touchPromptBtn.addEventListener('touchend', unlockAudio);
-      }
     }
-
-    if (document.readyState === 'loading') {
+if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initAutoplayBgm);
     } else {
       initAutoplayBgm();
