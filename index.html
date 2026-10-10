@@ -16,10 +16,10 @@
   <!-- 1. LOCAL FONTS (Zero latency, full offline support, guaranteed 100% Vietnamese glyphs) -->
   <link rel="stylesheet" href="./fonts/local-fonts.css">
 
-  <!-- 2. GOOGLE FONTS CDN (Progressive enhancement with full Vietnamese subsets: Lora, Be Vietnam Pro, Patrick Hand, Dancing Script) -->
+  <!-- 2. GOOGLE FONTS CDN (Progressive enhancement with full Vietnamese subsets: Lora, Be Vietnam Pro, Patrick Hand, Dancing Script, Alex Brush) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Patrick+Hand&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -60,6 +60,7 @@
             body: ['Be Vietnam Pro', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
             handwriting: ['Patrick Hand', 'Dancing Script', 'cursive', 'sans-serif'],
             signature: ['Dancing Script', 'Patrick Hand', 'cursive'],
+            script: ['Alex Brush', 'Dancing Script', 'cursive'],
           },
           boxShadow: {
             'soft': '0 12px 32px -6px rgba(36, 68, 91, 0.12), 0 4px 12px rgba(91, 175, 231, 0.10)',
@@ -492,9 +493,40 @@
 <body class="film-grain selection:bg-sky-200 selection:text-navy-deep relative flex flex-col min-h-screen overflow-x-hidden">
 
   <!-- ========================================== -->
+  <!-- GENTLE PAGE LOADER (LOAD TRANG NHẸ NHÀNG) -->
+  <!-- ========================================== -->
+  <div id="gentlePageLoader" class="fixed inset-0 z-50 bg-[#F4FAFE] flex flex-col items-center justify-center transition-all duration-700 ease-out pointer-events-auto">
+    <div class="flex flex-col items-center text-center space-y-3.5 px-4 select-none">
+      <!-- Gentle breathing logo -->
+      <div class="relative">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 shadow-soft flex items-center justify-center p-2.5 animate-pulse">
+          <img src="./tdtu_logo.png" alt="TDTU Logo" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute -top-1 -right-1 text-base animate-bounce">✨</span>
+      </div>
+      
+      <!-- Gentle greeting text -->
+      <div class="space-y-1">
+        <span class="text-xs font-mono font-semibold text-tdtu-blue tracking-widest uppercase block">
+          TDTU · GRADUATION 2026
+        </span>
+        <h2 class="font-heading text-lg sm:text-xl font-bold text-navy-dark tracking-tight">
+          Lễ Tốt Nghiệp · Trần Nhật Minh
+        </h2>
+      </div>
+
+      <!-- Soft breathing shimmer bar -->
+      <div class="w-40 h-1 bg-sky-100 rounded-full overflow-hidden mt-1">
+        <div class="h-full bg-gradient-to-r from-sky-300 via-tdtu-blue to-sky-300 rounded-full w-full animate-pulse"></div>
+      </div>
+      <span class="text-[11px] font-handwriting text-navy-muted text-base">Đang mở lời chào... ☁</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
   <!-- BACKGROUND: ATMOSPHERIC SKY & SOFT DRIFTING CLOUDS -->
   <!-- ========================================== -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+  <div id="globalBackgroundClouds" class="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden" aria-hidden="true">
     <!-- Sky gradient backdrop -->
     <div class="absolute inset-0 bg-gradient-to-b from-[#E3F2FD] via-[#F4FAFE] to-[#EAF5FC] opacity-95"></div>
 
@@ -560,9 +592,9 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- PERSISTENT TOP NAVIGATION BAR -->
+  <!-- PERSISTENT TOP NAVIGATION BAR (HIDDEN ON INTRO TRANG-CHU) -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-40 py-3 px-3 sm:px-6">
+  <header id="mainAppHeader" class="sticky top-0 z-40 py-3 px-3 sm:px-6 hidden">
     <div class="max-w-5xl mx-auto flex items-center justify-between glass-nav rounded-full px-4 sm:px-5 py-2 shadow-soft">
       
       <!-- Brand & TDTU Monogram -->
@@ -639,196 +671,193 @@
     <!-- ======================================================== -->
     <div id="view-trang-chu" class="page-view active">
 
-      <!-- Hero Section: Centerpiece with School (Large) & Sport (Small) -->
-      <section class="pt-6 sm:pt-14 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- ======================================================== -->
+      <!-- HERO BANNER: CINEMATIC INVITATION POSTER (MINH_MAIN.JPG) -->
+      <!-- ======================================================== -->
+      <section class="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden select-none">
+
+        <!-- 1. Background Image with Responsive Smart Framing -->
+        <div class="absolute inset-0 z-0">
+          <img 
+            src="./Minh_main.jpg" 
+            alt="Minh tại khuôn viên Đại học Tôn Đức Thắng (TDTU)" 
+            class="w-full h-full object-cover object-[68%_center] sm:object-[64%_center] md:object-center select-none"
+            loading="eager"
+          />
+
+          <!-- 2. Gentle Sky Gradient Overlay for Left Typography Readability -->
+          <!-- Desktop: Horizontal gradient from left to transparent -->
+          <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-[#90C6E9]/92 via-[#B0D5EE]/65 via-45% to-transparent pointer-events-none"></div>
+          <!-- Mobile: Vertical gradient from top to transparent -->
+          <div class="sm:hidden absolute inset-0 bg-gradient-to-b from-[#8EC5E9]/95 via-[#AED5EE]/70 via-55% to-transparent pointer-events-none"></div>
+
+          <!-- 3. Soft Radial Sunlight Aura at Top Left -->
+          <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/40 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- 4. RESTRAINED DELICATE CLOUDS (Tiết chế nhẹ cho xinh quanh khung ảnh) -->
+        <div class="absolute inset-0 pointer-events-none z-1 overflow-hidden" aria-hidden="true">
           
-          <!-- Left Column: Hero Narrative & Call to Action -->
-          <div class="lg:col-span-6 space-y-5 text-center lg:text-left order-2 lg:order-1">
-            
-            <!-- Campus Badge / Personalized Guest Tag -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-sky-border shadow-xs text-navy-muted text-[11px] sm:text-xs font-semibold tracking-wider">
-              <span class="w-2 h-2 rounded-full bg-tdtu-blue animate-pulse"></span>
-              <span id="heroBadgeText" class="whitespace-nowrap">TDTU · GRADUATION 2026</span>
-              <span class="text-sky-400">☁</span>
+          <!-- Top-Left Soft Cumulus Cloud Wisp -->
+          <div class="absolute -top-6 -left-10 opacity-80 sm:opacity-90">
+            <svg class="w-64 sm:w-96 h-auto drop-shadow-[0_12px_24px_rgba(91,175,231,0.2)]" viewBox="0 0 380 160" fill="none">
+              <path d="M50 130 C28 130 10 112 10 90 C10 70 24 54 44 51 C52 25 78 8 108 8 C140 8 166 26 174 54 C184 46 198 40 214 40 C242 40 264 62 266 88 C282 90 294 103 294 120 C294 138 280 150 262 150 L58 150 C54 150 50 142 50 130 Z" fill="url(#introCloudTopLeft)"/>
+              <defs>
+                <linearGradient id="introCloudTopLeft" x1="152" y1="8" x2="152" y2="150" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFFFFF" stop-opacity="0.95"/>
+                  <stop offset="0.8" stop-color="#F4FAFE" stop-opacity="0.85"/>
+                  <stop offset="1" stop-color="#CFE6F8" stop-opacity="0.7"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Bottom-Left Delicate Cloud Wisp -->
+          <div class="absolute -bottom-10 -left-12 opacity-80 sm:opacity-90">
+            <svg class="w-80 sm:w-[440px] h-auto drop-shadow-[0_-8px_24px_rgba(91,175,231,0.18)]" viewBox="0 0 420 180" fill="none">
+              <path d="M70 145 C45 145 25 125 25 100 C25 78 40 60 62 57 C72 28 102 8 138 8 C176 8 208 30 216 64 C228 54 245 48 262 48 C294 48 320 72 323 102 C342 104 358 119 358 138 C358 159 341 175 320 175 L80 175 C75 175 70 162 70 145 Z" fill="url(#introCloudBottomLeft)"/>
+              <defs>
+                <linearGradient id="introCloudBottomLeft" x1="210" y1="8" x2="210" y2="175" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFFFFF" stop-opacity="0.95"/>
+                  <stop offset="0.75" stop-color="#F8FCFF" stop-opacity="0.85"/>
+                  <stop offset="1" stop-color="#D5ECF8" stop-opacity="0.75"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Bottom-Right Corner Soft Mist Framing (Doesn't cover Minh) -->
+          <div class="absolute -bottom-8 -right-12 opacity-75 sm:opacity-85">
+            <svg class="w-72 sm:w-[380px] h-auto drop-shadow-[0_-8px_24px_rgba(91,175,231,0.15)]" viewBox="0 0 360 160" fill="none">
+              <path d="M50 130 C30 130 15 114 15 95 C15 78 28 64 45 61 C55 35 80 16 112 16 C144 16 170 34 178 62 C188 54 202 48 218 48 C246 48 268 70 270 96 C285 98 298 111 298 128 C298 145 284 158 266 158 L60 158 C55 158 50 144 50 130 Z" fill="url(#introCloudBottomRight)"/>
+              <defs>
+                <linearGradient id="introCloudBottomRight" x1="156" y1="16" x2="156" y2="158" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFFFFF" stop-opacity="0.9"/>
+                  <stop offset="0.8" stop-color="#F8FCFF" stop-opacity="0.8"/>
+                  <stop offset="1" stop-color="#CDE7F7" stop-opacity="0.65"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Subtle Soaring White Birds (Châu ngọc thanh xuân) -->
+          <div class="absolute top-12 left-[32%] sm:left-[28%] opacity-85">
+            <svg class="w-7 h-5 text-white/90 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
+              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
+            </svg>
+          </div>
+          <div class="absolute top-28 left-[48%] sm:left-[42%] opacity-70">
+            <svg class="w-5 h-3.5 text-white/80 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
+              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
+            </svg>
+          </div>
+          <div class="absolute top-8 right-[12%] sm:right-[15%] opacity-75 hidden sm:block">
+            <svg class="w-6 h-4 text-white/85 drop-shadow-xs" viewBox="0 0 40 25" fill="currentColor">
+              <path d="M 0,14 Q 10,0 20,12 Q 30,0 40,14 Q 28,10 20,20 Q 12,10 0,14 Z"/>
+            </svg>
+          </div>
+
+          <!-- Subtle Twinkling Sparkles -->
+          <div class="absolute top-[42%] left-[6%] sm:left-[10%] text-white/80 text-sm animate-pulse">✦</div>
+          <div class="absolute top-[58%] left-[4%] sm:left-[7%] text-white/70 text-xs animate-ping">✧</div>
+          <div class="absolute top-[22%] left-[45%] text-white/60 text-xs hidden sm:block">✦</div>
+        </div>
+
+        <!-- 5. TYPOGRAPHY & CALL TO ACTION (Inspired by reference mockup) -->
+        <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 w-full py-16 sm:py-24">
+          <div class="max-w-xl text-left space-y-4 sm:space-y-6">
+
+            <!-- Grand Editorial Title: GRADUATION (Clean, no 'Class of 2026') -->
+            <div class="space-y-1">
+              <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-7xl tracking-[0.08em] drop-shadow-[0_4px_18px_rgba(21,72,157,0.4)] uppercase leading-none">
+                GRADUATION
+              </h1>
             </div>
 
-            <!-- Main Editorial Title -->
-            <h1 class="font-heading text-3xl sm:text-4xl lg:text-[44px] text-navy-dark font-medium leading-[1.24] tracking-tight">
-              Một chặng đường,<br class="hidden sm:inline">
-              một dấu mốc <span class="text-tdtu-blue relative inline-block whitespace-nowrap">đáng nhớ<span class="absolute left-0 bottom-1 w-full h-[7px] bg-sky-200/60 -z-10 rounded-full"></span></span>
-            </h1>
-
-            <!-- Personal Opening Reflection -->
-            <p class="text-navy-muted text-sm sm:text-base leading-relaxed max-w-lg mx-auto lg:mx-0 font-normal">
-              “Vậy là những năm tháng đại học của mình cũng sắp khép lại. Mình muốn lưu lại khoảnh khắc này và chia sẻ niềm vui ấy với mọi&nbsp;người.”
-            </p>
-
-            <!-- Handwritten Touch (Patrick Hand with 100% full Vietnamese support) -->
-            <div class="pt-1 flex items-center justify-center lg:justify-start">
-              <span class="font-handwriting text-xl sm:text-2xl text-navy-main/80 transform -rotate-1">
-                ~ cùng Minh lưu lại mùa hạ rực rỡ này&nbsp;nhé&nbsp;🎓
+            <!-- Elegant Cursive Script: Save the Date -->
+            <div class="pt-1 pb-1">
+              <span class="font-['Alex_Brush',cursive] text-5xl sm:text-7xl lg:text-8xl text-[#FCE196] drop-shadow-[0_4px_14px_rgba(212,175,55,0.5)] transform -rotate-2 inline-block select-none leading-tight">
+                Save the Date
               </span>
             </div>
 
-            <!-- Primary Action Buttons -->
-            <div class="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
-              <button 
-                type="button"
-                id="heroGoToLetterBtn"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-sm sm:text-base font-semibold bg-tdtu-blue text-white hover:bg-navy-dark shadow-soft hover:shadow-card transition-all active:scale-95 btn-pulse group whitespace-nowrap"
-              >
-                <svg class="w-5 h-5 text-sky-200 transition-transform group-hover:scale-110 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
-                </svg>
-                <span>Mở thiệp mời</span>
-              </button>
-
-              <button 
-                type="button"
-                id="heroGoToInfoBtn"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-medium text-navy-main bg-white/95 hover:bg-white border border-sky-border shadow-xs hover:border-sky-300 transition-all active:scale-95 whitespace-nowrap"
-              >
-                <svg class="w-4 h-4 text-sky-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>Chỉ dẫn đến trường</span>
-              </button>
+            <!-- Personalized Recipient Bracket: [TÊN CỦA BẠN] -->
+            <div class="pt-0.5">
+              <span id="introGuestName" class="font-heading text-xl sm:text-2xl lg:text-3xl text-white font-semibold tracking-wider drop-shadow-[0_2px_12px_rgba(15,35,54,0.45)] inline-block">
+                [ GỬI MỌI NGƯỜI ]
+              </span>
             </div>
 
-            <!-- Soft Scroll Cue -->
-            <div class="pt-3 flex items-center justify-center lg:justify-start gap-2 text-xs text-navy-muted/70">
-              <span>Cuộn xuống xem câu chuyện thanh xuân</span>
-              <span class="inline-block animate-bounce text-tdtu-blue font-bold">↓</span>
+            <!-- Date, Time & Venue Details -->
+            <div class="space-y-1 text-white text-sm sm:text-base lg:text-lg font-medium drop-shadow-[0_2px_10px_rgba(15,35,54,0.5)] leading-relaxed">
+              <p class="tracking-wide font-semibold text-white">Thứ Bảy, 17/10/2026 · 10:00 Sáng</p>
+              <p class="text-sky-100 font-normal text-xs sm:text-sm lg:text-base">Sảnh A · Trường Đại học Tôn Đức Thắng (TDTU)</p>
             </div>
-          </div>
 
-          <!-- Right Column: School (Large) & Sport (Small) -->
-          <div class="lg:col-span-6 order-1 lg:order-2">
-            <div class="relative max-w-[460px] mx-auto pt-2 sm:pt-4">
-              
-              <!-- Radiant Warm Glow Behind Photos -->
-              <div class="absolute -top-6 -right-6 w-72 h-72 bg-gradient-to-bl from-sky-200/50 via-amber-100/40 to-transparent rounded-full blur-2xl -z-10" aria-hidden="true"></div>
-
-              <!-- Editorial Two-Photo Composition: School (Large) & Sport (Small) -->
-              <div class="grid grid-cols-12 gap-3 sm:gap-4 items-end">
+            <!-- CTA Button: Cloud-Shaped Glass Pill Button (Mở thiệp mời 💌) -->
+            <div class="pt-4 sm:pt-6">
+              <button 
+                type="button" 
+                id="introOpenLetterBtn"
+                class="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-navy-deep bg-white/92 hover:bg-white backdrop-blur-md border border-white shadow-[0_12px_32px_rgba(21,72,157,0.22),0_0_24px_rgba(255,255,255,0.7)] hover:shadow-[0_18px_44px_rgba(21,72,157,0.32),0_0_36px_rgba(255,255,255,0.95)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
+              >
+                <!-- Subtle cloud aura glow -->
+                <span class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-200/60 via-white/50 to-sky-200/60 blur-sm opacity-75 group-hover:opacity-100 transition-opacity"></span>
                 
-                <!-- PHOTO 1 (LARGE): School / Traditional Uniform (Minh_tradi.jpg) -->
-                <div class="col-span-7 relative group transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                  
-                  <!-- Washi Paper Tape Pin -->
-                  <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-sky-200/80 backdrop-blur-xs rounded-sm shadow-xs -rotate-2 z-20 pointer-events-none"></div>
-
-                  <!-- White Polaroid Paper Frame -->
-                  <div class="photo-polaroid p-2 sm:p-2.5 rounded-2xl sm:rounded-3xl">
-                    <div class="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[3/4.2] bg-sky-card">
-                      <img 
-                        src="./Minh_tradi.jpg" 
-                        alt="Minh trong đồng phục trường TDTU (School uniform)"
-                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                        loading="eager"
-                      />
-                      <!-- Soft gradient vignette -->
-                      <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent opacity-80"></div>
-
-                      <!-- Photo Tag Badge -->
-                      <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
-                        <span class="text-[10px] sm:text-[11px] font-medium tracking-wide bg-navy-dark/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20">
-                          Đồng phục trường TDTU
-                        </span>
-                        <span class="text-[10px] font-mono text-sky-200 bg-navy-dark/70 backdrop-blur-md px-2 py-0.5 rounded-full">
-                          TDTU
-                        </span>
-                      </div>
-                    </div>
-
-                    <!-- Polaroid Caption -->
-                    <div class="pt-2 px-1 text-center">
-                      <span class="font-handwriting text-sm sm:text-base text-navy-muted">
-                        Thanh xuân dưới giảng đường đầy nắng ✨
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- PHOTO 2 (SMALL): Sport Uniform (Minh_sport.jpg) -->
-                <div class="col-span-5 relative group mb-4 sm:mb-6 transform rotate-2 hover:rotate-0 transition-transform duration-300">
-                  
-                  <!-- Pushpin Accent -->
-                  <div class="absolute -top-2 right-4 w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-tdtu-blue to-sky-300 border-2 border-white shadow-xs z-20"></div>
-
-                  <!-- White Polaroid Paper Frame -->
-                  <div class="photo-polaroid p-2 rounded-2xl sm:rounded-3xl">
-                    <div class="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[3/3.9] bg-sky-card">
-                      <img 
-                        src="./Minh_sport.jpg" 
-                        alt="Minh trong đồng phục thể thao sinh viên TDTU (Sport uniform)"
-                        class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        loading="eager"
-                      />
-                      <!-- Soft gradient vignette -->
-                      <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent opacity-70"></div>
-
-                      <!-- Photo Tag Badge -->
-                      <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
-                        <span class="text-[9px] sm:text-[10px] font-medium tracking-wide bg-navy-dark/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/20">
-                          Đồng phục thể thao
-                        </span>
-                      </div>
-                    </div>
-
-                    <!-- Polaroid Caption -->
-                    <div class="pt-1.5 px-0.5 text-center">
-                      <span class="font-handwriting text-xs sm:text-sm text-navy-muted">
-                        Nhiệt huyết & rèn luyện ⚡
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Milestone Tag -->
-                  <div class="mt-2 text-center">
-                    <span class="inline-block text-[10px] font-mono text-navy-muted/70 tracking-wider">
-                      #K26 · TDTU · SAIGON
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-
+                <span class="relative z-10 text-xl group-hover:rotate-12 transition-transform duration-300">💌</span>
+                <span class="relative z-10 font-heading font-bold text-tdtu-blue group-hover:text-navy-deep transition-colors tracking-wide">Mở thiệp mời</span>
+                <span class="relative z-10 text-sm font-normal text-sky-400 group-hover:translate-x-1 transition-transform">✨</span>
+              </button>
             </div>
-          </div>
 
+          </div>
         </div>
+
       </section>
 
       <!-- Section: Đảo Chiều Bố Cục (Dấu ấn tuổi trẻ — Sử dụng ảnh khuôn viên TDTU Minh_campus.jpg) -->
       <section class="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto border-t border-sky-border/50">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- Left: Image in Inverted Editorial Layout (Campus View) -->
+          <!-- Left: Hai màu áo thanh xuân (School & Sport Uniforms) -->
           <div class="lg:col-span-5 order-2 lg:order-1 flex justify-center">
-            <div class="relative max-w-[320px] w-full">
+            <div class="relative max-w-[380px] w-full">
               <!-- Decorative background card -->
-              <div class="absolute -inset-2 bg-gradient-to-tr from-sky-200 via-white to-amber-100 rounded-3xl transform -rotate-2 opacity-70 -z-10"></div>
+              <div class="absolute -inset-2 bg-gradient-to-tr from-sky-200 via-white to-amber-100 rounded-3xl transform -rotate-1 opacity-70 -z-10"></div>
               
-              <div class="photo-polaroid p-3 rounded-3xl">
-                <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-sky-card">
-                  <img 
-                    src="./Minh_campus.jpg" 
-                    alt="Khoảnh khắc thanh xuân tại khuôn viên TDTU của Minh" 
-                    class="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
-                  />
-                  <div class="absolute bottom-3 left-3 right-3 text-center">
-                    <span class="text-[11px] font-medium text-white bg-navy-dark/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 inline-block">
-                      Dấu ấn tuổi trẻ · K26
-                    </span>
+              <div class="grid grid-cols-2 gap-3 items-end">
+                <!-- School uniform -->
+                <div class="photo-polaroid p-2 rounded-2xl transform -rotate-2 hover:rotate-0 transition-transform">
+                  <div class="relative overflow-hidden rounded-xl aspect-[3/4.2] bg-sky-card">
+                    <img 
+                      src="./Minh_tradi.jpg" 
+                      alt="Minh trong đồng phục trường TDTU" 
+                      class="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                    <div class="absolute bottom-1.5 inset-x-1 text-center">
+                      <span class="text-[9px] font-medium text-white bg-navy-dark/75 backdrop-blur-xs px-2 py-0.5 rounded-full inline-block">
+                        Đồng phục trường
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div class="pt-3 text-center">
-                  <p class="font-handwriting text-base text-navy-main">
-                    "Khuôn viên TDTU rực rỡ những ngày tháng thanh xuân"
-                  </p>
+
+                <!-- Sport uniform -->
+                <div class="photo-polaroid p-2 rounded-2xl transform rotate-2 hover:rotate-0 transition-transform mb-2">
+                  <div class="relative overflow-hidden rounded-xl aspect-[3/4] bg-sky-card">
+                    <img 
+                      src="./Minh_sport.jpg" 
+                      alt="Minh trong đồng phục thể thao TDTU" 
+                      class="w-full h-full object-cover object-center"
+                      loading="lazy"
+                    />
+                    <div class="absolute bottom-1.5 inset-x-1 text-center">
+                      <span class="text-[9px] font-medium text-white bg-navy-dark/75 backdrop-blur-xs px-2 py-0.5 rounded-full inline-block">
+                        Đồng phục thể thao
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1896,6 +1925,7 @@
       const personalizedGuestBadge = document.getElementById('personalizedGuestBadge');
       const personalizedGuestName = document.getElementById('personalizedGuestName');
       const heroBadgeText = document.getElementById('heroBadgeText');
+      const introGuestName = document.getElementById('introGuestName');
       const pageTitle = document.getElementById('pageTitle');
       const envelopeRecipientName = document.getElementById('envelopeRecipientName');
 
@@ -1913,7 +1943,14 @@
         }
 
         // Update hero badge
-        heroBadgeText.textContent = `TDTU 2026 · DÀNH GỬI ${info.rawName.toUpperCase()}`;
+        if (heroBadgeText) {
+          heroBadgeText.textContent = `TDTU 2026 · DÀNH GỬI ${info.rawName.toUpperCase()}`;
+        }
+
+        // Update intro home guest name [ GỬI TÊN ]
+        if (introGuestName) {
+          introGuestName.textContent = `[ GỬI ${info.rawName.toUpperCase()} ]`;
+        }
 
         // Update document title
         pageTitle.textContent = `Thư Mời Tốt Nghiệp TDTU 2026 · Gửi ${info.rawName} - Minh`;
@@ -1923,7 +1960,12 @@
         if (envelopeRecipientName) {
           envelopeRecipientName.textContent = "Mọi người";
         }
-        heroBadgeText.textContent = "TDTU · GRADUATION 2026";
+        if (heroBadgeText) {
+          heroBadgeText.textContent = "TDTU · GRADUATION 2026";
+        }
+        if (introGuestName) {
+          introGuestName.textContent = "[ GỬI MỌI NGƯỜI ]";
+        }
       }
     }
 
@@ -2094,6 +2136,26 @@
     function switchPage(pageKey, updateHistory = true) {
       if (!views[pageKey]) pageKey = 'trang-chu';
 
+      // Toggle persistent top navigation bar: hidden on trang-chu (clean poster), visible on thiep-moi & thong-tin
+      const mainHeader = document.getElementById('mainAppHeader');
+      if (mainHeader) {
+        if (pageKey === 'trang-chu') {
+          mainHeader.classList.add('hidden');
+        } else {
+          mainHeader.classList.remove('hidden');
+        }
+      }
+
+      // Toggle heavy global drifting clouds: hidden on trang-chu (subdued clouds), visible on other pages
+      const globalClouds = document.getElementById('globalBackgroundClouds');
+      if (globalClouds) {
+        if (pageKey === 'trang-chu') {
+          globalClouds.classList.add('hidden');
+        } else {
+          globalClouds.classList.remove('hidden');
+        }
+      }
+
       // Update views
       Object.keys(views).forEach(key => {
         if (key === pageKey) {
@@ -2134,7 +2196,11 @@
       });
     });
 
-    // Secondary buttons navigating to views
+    // Secondary & Primary buttons navigating to views
+    document.getElementById('introOpenLetterBtn')?.addEventListener('click', () => {
+      switchPage('thiep-moi');
+      setTimeout(() => flyPaperPlaneInFromLeft(), 150);
+    });
     document.getElementById('heroGoToLetterBtn')?.addEventListener('click', () => {
       switchPage('thiep-moi');
       setTimeout(() => flyPaperPlaneInFromLeft(), 150);
@@ -2148,6 +2214,22 @@
     document.querySelectorAll('.back-to-home-btn').forEach(btn => {
       btn.addEventListener('click', () => switchPage('trang-chu'));
     });
+
+    // Gentle page load transition dismiss
+    function dismissGentleLoader() {
+      const loader = document.getElementById('gentlePageLoader');
+      if (loader) {
+        loader.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => loader.remove(), 750);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(dismissGentleLoader, 450);
+    } else {
+      window.addEventListener('load', () => setTimeout(dismissGentleLoader, 450));
+      setTimeout(dismissGentleLoader, 2500); // Safety fallback
+    }
 
     // Listen to hash change (e.g. browser back/forward or shared link)
     window.addEventListener('hashchange', () => {
