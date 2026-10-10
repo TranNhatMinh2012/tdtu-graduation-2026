@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ứng Dụng Quản Lý & Gửi Thiệp Tốt Nghiệp · Minh TDTU 2026</title>
+  <meta name="description" content="Công cụ tạo link cá nhân hóa và quản lý gửi thiệp mời tốt nghiệp TDTU 2026 của Minh.">
+  <link rel="icon" type="image/png" href="./tdtu_logo.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdtu: {
+              blue: '#15489D',
+              dark: '#0e3472',
+              red: '#ED252A',
+              gold: '#D4AF37',
+            },
+            navy: {
+              deep: '#0F2336',
+              dark: '#173042',
+              main: '#24445B',
+              muted: '#536D82',
+              surface: '#F1F7FC',
+            },
+            sky: {
+              50: '#F0F8FD',
+              100: '#E1F2FC',
+              200: '#B9E2FA',
+              border: '#CFE6F8',
+            }
+          },
+          fontFamily: {
+            heading: ['Lora', 'serif'],
+            body: ['Be Vietnam Pro', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Be Vietnam Pro', sans-serif; }
+    .font-heading { font-family: 'Lora', serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#EBF5FB] via-[#F4FAFE] to-[#E3F2FD] min-h-screen text-navy-dark py-6 px-3 sm:px-6">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- HEADER -->
+    <header class="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-7 border border-sky-border shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5 text-center sm:text-left">
+        <img src="./tdtu_logo.png" alt="TDTU" class="w-12 h-12 object-contain flex-shrink-0 drop-shadow-xs">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-sky-100 text-tdtu-blue mb-1">
+            <span>🎓 TDTU GRADUATION 2026</span>
+          </div>
+          <h1 class="font-heading text-xl sm:text-2xl font-bold text-navy-dark leading-tight">
+            Ứng Dụng Quản Lý & Gửi Thiệp Mời
+          </h1>
+          <p class="text-xs text-navy-muted mt-0.5">
+            Dành riêng cho Minh · Tạo link cá nhân hóa & gửi thiệp đến từng khách mời
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a 
+          href="./index.html" 
+          target="_blank" 
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-sky-50 hover:bg-sky-100 text-tdtu-blue border border-sky-border transition-all"
+        >
+          <span>👁️ Mở trang thiệp chính</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- SECTION 1: CẤU HÌNH TÊN MIỀN WEB (GITHUB PAGES / VERCEL / LOCAL) -->
+    <section class="bg-white/95 rounded-3xl p-5 sm:p-6 border border-sky-border shadow-sm space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <label for="baseUrlInput" class="text-xs font-bold uppercase tracking-wider text-navy-muted flex items-center gap-1.5">
+          <span>🌐 Địa chỉ website gốc (Base URL)</span>
+        </label>
+        <span class="text-[11px] text-emerald-600 font-medium" id="domainStatusText">✓ Đang dùng địa chỉ tự động</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2">
+        <input 
+          type="url" 
+          id="baseUrlInput" 
+          placeholder="https://trannhatminh2012.github.io/tdtu-graduation-2026/" 
+          class="flex-1 px-4 py-2.5 rounded-xl border border-sky-border text-xs sm:text-sm font-mono text-navy-dark focus:ring-2 focus:ring-tdtu-blue focus:outline-none bg-sky-50/40"
+        />
+        <button 
+          type="button" 
+          id="saveBaseUrlBtn" 
+          class="px-5 py-2.5 rounded-xl bg-tdtu-blue hover:bg-tdtu-dark text-white text-xs font-semibold transition-all shadow-xs flex-shrink-0"
+        >
+          Lưu tên miền
+        </button>
+      </div>
+      <p class="text-[11px] text-navy-muted leading-relaxed">
+        💡 <strong>Mẹo:</strong> Sau khi bật GitHub Pages hoặc Vercel, hãy dán đường link website của bạn vào đây (ví dụ: <code class="text-tdtu-blue">https://trannhatminh2012.github.io/tdtu-graduation-2026/</code>). Các link tạo bên dưới sẽ tự động gắn theo tên miền này!
+      </p>
+    </section>
+
+    <!-- SECTION 2: TẠO LINK & TIN NHẮN 1-CHẠM -->
+    <section class="bg-white/95 rounded-3xl p-5 sm:p-7 border border-sky-border shadow-sm space-y-5">
+      <div class="border-b border-sky-border/60 pb-3">
+        <h2 class="font-heading text-lg font-bold text-navy-dark">
+          1. Tạo thiệp & tin nhắn cho từng người
+        </h2>
+        <p class="text-xs text-navy-muted">
+          Nhập tên khách mời, chọn nhóm xưng hô phù hợp để tạo ngay tin nhắn và đường link riêng
+        </p>
+      </div>
+
+      <!-- Guest Name & Category -->
+      <div class="space-y-4">
+        <div>
+          <label for="guestNameInput" class="block text-xs font-semibold text-navy-dark mb-1.5">
+            Tên khách mời: <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="guestNameInput" 
+            placeholder="Ví dụ: Thầy Nam, Cô Hương, Lan Anh, Anh Khoa, Gia Đình..." 
+            class="w-full px-4 py-3 rounded-2xl border border-sky-border focus:ring-2 focus:ring-tdtu-blue focus:outline-none text-sm text-navy-dark font-medium shadow-2xs"
+            autofocus
+          />
+        </div>
+
+        <!-- Category Selector -->
+        <div>
+          <span class="block text-xs font-semibold text-navy-dark mb-1.5">
+            Chọn nhóm đối tượng (để tự động đổi cách xưng hô phù hợp):
+          </span>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="categoryRadioGroup">
+            <button type="button" data-cat="ban-be" class="cat-chip active p-2.5 rounded-xl border border-tdtu-blue bg-sky-100 text-tdtu-blue text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+              <span>💙 Bạn bè / Thân thiết</span>
+            </button>
+            <button type="button" data-cat="thay-co" class="cat-chip p-2.5 rounded-xl border border-sky-border bg-white text-navy-muted text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-sky-50 transition-all">
+              <span>🎓 Thầy Cô giáo</span>
+            </button>
+            <button type="button" data-cat="anh-chi" class="cat-chip p-2.5 rounded-xl border border-sky-border bg-white text-navy-muted text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-sky-50 transition-all">
+              <span>🌟 Anh Chị / Tiền bối</span>
+            </button>
+            <button type="button" data-cat="gia-dinh" class="cat-chip p-2.5 rounded-xl border border-sky-border bg-white text-navy-muted text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-sky-50 transition-all">
+              <span>🏡 Gia đình / Người thân</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output Live Preview Box -->
+      <div class="space-y-3 pt-2">
+        <!-- Generated Link Display -->
+        <div class="p-3.5 rounded-2xl bg-sky-50 border border-sky-border space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-navy-muted">🔗 Đường link thiệp riêng:</span>
+            <span class="text-[11px] text-tdtu-blue font-medium" id="salutationBadge">Hiện trên thiệp: "Gửi mọi người,"</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input 
+              type="text" 
+              id="generatedUrlOutput" 
+              readonly 
+              class="w-full bg-white px-3 py-2 rounded-xl border border-sky-border text-xs font-mono text-navy-main select-all focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <!-- Generated Message Display -->
+        <div class="p-4 rounded-2xl bg-white border border-sky-border shadow-2xs space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <label for="customMessageTextarea" class="font-semibold text-navy-dark">
+              💬 Lời nhắn gửi kèm (có thể chỉnh sửa trực tiếp):
+            </label>
+            <span class="text-[11px] text-navy-muted">Dán gửi Zalo / Messenger</span>
+          </div>
+          <textarea 
+            id="customMessageTextarea" 
+            rows="4" 
+            class="w-full p-3 rounded-xl border border-sky-border text-xs sm:text-sm text-navy-main leading-relaxed focus:ring-2 focus:ring-tdtu-blue focus:outline-none resize-none bg-sky-50/30"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 pt-2">
+        <button 
+          type="button" 
+          id="copyMessageBtn" 
+          class="sm:col-span-2 py-3 px-4 rounded-full bg-tdtu-blue hover:bg-tdtu-dark text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-soft transition-all active:scale-95"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span id="copyMessageBtnText">📋 Sao chép Lời Nhắn + Link</span>
+        </button>
+
+        <button 
+          type="button" 
+          id="copyLinkOnlyBtn" 
+          class="py-3 px-3 rounded-full bg-white hover:bg-sky-50 border border-sky-border text-navy-dark text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-2xs"
+        >
+          <span id="copyLinkOnlyBtnText">🔗 Chỉ chép link</span>
+        </button>
+
+        <a 
+          id="previewLinkBtn" 
+          href="./index.html#thiep-moi" 
+          target="_blank" 
+          class="py-3 px-3 rounded-full bg-sky-50 hover:bg-sky-100 border border-sky-border text-tdtu-blue text-xs font-semibold flex items-center justify-center gap-1.5 transition-all text-center"
+        >
+          <span>👁️ Xem thử thiệp</span>
+        </a>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button 
+          type="button" 
+          id="addGuestToListBtn" 
+          class="text-xs font-semibold text-tdtu-blue hover:text-tdtu-dark inline-flex items-center gap-1 hover:underline"
+        >
+          <span>➕ Lưu người này vào Danh sách khách mời bên dưới</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- SECTION 3: DANH SÁCH KHÁCH MỜI & TIẾN ĐỘ GỬI -->
+    <section class="bg-white/95 rounded-3xl p-5 sm:p-7 border border-sky-border shadow-sm space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-sky-border/60 pb-4">
+        <div>
+          <h2 class="font-heading text-lg font-bold text-navy-dark flex items-center gap-2">
+            <span>2. Danh sách khách mời của Minh</span>
+            <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-sky-100 text-tdtu-blue" id="guestCountBadge">0 khách</span>
+          </h2>
+          <p class="text-xs text-navy-muted mt-0.5">
+            Dữ liệu tự động lưu trên trình duyệt của bạn (không mất khi tải lại trang)
+          </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="flex items-center gap-2 text-xs">
+          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200" id="statsSent">
+            Đã gửi: 0
+          </span>
+          <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold border border-amber-200" id="statsPending">
+            Chưa gửi: 0
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick Search & Batch Add -->
+      <div class="flex flex-col sm:flex-row gap-2.5 items-center justify-between">
+        <div class="relative w-full sm:w-72">
+          <input 
+            type="text" 
+            id="searchGuestInput" 
+            placeholder="Tìm theo tên khách..." 
+            class="w-full pl-9 pr-3 py-2 rounded-xl border border-sky-border text-xs text-navy-dark focus:outline-none focus:ring-2 focus:ring-tdtu-blue bg-sky-50/30"
+          />
+          <svg class="w-4 h-4 text-navy-muted absolute left-3 top-2.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <button 
+            type="button" 
+            id="openBatchAddModalBtn" 
+            class="px-3 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-tdtu-blue text-xs font-semibold border border-sky-border transition-colors"
+          >
+            ➕ Thêm nhiều người cùng lúc
+          </button>
+          <button 
+            type="button" 
+            id="exportGuestsBtn" 
+            class="px-3 py-2 rounded-xl bg-white hover:bg-sky-50 text-navy-main text-xs font-semibold border border-sky-border transition-colors"
+            title="Xuất file văn bản danh sách khách"
+          >
+            📥 Xuất danh sách
+          </button>
+        </div>
+      </div>
+
+      <!-- Guest Table / Cards -->
+      <div class="overflow-x-auto rounded-2xl border border-sky-border">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-sky-50/80 text-navy-muted font-semibold border-b border-sky-border">
+              <th class="py-3 px-4">Tên khách mời</th>
+              <th class="py-3 px-3">Nhóm</th>
+              <th class="py-3 px-3">Trạng thái</th>
+              <th class="py-3 px-4 text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="guestTableBody" class="divide-y divide-sky-border/60 bg-white">
+            <!-- Dynamic rows will render here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyListNotice" class="text-center py-8 text-navy-muted text-xs space-y-2 hidden">
+        <p class="text-2xl">💌</p>
+        <p>Chưa có ai trong danh sách. Hãy nhập tên ở mục 1 và bấm <strong>"Lưu vào danh sách"</strong> nhé!</p>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-navy-muted/70 py-4">
+      <p>© 2026 Minh · Bộ công cụ thiệp mời tốt nghiệp TDTU 2026</p>
+    </footer>
+
+  </div>
+
+  <!-- BATCH ADD MODAL -->
+  <div id="batchAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-dark/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-sky-border shadow-xl space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="font-heading font-bold text-base text-navy-dark">Thêm nhiều khách mời cùng lúc</h3>
+        <button type="button" id="closeBatchModalBtn" class="text-navy-muted hover:text-navy-dark text-lg font-bold">✕</button>
+      </div>
+      <p class="text-xs text-navy-muted">
+        Nhập danh sách tên khách mời, mỗi người trên 1 dòng:
+      </p>
+      <textarea 
+        id="batchTextarea" 
+        rows="6" 
+        placeholder="Thầy Hoàng&#10;Cô Mai&#10;Lan Anh&#10;Anh Quốc Huy&#10;Bạn Thân" 
+        class="w-full p-3 rounded-xl border border-sky-border text-xs text-navy-dark font-mono focus:ring-2 focus:ring-tdtu-blue focus:outline-none"
+      ></textarea>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" id="cancelBatchBtn" class="px-4 py-2 rounded-xl text-xs font-semibold text-navy-muted hover:bg-sky-50">Hủy</button>
+        <button type="button" id="saveBatchBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-tdtu-blue text-white hover:bg-tdtu-dark shadow-xs">Thêm vào danh sách</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIC SCRIPT -->
+  <script>
+    // ==========================================
+    // DATA & STATE
+    // ==========================================
+    const DEFAULT_BASE_URL = window.location.origin + window.location.pathname.replace('gui-thiep.html', '').replace('send.html', '');
+    let baseUrl = localStorage.getItem('minh_grad_base_url') || DEFAULT_BASE_URL;
+    let currentCategory = 'ban-be';
+    let guests = JSON.parse(localStorage.getItem('minh_grad_guest_list') || '[]');
+
+    // Sample default list if totally empty on first visit
+    if (guests.length === 0) {
+      guests = [
+        { id: 1, name: "Thầy Nam", category: "thay-co", sent: false, note: "" },
+        { id: 2, name: "Lan Anh", category: "ban-be", sent: true, note: "" },
+        { id: 3, name: "Gia Đình", category: "gia-dinh", sent: false, note: "" },
+      ];
+      localStorage.setItem('minh_grad_guest_list', JSON.stringify(guests));
+    }
+
+    // ==========================================
+    // DOM ELEMENTS
+    // ==========================================
+    const baseUrlInput = document.getElementById('baseUrlInput');
+    const saveBaseUrlBtn = document.getElementById('saveBaseUrlBtn');
+    const guestNameInput = document.getElementById('guestNameInput');
+    const catChips = document.querySelectorAll('.cat-chip');
+    const generatedUrlOutput = document.getElementById('generatedUrlOutput');
+    const salutationBadge = document.getElementById('salutationBadge');
+    const customMessageTextarea = document.getElementById('customMessageTextarea');
+    const copyMessageBtn = document.getElementById('copyMessageBtn');
+    const copyMessageBtnText = document.getElementById('copyMessageBtnText');
+    const copyLinkOnlyBtn = document.getElementById('copyLinkOnlyBtn');
+    const copyLinkOnlyBtnText = document.getElementById('copyLinkOnlyBtnText');
+    const previewLinkBtn = document.getElementById('previewLinkBtn');
+    const addGuestToListBtn = document.getElementById('addGuestToListBtn');
+    const guestTableBody = document.getElementById('guestTableBody');
+    const emptyListNotice = document.getElementById('emptyListNotice');
+    const guestCountBadge = document.getElementById('guestCountBadge');
+    const statsSent = document.getElementById('statsSent');
+    const statsPending = document.getElementById('statsPending');
+    const searchGuestInput = document.getElementById('searchGuestInput');
+
+    // Batch Modal Elements
+    const batchAddModal = document.getElementById('batchAddModal');
+    const openBatchAddModalBtn = document.getElementById('openBatchAddModalBtn');
+    const closeBatchModalBtn = document.getElementById('closeBatchModalBtn');
+    const cancelBatchBtn = document.getElementById('cancelBatchBtn');
+    const saveBatchBtn = document.getElementById('saveBatchBtn');
+    const batchTextarea = document.getElementById('batchTextarea');
+    const exportGuestsBtn = document.getElementById('exportGuestsBtn');
+
+    // ==========================================
+    // TEMPLATE MESSAGES BY CATEGORY
+    // ==========================================
+    function getMessageTemplate(name, cat, link) {
+      const cleanName = name ? name.trim() : "mọi người";
+      
+      if (cat === 'thay-co') {
+        return `Kính gửi ${cleanName},\n\nEm là Minh đây ạ. Vậy là sau 4 năm học tập và rèn luyện tại Trường Đại học Tôn Đức Thắng (TDTU), em cũng sắp hoàn thành chương trình học và chính thức nhận bằng Cử nhân.\n\nNhân dịp này, em xin trân trọng gửi tấm thiệp mời dự Lễ Tốt Nghiệp đến ${cleanName}:\n👉 ${link}\n\n⏰ Thời gian mời: 10:00 sáng, Thứ Bảy 17/10/2026\n📍 Địa điểm: Sảnh A · Trường Đại học Tôn Đức Thắng (19 Nguyễn Hữu Thọ, Q.7)\n\nNếu sắp xếp được thời gian, em rất vinh dự và mong được chụp với ${cleanName} một tấm hình kỷ niệm ạ!\n\nEm xin chân thành cảm ơn ${cleanName}!`;
+      } 
+      else if (cat === 'anh-chi') {
+        return `Dạ em chào ${cleanName},\n\nEm là Minh đây ạ. Chặng đường 4 năm đại học tại TDTU của em cũng sắp sửa khép lại với cột mốc tốt nghiệp cử nhân sắp tới.\n\nEm xin gửi ${cleanName} tấm thiệp mời dự lễ tốt nghiệp của em ạ:\n👉 ${link}\n\n⏰ Thời gian: 10:00 sáng, Thứ Bảy 17/10/2026\n📍 Địa điểm: Sảnh A · ĐH Tôn Đức Thắng (19 Nguyễn Hữu Thọ, Q.7)\n\nNếu tiện sắp xếp thời gian ghé qua, em sẽ rất vui khi được gặp và chụp ảnh kỷ niệm cùng ${cleanName} nhé ạ! Em cảm ơn ${cleanName} nhiều!`;
+      }
+      else if (cat === 'gia-dinh') {
+        return `Dạ con/cháu gửi ${cleanName},\n\nSau 4 năm học tập tại Trường Đại học Tôn Đức Thắng, con/cháu cũng sắp chính thức tốt nghiệp cử nhân rồi ạ. Đây là một dấu mốc rất quan trọng và đáng nhớ đối với con/cháu.\n\nCon/cháu xin gửi tấm thiệp mời dự lễ tốt nghiệp đến ${cleanName}:\n👉 ${link}\n\n⏰ Thời gian: 10:00 sáng, Thứ Bảy 17/10/2026\n📍 Địa điểm: Sảnh A · Trường ĐH Tôn Đức Thắng (19 Nguyễn Hữu Thọ, Q.7)\n\nCon/cháu rất mong được đón tiếp và chụp ảnh kỷ niệm cùng ${cleanName} trong ngày vui này ạ!`;
+      }
+      else {
+        // Default: ban-be
+        return `Hello ${cleanName},\n\nVậy là 4 năm đại học tại TDTU của mình cũng sắp khép lại rồi. Mình gửi bạn tấm thiệp mời dự Lễ Tốt Nghiệp cử nhân của mình nhé:\n👉 ${link}\n\n⏰ Thời gian: 10:00 sáng, Thứ Bảy 17/10/2026\n📍 Địa điểm: Sảnh A · Trường Đại học Tôn Đức Thắng (19 Nguyễn Hữu Thọ, Tân Phong, Q.7)\n🎓 Tốt nghiệp xong cùng ra check-in chụp hình kỷ niệm nhé!\n\nNếu bận không ghé được cũng không sao, mình vẫn muốn chia sẻ tin vui này đến bạn. Hẹn sớm gặp bạn nha!`;
+      }
+    }
+
+    // ==========================================
+    // URL BUILDER
+    // ==========================================
+    function buildGuestLink(name) {
+      let root = baseUrl.trim();
+      if (!root.endsWith('/') && !root.includes('.html')) {
+        root += '/';
+      }
+      if (root.endsWith('gui-thiep.html') || root.endsWith('send.html')) {
+        root = root.replace(/gui-thiep\.html|send\.html/, '');
+      }
+
+      if (!name || !name.trim()) {
+        return `${root}#thiep-moi`;
+      }
+      const param = encodeURIComponent(name.trim());
+      return `${root}?to=${param}#thiep-moi`;
+    }
+
+    // ==========================================
+    // UI REFRESH
+    // ==========================================
+    function updateGeneratorPreview() {
+      const name = guestNameInput.value.trim();
+      const link = buildGuestLink(name);
+      generatedUrlOutput.value = link;
+      previewLinkBtn.href = link;
+
+      if (!name) {
+        salutationBadge.textContent = 'Hiện trên thiệp: "Gửi mọi người,"';
+      } else {
+        const lower = name.toLowerCase();
+        if (lower.startsWith('gửi') || lower.startsWith('kính gửi') || lower.startsWith('thân gửi')) {
+          salutationBadge.textContent = `Hiện trên thiệp: "${name},"`;
+        } else {
+          salutationBadge.textContent = `Hiện trên thiệp: "Gửi ${name},"`;
+        }
+      }
+
+      customMessageTextarea.value = getMessageTemplate(name, currentCategory, link);
+    }
+
+    // Category Selector
+    catChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        catChips.forEach(c => {
+          c.classList.remove('active', 'border-tdtu-blue', 'bg-sky-100', 'text-tdtu-blue');
+          c.classList.add('border-sky-border', 'bg-white', 'text-navy-muted');
+        });
+        chip.classList.add('active', 'border-tdtu-blue', 'bg-sky-100', 'text-tdtu-blue');
+        chip.classList.remove('border-sky-border', 'bg-white', 'text-navy-muted');
+        currentCategory = chip.getAttribute('data-cat');
+        updateGeneratorPreview();
+      });
+    });
+
+    guestNameInput.addEventListener('input', updateGeneratorPreview);
+
+    // Copy Message Button
+    copyMessageBtn.addEventListener('click', () => {
+      const msg = customMessageTextarea.value;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(msg).then(() => {
+          copyMessageBtnText.textContent = "✓ Đã sao chép lời nhắn!";
+          setTimeout(() => {
+            copyMessageBtnText.textContent = "📋 Sao chép Lời Nhắn + Link";
+          }, 2000);
+        });
+      }
+    });
+
+    // Copy Link Only
+    copyLinkOnlyBtn.addEventListener('click', () => {
+      const link = generatedUrlOutput.value;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(link).then(() => {
+          copyLinkOnlyBtnText.textContent = "✓ Đã chép link!";
+          setTimeout(() => {
+            copyLinkOnlyBtnText.textContent = "🔗 Chỉ chép link";
+          }, 2000);
+        });
+      }
+    });
+
+    // Save Base URL
+    saveBaseUrlBtn.addEventListener('click', () => {
+      const val = baseUrlInput.value.trim();
+      if (val) {
+        baseUrl = val;
+        localStorage.setItem('minh_grad_base_url', baseUrl);
+        updateGeneratorPreview();
+        renderGuestTable();
+        const orig = saveBaseUrlBtn.textContent;
+        saveBaseUrlBtn.textContent = "✓ Đã lưu!";
+        setTimeout(() => saveBaseUrlBtn.textContent = orig, 1800);
+      }
+    });
+
+    // ==========================================
+    // GUEST LIST MANAGEMENT
+    // ==========================================
+    function saveGuestList() {
+      localStorage.setItem('minh_grad_guest_list', JSON.stringify(guests));
+      renderGuestTable();
+    }
+
+    function addSingleGuest(name, category = 'ban-be') {
+      if (!name || !name.trim()) return;
+      guests.push({
+        id: Date.now() + Math.random(),
+        name: name.trim(),
+        category: category,
+        sent: false,
+        note: ""
+      });
+      saveGuestList();
+    }
+
+    addGuestToListBtn.addEventListener('click', () => {
+      const name = guestNameInput.value.trim();
+      if (!name) {
+        alert("Vui lòng nhập tên khách mời trước khi lưu!");
+        guestNameInput.focus();
+        return;
+      }
+      addSingleGuest(name, currentCategory);
+      guestNameInput.value = "";
+      updateGeneratorPreview();
+      guestNameInput.focus();
+    });
+
+    function getCategoryBadge(cat) {
+      switch (cat) {
+        case 'thay-co': return '<span class="px-2 py-0.5 rounded-full text-[10px] bg-purple-50 text-purple-700 font-semibold border border-purple-200">🎓 Thầy Cô</span>';
+        case 'anh-chi': return '<span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-50 text-amber-700 font-semibold border border-amber-200">🌟 Anh Chị</span>';
+        case 'gia-dinh': return '<span class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">🏡 Gia Đình</span>';
+        default: return '<span class="px-2 py-0.5 rounded-full text-[10px] bg-sky-50 text-tdtu-blue font-semibold border border-sky-200">💙 Bạn Bè</span>';
+      }
+    }
+
+    function renderGuestTable() {
+      const query = (searchGuestInput.value || "").toLowerCase().trim();
+      const filtered = guests.filter(g => g.name.toLowerCase().includes(query));
+
+      guestTableBody.innerHTML = "";
+
+      let sentCount = 0;
+      guests.forEach(g => { if (g.sent) sentCount++; });
+      guestCountBadge.textContent = `${guests.length} khách`;
+      statsSent.textContent = `Đã gửi: ${sentCount}`;
+      statsPending.textContent = `Chưa gửi: ${guests.length - sentCount}`;
+
+      if (filtered.length === 0) {
+        emptyListNotice.classList.remove('hidden');
+      } else {
+        emptyListNotice.classList.add('hidden');
+      }
+
+      filtered.forEach(guest => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-sky-50/50 transition-colors";
+        const link = buildGuestLink(guest.name);
+        const fullMessage = getMessageTemplate(guest.name, guest.category, link);
+
+        row.innerHTML = `
+          <td class="py-3 px-4 font-semibold text-navy-dark">
+            ${guest.name}
+          </td>
+          <td class="py-3 px-3">
+            ${getCategoryBadge(guest.category)}
+          </td>
+          <td class="py-3 px-3">
+            <button 
+              type="button" 
+              onclick="toggleGuestStatus('${guest.id}')"
+              class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${guest.sent ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-gray-100 text-navy-muted hover:bg-gray-200'}"
+            >
+              <span>${guest.sent ? '✓ Đã gửi' : '⏳ Chưa gửi'}</span>
+            </button>
+          </td>
+          <td class="py-3 px-4 text-right space-x-1">
+            <button 
+              type="button" 
+              title="Sao chép lời nhắn của người này"
+              onclick="copyGuestMessage('${encodeURIComponent(guest.name)}', '${guest.category}')"
+              class="p-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-tdtu-blue transition-colors text-xs inline-flex items-center"
+            >
+              📋 Chép tin
+            </button>
+            <a 
+              href="${link}" 
+              target="_blank" 
+              title="Mở xem thử thiệp của người này"
+              class="p-1.5 rounded-lg bg-white border border-sky-border hover:bg-sky-50 text-navy-dark transition-colors text-xs inline-flex items-center"
+            >
+              👁️ Xem
+            </a>
+            <button 
+              type="button" 
+              title="Xóa người này khỏi danh sách"
+              onclick="deleteGuest('${guest.id}')"
+              class="p-1.5 rounded-lg hover:bg-red-50 text-red-500 transition-colors text-xs inline-flex items-center"
+            >
+              🗑️
+            </button>
+          </td>
+        `;
+        guestTableBody.appendChild(row);
+      });
+    }
+
+    window.toggleGuestStatus = function(id) {
+      const g = guests.find(item => item.id == id);
+      if (g) {
+        g.sent = !g.sent;
+        saveGuestList();
+      }
+    };
+
+    window.deleteGuest = function(id) {
+      if (confirm("Bạn có chắc muốn xóa khách mời này khỏi danh sách?")) {
+        guests = guests.filter(item => item.id != id);
+        saveGuestList();
+      }
+    };
+
+    window.copyGuestMessage = function(encName, cat) {
+      const name = decodeURIComponent(encName);
+      const link = buildGuestLink(name);
+      const msg = getMessageTemplate(name, cat, link);
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(msg).then(() => {
+          alert(`✓ Đã sao chép tin nhắn mời cho "${name}"!\nBạn có thể dán ngay vào Zalo hoặc Messenger.`);
+        });
+      }
+    };
+
+    searchGuestInput.addEventListener('input', renderGuestTable);
+
+    // ==========================================
+    // BATCH ADD MODAL LOGIC
+    // ==========================================
+    openBatchAddModalBtn.addEventListener('click', () => {
+      batchAddModal.classList.remove('opacity-0', 'pointer-events-none');
+      batchTextarea.value = "";
+      batchTextarea.focus();
+    });
+
+    function closeBatchModal() {
+      batchAddModal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    closeBatchModalBtn.addEventListener('click', closeBatchModal);
+    cancelBatchBtn.addEventListener('click', closeBatchModal);
+
+    saveBatchBtn.addEventListener('click', () => {
+      const lines = batchTextarea.value.split('\n');
+      let count = 0;
+      lines.forEach(line => {
+        const name = line.trim();
+        if (name) {
+          addSingleGuest(name, 'ban-be');
+          count++;
+        }
+      });
+      closeBatchModal();
+      alert(`Đã thêm thành công ${count} khách mời vào danh sách!`);
+    });
+
+    // Export List
+    exportGuestsBtn.addEventListener('click', () => {
+      if (guests.length === 0) {
+        alert("Danh sách khách đang trống!");
+        return;
+      }
+      let content = "DANH SÁCH KHÁCH MỜI DỰ LỄ TỐT NGHIỆP TDTU 2026 - MINH\n======================================================\n\n";
+      guests.forEach((g, idx) => {
+        const link = buildGuestLink(g.name);
+        content += `${idx + 1}. ${g.name} (${g.category}) - [${g.sent ? 'ĐÃ GỬI' : 'CHƯA GỬI'}]\n   Link: ${link}\n\n`;
+      });
+
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Danh_Sach_Khach_Moi_Minh_TDTU_2026.txt`;
+      a.click();
+    });
+
+    // ==========================================
+    // INITIALIZATION
+    // ==========================================
+    baseUrlInput.value = baseUrl;
+    updateGeneratorPreview();
+    renderGuestTable();
+  </script>
+</body>
+</html>
