@@ -745,99 +745,91 @@
       <section class="relative w-full min-h-[100dvh] overflow-hidden select-none flex flex-col justify-center">
 
         <!-- ======================================================== -->
-        <!-- 1. MOBILE INVITATION CARD (sm:hidden) -->
-        <!-- Thiết kế liền mạch, tinh tế như một tấm thiệp mời tốt nghiệp cao cấp -->
+        <!-- 1. MOBILE HERO: CINEMATIC EDITORIAL GRADUATION POSTER (sm:hidden) -->
+        <!-- Trải nghiệm phần nhìn ban đầu trọn vẹn, điện ảnh & sang trọng như trên máy tính -->
         <!-- ======================================================== -->
-        <div class="sm:hidden relative w-full min-h-[100dvh] flex flex-col justify-center items-center px-3.5 py-6 overflow-hidden">
+        <div class="sm:hidden relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none">
           
-          <!-- Ambient Atmospheric Backdrop: Đồng bộ với phong cách bầu trời TDTU thanh khiết -->
-          <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#EBF5FC] via-[#F4FAFE] to-[#E9F3FA]"></div>
-            <!-- Radiant soft champagne & sky auras -->
-            <div class="absolute -top-24 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-amber-200/35 via-sky-200/25 to-transparent blur-3xl"></div>
-            <div class="absolute -bottom-24 -left-20 w-80 h-80 rounded-full bg-gradient-to-tr from-sky-200/40 via-white/50 to-transparent blur-3xl"></div>
+          <!-- FULL-BLEED BACKGROUND IMAGE: Minh_main.jpg (Căn chỉnh chuẩn xác để Minh ở vị trí đẹp nhất, không bị che mặt) -->
+          <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <img 
+              src="./Minh_main.jpg" 
+              alt="Trần Nhật Minh tại khuôn viên Đại học Tôn Đức Thắng" 
+              class="w-full h-full object-cover object-[65%_18%] brightness-[1.02] contrast-[1.02]"
+              loading="eager"
+            />
+            
+            <!-- Top Gradient Overlay (Tạo nền êm dịu cho Typography phía trên mà không chạm tới mặt Minh) -->
+            <div class="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#0F2844]/85 via-[#0F2844]/40 to-transparent pointer-events-none"></div>
+
+            <!-- Bottom Gradient Overlay (Tạo sự êm ái chuyển tiếp vào Invitation Card Dock phía dưới) -->
+            <div class="absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-[#0F2844]/90 via-[#0F2844]/40 to-transparent pointer-events-none"></div>
           </div>
 
-          <!-- THE LUXURY INVITATION CARD (TẤM THIỆP MỜI NGHỆ THUẬT LIỀN MẠCH) -->
-          <div class="relative z-10 w-full max-w-[365px] rounded-[24px] bg-[#FCFAF6] border border-[#EBE1CF] shadow-[0_20px_55px_-12px_rgba(21,72,157,0.16),0_1px_3px_rgba(0,0,0,0.03)] p-4 sm:p-5 flex flex-col justify-between my-auto">
-            
-            <!-- Royal Inset Double Hairline Border (Viền chỉ đôi hoàng gia mạ vàng champagne siêu mảnh) -->
-            <div class="absolute inset-1.5 rounded-[19px] border border-[#E5D7B7]/75 pointer-events-none" aria-hidden="true"></div>
+          <!-- TOP ZONE: Elegant Branding & Cursive Script (Nằm ở vòm cây phía trên, hoàn toàn không che mặt) -->
+          <div class="relative z-10 pt-6 px-4 text-center space-y-1">
+            <!-- University Badge Pill -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/35 shadow-sm">
+              <img src="./tdtu_logo.png" alt="TDTU" class="h-3.5 w-auto object-contain">
+              <span class="text-[9.5px] font-sans font-bold tracking-[0.2em] text-white uppercase drop-shadow-xs">
+                TDTU · GRADUATION 2026
+              </span>
+            </div>
 
-            <!-- Card Header: University Crest & Calligraphy -->
-            <div class="text-center space-y-1 pt-1 pb-0.5 relative z-10">
-              <div class="flex items-center justify-center gap-1.5">
-                <img src="./tdtu_logo.png" alt="TDTU" class="h-4 w-auto object-contain">
-                <span class="text-[9px] font-sans font-bold tracking-[0.22em] text-tdtu-blue uppercase">
-                  ĐẠI HỌC TÔN ĐỨC THẮNG
-                </span>
-              </div>
-
-              <!-- Save the Date Script with Luxury Champagne Gold Foil Gradient -->
-              <div class="-my-0.5">
-                <span class="font-script-luxury text-[44px] leading-tight text-gold-champagne select-none inline-block">
+            <!-- Grand Title & Luxury Script -->
+            <div class="pt-0.5">
+              <h1 class="font-serif-luxury font-extrabold text-white text-3xl tracking-[0.08em] drop-shadow-[0_2px_12px_rgba(15,40,68,0.7)] uppercase leading-none">
+                GRADUATION
+              </h1>
+              <div class="-mt-1.5">
+                <span class="font-script-luxury text-[46px] text-gold-glow-desktop transform -rotate-2 inline-block select-none leading-tight">
                   Save the Date
                 </span>
               </div>
+            </div>
+          </div>
 
-              <!-- Ceremony and Guest Badge -->
+          <!-- MIDDLE ZONE: Khu vực gương mặt và phong thái của Minh (HOÀN TOÀN THÔNG THOÁNG, RÕ NÉT 100%) -->
+          <div class="relative z-0 flex-1 min-h-[140px] pointer-events-none">
+            <!-- Khu vực này để trống có chủ đích để tôn vinh toàn bộ gương mặt, nụ cười và trang phục thanh xuân của Minh -->
+          </div>
+
+          <!-- BOTTOM ZONE: Luxury Frosted Glass Invitation Dock (Tấm thiệp kính mờ sang trọng phía dưới) -->
+          <div class="relative z-10 px-3 pb-5 pt-2">
+            <div class="w-full max-w-[370px] mx-auto rounded-[24px] bg-[#FCFAF6]/95 backdrop-blur-xl border border-white/80 shadow-[0_16px_40px_-10px_rgba(15,40,68,0.35),0_0_0_1px_rgba(214,185,123,0.4)] p-4 text-center space-y-2">
+              
+              <!-- Recipient & Subtitle -->
               <div class="space-y-1">
-                <span class="block font-serif-luxury text-[10.5px] font-semibold text-[#14314E] uppercase tracking-[0.24em] leading-none">
-                  LỄ TỐT NGHIỆP CỬ NHÂN
-                </span>
-                <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#F5EEDB]/60 border border-[#DECDA4]/75 shadow-2xs">
+                <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#F5EEDB]/80 border border-[#DECDA4] shadow-2xs">
                   <span class="text-[8px] text-[#A67E33]">✦</span>
                   <span id="mobileGuestName" class="text-[11px] font-medium text-[#183654] tracking-wide">
                     [ Thân gửi: Mọi người ]
                   </span>
                   <span class="text-[8px] text-[#A67E33]">✦</span>
                 </div>
-              </div>
-            </div>
 
-            <!-- Card Photo Frame: Minh's Authentic Graduation Portrait (Bo cong nghệ thuật, hòa quyện tuyệt đối) -->
-            <div class="relative my-2 rounded-2xl overflow-hidden border-2 border-white shadow-[0_8px_20px_-6px_rgba(21,72,157,0.18)] ring-1 ring-[#DECDA4]/60 bg-sky-50 group">
-              <div class="aspect-[4/3.3] overflow-hidden">
-                <img 
-                  src="./Minh_main.jpg" 
-                  alt="Trần Nhật Minh tại khuôn viên ĐH Tôn Đức Thắng" 
-                  class="w-full h-full object-cover object-[62%_center] select-none"
-                  loading="eager"
-                />
-              </div>
-
-              <!-- Soft Gradient Overlay & Student Tag -->
-              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#0F2844]/80 via-[#0F2844]/25 to-transparent p-2.5 pt-5 flex items-end justify-between text-white text-[10px]">
-                <span class="font-serif-luxury font-medium tracking-wide text-white/95">Trần Nhật Minh</span>
-                <span class="font-mono text-[9px] bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/30 text-white font-medium">K26 · TDTU</span>
-              </div>
-            </div>
-
-            <!-- Card Footer: Degree, Ceremony Time & Place -->
-            <div class="space-y-2 pt-0.5 text-center relative z-10">
-              
-              <div class="space-y-1">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-center gap-2 pt-0.5">
                   <span class="h-px w-6 bg-gradient-to-r from-transparent to-[#D4AF37]/60"></span>
-                  <h2 class="font-serif-luxury font-bold text-[12.5px] text-[#0F2844] tracking-[0.06em] uppercase">
+                  <h2 class="font-serif-luxury font-bold text-[13px] text-[#0F2844] tracking-[0.06em] uppercase">
                     CỬ NHÂN KHOA HỌC MÁY TÍNH
                   </h2>
                   <span class="h-px w-6 bg-gradient-to-l from-transparent to-[#D4AF37]/60"></span>
                 </div>
-                
-                <div class="text-[11px] text-[#47637C] space-y-0.5 leading-snug">
-                  <div class="flex items-center justify-center gap-1.5 font-medium">
-                    <span>Thứ Bảy, 17/10/2026</span>
-                    <span class="text-[#D4AF37] text-xs">·</span>
-                    <span class="text-[#0F2844] font-semibold">10:00 Sáng</span>
-                  </div>
-                  <p class="text-[11px] text-tdtu-blue font-semibold tracking-tight">
-                    Sảnh A · Trường Đại học Tôn Đức Thắng (Q.7, TP.HCM)
-                  </p>
-                </div>
               </div>
 
-              <!-- Action Buttons -->
+              <!-- Time & Place -->
+              <div class="text-[11px] text-[#47637C] space-y-0.5 leading-snug">
+                <div class="flex items-center justify-center gap-1.5 font-medium">
+                  <span>Thứ Bảy, 17/10/2026</span>
+                  <span class="text-[#D4AF37] text-xs">·</span>
+                  <span class="text-[#0F2844] font-semibold">10:00 Sáng</span>
+                </div>
+                <p class="text-[11px] text-tdtu-blue font-semibold tracking-tight">
+                  Sảnh A · Trường Đại học Tôn Đức Thắng (Q.7, TP.HCM)
+                </p>
+              </div>
+
+              <!-- CTA Buttons -->
               <div class="pt-0.5 flex items-center gap-2">
                 <button 
                   type="button" 
@@ -859,11 +851,10 @@
                 </button>
               </div>
 
-              <p class="text-[10px] font-handwriting text-navy-muted italic pt-0.5">
+              <p class="text-[9.5px] font-handwriting text-navy-muted italic pt-0.5 leading-none">
                 ~ Rất mong được đón tiếp và chụp ảnh cùng mọi người! ~
               </p>
             </div>
-
           </div>
 
         </div>
@@ -891,10 +882,13 @@
           <div class="max-w-xl text-left space-y-6">
 
             <!-- Grand Editorial Title: GRADUATION -->
-            <div class="space-y-1">
-              <span class="block text-xs lg:text-sm font-semibold tracking-[0.25em] text-sky-100 uppercase drop-shadow-xs">
-                TDTU · KHÓA 2022 – 2026
-              </span>
+            <div class="space-y-2">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-dark/80 backdrop-blur-md border border-white/30 shadow-md">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                <span class="text-xs lg:text-[13px] font-mono font-bold tracking-[0.22em] text-white uppercase drop-shadow-xs">
+                  TDTU · KHÓA 2022 – 2026
+                </span>
+              </div>
               <h1 class="font-serif-luxury font-extrabold text-white text-6xl lg:text-7xl tracking-[0.06em] drop-shadow-[0_4px_20px_rgba(21,72,157,0.55)] uppercase leading-none">
                 GRADUATION
               </h1>
@@ -956,8 +950,8 @@
       <section id="section-hoi-uc" class="py-14 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto border-t border-sky-border/50 scroll-mt-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          <!-- Left: Hai màu áo thanh xuân (School Large & Sport Dynamic) -->
-          <div class="lg:col-span-6 order-2 lg:order-1 flex justify-center">
+          <!-- Left: Hai màu áo thanh xuân (School Large & Sport Dynamic - Mobile: Hiện lên trên) -->
+          <div class="lg:col-span-6 order-1 flex justify-center">
             <div class="relative max-w-[500px] w-full mx-auto">
               <!-- Ambient Warm Sunlight Aura -->
               <div class="absolute -top-8 -right-8 w-80 h-80 bg-gradient-to-bl from-sky-200/50 via-amber-100/40 to-transparent rounded-full blur-2xl -z-10" aria-hidden="true"></div>
@@ -1042,8 +1036,8 @@
             </div>
           </div>
 
-          <!-- Right: Narrative Content -->
-          <div class="lg:col-span-6 order-1 lg:order-2 space-y-5 text-center lg:text-left">
+          <!-- Right: Narrative Content (Mobile: Hiện bên dưới ảnh) -->
+          <div class="lg:col-span-6 order-2 space-y-5 text-center lg:text-left">
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-tdtu-blue text-xs font-semibold uppercase tracking-wider">
               <span>Hồi Ức Giảng Đường</span>
