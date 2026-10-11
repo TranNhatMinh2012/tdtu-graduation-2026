@@ -652,66 +652,66 @@
   <!-- ========================================== -->
   <!-- PERSISTENT TOP NAVIGATION BAR (HIDDEN ON INTRO TRANG-CHU) -->
   <!-- ========================================== -->
-  <header id="mainAppHeader" class="sticky top-0 z-40 py-3 px-3 sm:px-6 hidden">
-    <div class="max-w-5xl mx-auto flex items-center justify-between glass-nav rounded-full px-4 sm:px-5 py-2 shadow-soft">
+  <header id="mainAppHeader" class="sticky top-0 z-40 py-2 sm:py-3 px-2 sm:px-6 hidden">
+    <div class="max-w-5xl mx-auto flex items-center justify-between glass-nav rounded-full px-2.5 sm:px-5 py-1.5 sm:py-2 shadow-soft gap-1 sm:gap-3">
       
       <!-- Brand & TDTU Monogram -->
-      <a href="#trang-chu" id="navBrandBtn" class="flex items-center gap-2.5 group">
+      <a href="#trang-chu" id="navBrandBtn" class="flex items-center gap-2 group flex-shrink-0">
         <img 
           src="./tdtu_logo.png" 
           alt="TDTU Logo" 
-          class="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105"
+          class="h-6.5 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105"
         />
-        <div class="flex flex-col">
-          <span class="text-xs sm:text-[13px] font-heading font-semibold text-navy-dark tracking-wide group-hover:text-tdtu-blue transition-colors">
+        <div class="hidden md:flex flex-col">
+          <span class="text-xs sm:text-[13px] font-heading font-semibold text-navy-dark tracking-wide group-hover:text-tdtu-blue transition-colors whitespace-nowrap">
             TDTU · GRADUATION 2026
           </span>
-          <span class="text-[10px] text-navy-muted font-normal -mt-0.5 hidden xs:inline" id="navSubtitle">
+          <span class="text-[10px] text-navy-muted font-normal -mt-0.5 whitespace-nowrap" id="navSubtitle">
             Cử nhân Khoa học Máy tính · Trần Nhật Minh
           </span>
         </div>
       </a>
 
       <!-- Main Page Navigation Tabs -->
-      <nav class="flex items-center gap-1 sm:gap-2">
+      <nav class="flex items-center gap-0.5 sm:gap-1.5">
         <button 
           type="button"
           data-tab="trang-chu" 
-          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
+          class="nav-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95 whitespace-nowrap"
         >
           Trang chủ
         </button>
         <button 
           type="button"
           id="navHoiUcBtn"
-          class="px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95 cursor-pointer"
+          class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95 cursor-pointer whitespace-nowrap"
         >
-          Hồi ức 📸
+          <span>Hồi ức</span><span class="hidden sm:inline ml-0.5">📸</span>
         </button>
         <button 
           type="button"
           data-tab="thiep-moi" 
-          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all bg-sky-200 text-navy-deep shadow-xs"
+          class="nav-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold transition-all bg-sky-200 text-navy-deep shadow-xs whitespace-nowrap"
         >
-          Thư mời 🎓
+          <span>Thư mời</span><span class="hidden sm:inline ml-0.5">🎓</span>
         </button>
         <button 
           type="button"
           data-tab="thong-tin" 
-          class="nav-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95"
+          class="nav-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all text-navy-muted hover:text-navy-main hover:bg-sky-50 active:scale-95 whitespace-nowrap"
         >
-          Chỉ dẫn 📍
+          <span>Chỉ dẫn</span><span class="hidden sm:inline ml-0.5">📍</span>
         </button>
       </nav>
 
       <!-- Music Player Widget -->
-      <div class="flex items-center">
+      <div class="flex items-center flex-shrink-0">
         <button 
           id="bgmToggleBtn"
           type="button"
           aria-label="Tắt hoặc bật nhạc nền"
           title="Bấm để tắt nhạc"
-          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-sky-50 text-navy-main border border-sky-300 shadow-xs hover:border-sky-300 transition-all active:scale-95 group cursor-pointer"
+          class="inline-flex items-center justify-center gap-1.5 h-7.5 w-7.5 sm:h-auto sm:w-auto p-1.5 sm:px-3 sm:py-1.5 rounded-full text-xs font-medium bg-sky-50 text-navy-main border border-sky-300 shadow-xs hover:border-sky-300 transition-all active:scale-95 group cursor-pointer"
         >
           <!-- Dynamic Animated Equalizer Bars -->
           <div id="bgmEqContainer" class="flex items-end gap-0.5 h-3.5 w-3.5">
@@ -719,7 +719,7 @@
             <span class="w-1 bg-sky-accent rounded-full h-2 eq-bar-2" id="bgmBar2"></span>
             <span class="w-1 bg-sky-accent rounded-full h-1.5 eq-bar-3" id="bgmBar3"></span>
           </div>
-          <span id="bgmLabelText" class="text-[11px] font-medium hidden md:inline">Tắt nhạc 🔊</span>
+          <span id="bgmLabelText" class="text-[11px] font-medium hidden md:inline whitespace-nowrap">Tắt nhạc 🔊</span>
         </button>
       </div>
 
